@@ -12,8 +12,8 @@ public class WorkFactory {
 		return id;
 	}
 	
-	static public Work createWork(String title,int userId,String data){
-		Work work =  new Work(getNextId(), title, userId, data);
+	static public Work createWork(String title,int userId,String data,int rank){
+		Work work =  new Work(getNextId(), title, userId, data,rank);
 		id++;
 		
 		//写入数据库

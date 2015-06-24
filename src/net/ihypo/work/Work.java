@@ -5,16 +5,19 @@ public class Work {
 	private String title;
 	private int userId;
 	private String data;
+	//rank：1=重要且紧急 2=不重要但紧急 3=重要不紧急 4=不重要不紧急
+	private int rank;
 	
 	public Work(int id){
 		this.id = id;
 	}
 	
-	public Work(int id,String title,int userId,String data){
+	public Work(int id,String title,int userId,String data,int rank){
 		this.id = id;
 		this.title = title;
 		this.userId = userId;
 		this.data = data;
+		this.rank = rank;
 	}
 
 	public int getId() {
@@ -31,6 +34,14 @@ public class Work {
 
 	public String getData() {
 		return data;
+	}
+	
+	public int getRank() {
+		return rank;
+	}
+	
+	public void setRank(int rank){
+		this.rank = rank;
 	}
 
 	@Override
