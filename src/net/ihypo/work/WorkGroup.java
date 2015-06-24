@@ -14,8 +14,8 @@ public class WorkGroup {
 		this.userId = userId;
 	}
 	
-	public void addWork(int id,String title,int userId,String data){
-		list.add(new Work(id, title, userId, data));
+	public void addWork(String title,int userId,String data){
+		list.add(WorkFactory.createWork(title, userId, data));
 	}
 	
 	public Work getWork(int id){
