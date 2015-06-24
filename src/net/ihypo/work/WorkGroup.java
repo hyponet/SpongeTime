@@ -1,9 +1,7 @@
-package net.ihypo.workgroup;
+package net.ihypo.work;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import net.ihypo.work.Work;
 
 public class WorkGroup {
 	private List<Work> list;
