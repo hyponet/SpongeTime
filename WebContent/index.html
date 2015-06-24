@@ -12,7 +12,7 @@
     <title>TodoList - 你的时间管家</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -49,7 +49,12 @@
                 <li class="active"><a href="#">首页</a></li>
                 <li><a href="#about">关于</a></li>
               </ul>
+              <ul class="nav navbar-nav pull-right">
+                <li role="presentation"><a href="login">登陆</a></li>
+                <li role="presentation"><a href="register">注册</a></li>
+              </ul>
             </div>
+          </div>
           </div>
         </nav>
 
@@ -65,6 +70,7 @@
         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
         <li data-target="#myCarousel" data-slide-to="1"></li>
         <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="item active">
@@ -86,6 +92,17 @@
               <p>将你想要做的事情分组，帮组你更好管理自己的待办事项</p>
               <p>更可以制定月度计划，年度计划，甚至是团队计划！</p>
               <p><a class="btn btn-lg btn-primary" href="#" role="button">了解更多</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <img class="third-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>这是一个开源项目</h1>
+              <p>本着做有意义的事情，从一开始这就是一个使用Java开发的开源项目，</p>
+              <p>欢迎大家参与以及给这个项目打星！</p>
+              <p><a class="btn btn-lg btn-primary" href="#" role="button">Github</a></p>
             </div>
           </div>
         </div>
@@ -121,19 +138,19 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+          <img class="img-circle" src="img/work.png" alt="Generic placeholder image" width="140" height="140">
           <h2>待办记事</h2>
           <p>分组管理待办记事，走出规划未来第一步！让每一天都知道自己将要做什么！</p>
           <p><a class="btn btn-default" href="#" role="button">去了解 &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+          <img class="img-circle" src="img/mon.png" alt="Generic placeholder image" width="140" height="140">
           <h2>年度计划</h2>
           <p>不只只是TodoList，还可以制定月度计划，年度计划，让自己的生活始终在自己的轨道上！</p>
           <p><a class="btn btn-default" href="#" role="button">去了解  &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+          <img class="img-circle" src="img/world.png" alt="Generic placeholder image" width="140" height="140">
           <h2>团队协作</h2>
           <p>团队任务管理，既可以分享自己的工作进度，也可以进行任务分配，更方便团队协作！</p>
           <p><a class="btn btn-default" href="#" role="button">去了解  &raquo;</a></p>
@@ -151,7 +168,7 @@
           <p class="lead">有没有经常思考人生思考未来？有没有曾制定详细计划却半途而废？有没有憧憬未来却又迷失方向？未来是那么的近在眼前，却又远在天边？既然有梦为什么不去实现？</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="img/way.png" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -163,7 +180,7 @@
           <p class="lead">想利用业余时间做点好玩的事情。明明已经很努力了却进展缓慢，真的是目标太远大？时间去哪了？为什么不经常看看自己的Todolist，明确自己还没有完成的事情？不要把零碎时间放在微博和朋友圈里！</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="img/time.png" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -175,7 +192,7 @@
           <p class="lead">TodoList是一个人的寂寞，但也可以是一群人的狂欢。让我们组成一个团队，一起去做点好玩的事情！让我们有更明确的任务清单，让大家都清楚团队的目标和下一步的计划！</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" src="img/group.png" alt="Generic placeholder image">
         </div>
       </div>
 
