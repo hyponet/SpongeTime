@@ -12,8 +12,8 @@ public class UserGroup {
 		this.total = 0;
 	}
 	
-	public boolean addUser(int id,String name,String email){
-		return list.add(new User(id, name, email));
+	public boolean addUser(String name,String email){
+		return list.add(UserFactory.createUser(name, email));
 	}
 	
 	public User getUser(int id){
