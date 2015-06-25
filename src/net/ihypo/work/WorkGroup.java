@@ -1,7 +1,13 @@
 package net.ihypo.work;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.ihypo.db.DbDriver;
+
+import com.mysql.jdbc.Statement;
 
 public class WorkGroup {
 	private List<Work> list;
@@ -14,8 +20,19 @@ public class WorkGroup {
 		this.userId = userId;
 	}
 	
-	public void addWork(String title,int userId,String data,int rank){
-		list.add(WorkFactory.createWork(title, userId, data,rank));
+	public List<Work> getUserAll() throws ClassNotFoundException, SQLException{
+		list.clear();
+		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
+		ResultSet set = statement.executeQuery("select * from works where work_user_id = " + userId + ";");
+		while(set.next()){
+			list.add(new Work(set.getInt("work_id"),set.getString("work_title"),
+					set.getInt("work_user_id"),null, set.getInt("work_rank")));
+		}
+		return list;
+	}
+	
+	public void addWork(String title,int userId,String data,int rank) throws ClassNotFoundException, SQLException{
+		list.add(new WorkFactory().createWork(title, userId, data,rank));
 	}
 	
 	public Work getWork(int id){
