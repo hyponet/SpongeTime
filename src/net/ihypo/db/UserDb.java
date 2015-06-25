@@ -12,14 +12,14 @@ public class UserDb {
 	private boolean getUser(String email,String psw) throws ClassNotFoundException, SQLException{
 		
 		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
-		ResultSet set = statement.executeQuery("select user_pwd from users where user_email = " + email + ";");
+		ResultSet set = statement.executeQuery("select user_pwd from users where user_email = '" + email + "';");
 		
 		if(set.next()){
 			String password = set.getString("user_pwd");
-			set = statement.executeQuery("select PASSWORD(" + psw + ") pwd;");
+			set = statement.executeQuery("select PASSWORD('" + psw + "') pwd;");
 			set.next();
-			psw = set.getString("psw");
-			if(psw == password){
+			psw = set.getString("pwd");
+			if(psw.equals(password)){
 				return true;
 			}
 		}
@@ -30,7 +30,7 @@ public class UserDb {
 		if(getUser(email, pwd)){
 			Statement statement = (Statement) new DbDriver().getConnection().createStatement();
 			ResultSet set = statement.executeQuery("select user_id,user_name,user_email"
-					+ " from users where user_email = " + email + ";");
+					+ " from users where user_email = '" + email + "';");
 			set.next();
 			int id = set.getInt("user_id");
 			User user = new User(id, set.getString("user_name"), set.getString("user_email"));
