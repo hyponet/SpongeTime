@@ -1,15 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+if(session.getAttribute("user") != null){
+%>
+<script type="text/javascript">
+<!--
+	window.location="../person";
+//-->
+</script>
+<%}else{%>
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>欢迎登陆 - SpongeTime</title>
+    <title>登录个人中心 - SpongeTime</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -32,17 +42,17 @@
 
     <div id="login" class="container">
       <form class="form-signin" action="judge.jsp" method="post">
-        <h2 class="form-signin-heading">请登录</h2>
+        <h2 class="form-signin-heading">SpongeTime个人中心</h2>
         <label for="inputUserName" class="sr-only">注册邮箱</label>
-        <input type="email" id="inputUserName" name="email" class="form-control" placeholder="用户名或邮箱" required autofocus>
+        <input type="email" id="inputUserName" name="email" class="form-control" placeholder="邮箱" required autofocus>
         <label for="inputPassword" class="sr-only">密码</label>
         <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" required>
         <div class="checkbox">
           <label>
-            <input type="checkbox" name="remember" value="remember-me"> 记住登陆状态
+            <input type="checkbox" name="remember" value="remember-me"> 记住登录状态
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
       </form>
 
     </div> <!-- /container -->
@@ -52,3 +62,4 @@
     <script src="../js/ie10-viewport-bug-workaround.js"></script>
   </body>
 </html>
+<%}%>

@@ -11,12 +11,16 @@
 <script type="text/javascript">
 <!--
 	window.location="index.html";
-	document.getElementById("login").insertAdjacentHTML("beforeBegin","<h1>11</h1>"); 
+	alert("账号或密码错误！")
 //-->
 </script>
 
 <%}else{
 	session.setAttribute("user", user);
 %>
-	
+	<script type="text/javascript">
+<!--
+	window.location="../person";
+//-->
+</script>
 <%}%>
