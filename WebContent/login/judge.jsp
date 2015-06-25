@@ -5,11 +5,18 @@
 <%
 	String email = request.getParameter("email");
 	String pwd = request.getParameter("password");
-	out.println("get email:" + email + " password:" + pwd);
 	User user = new UserDb().judgeLogin(email, pwd);
 	if(user == null){
 %>
-123
-<%}else{%>
-456
+<script type="text/javascript">
+<!--
+	window.location="index.html";
+	document.getElementById("login").insertAdjacentHTML("beforeBegin","<h1>11</h1>"); 
+//-->
+</script>
+
+<%}else{
+	session.setAttribute("user", user);
+%>
+	
 <%}%>
