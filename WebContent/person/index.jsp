@@ -1,3 +1,6 @@
+<%@page import="net.ihypo.work.Work"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="net.ihypo.work.WorkGroup"%>
 <%@page import="net.ihypo.user.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -53,7 +56,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">SpongeTime 个人中心</a>
+          <a class="navbar-brand" href="index.jsp">SpongeTime 个人中心</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -79,8 +82,8 @@
             <li><a href="#">计划月历</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">添加事件</a></li>
-            <li><a href="">管理事件</a></li>
+            <li><a href="work/addwork.jsp">添加事件</a></li>
+            <li><a href="work/manage.jsp">管理事件</a></li>
             <li><a href="">添加事件组</a></li>
             <li><a href="">管理事件组</a></li>
             <li><a href="">计划规划</a></li>
@@ -97,23 +100,23 @@
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+              <h4>事件进度</h4>
+              <span class="text-muted">所有事件的完成比例</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+              <h4>任务进度</h4>
+              <span class="text-muted">所有事件组的完成比例</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+              <h4>计划进度</h4>
+              <span class="text-muted">长期计划的任务完成比例</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
+              <h4>团队进度</h4>
+              <span class="text-muted">团队任务完成比例</span>
             </div>
           </div>
 
@@ -122,126 +125,48 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
+                  <th>状态</th>
+                  <th>主题</th>
+                  <th>备注</th>
+                  <th>优先级</th>
+                  <th>预计完成</th>
+                  <th>FINASH</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
+              <%
+              	WorkGroup group = new WorkGroup(user.getId());
+    			for(Iterator<Work> i = group.getUserAll().iterator();i.hasNext();){
+    				Work work = i.next();
+    				String classType = null;
+    				String rank = null;
+    				if(work.getRank() == 1){
+    					classType = "danger";
+    					rank = "<b>紧急</b> | <b>重要</b>";
+    				}else if(work.getRank() == 2){
+    					classType = "info";
+    					rank = "<b>紧急</b>";
+    				}else if(work.getRank() == 3){
+    					classType = "warning";
+    					rank = "<b>重要</b>";
+    				}else if(work.getRank() == 4){
+    					classType = "success";
+    					rank = "";
+    				}else{
+    					classType = "active";
+    					rank = "出现BUG";
+    					rank = "出现BUG";
+    				}
+              %>
+                <tr class="<%=classType%>">
+                   <td>未完成</td>
+                  <td><%=work.getTitle()%></td>
+                  <td>目前还没这个功能！</td>
+                  <td><%=rank%></td>
+                  <td>X天后</td>
+                  <td><a class="btn btn-sm btn-success" href="#" role="button">完成</a></td>
                 </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
+                <%} %>
               </tbody>
             </table>
           </div>
