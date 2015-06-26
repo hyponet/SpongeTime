@@ -45,6 +45,10 @@ public class Work {
 	public String getTitle() {
 		return title;
 	}
+	
+	public void setTitle(String title){
+		this.title = title;
+	}
 
 	public int getUserId() {
 		return userId;
@@ -99,5 +103,10 @@ public class Work {
 		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
 		statement.execute("update works set work_title = '" + title + "',work_user_id = "
 				 + userId + ",work_rank = " + rank + ", work_finash = " + finash + " where work_id = " + id + ";");
+	}
+	
+	public void drop() throws ClassNotFoundException, SQLException{
+		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
+		statement.execute("delete from works where work_id = " + id + ";");
 	}
 }
