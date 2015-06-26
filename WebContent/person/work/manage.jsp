@@ -157,10 +157,10 @@
 					      <span class="caret"></span>
 					    </button>
 					    <ul class="dropdown-menu">
-					      <li><a href="#">紧急 | 重要</a></li>
-					      <li><a href="#">紧急 | 不重要</a></li>
-					      <li><a href="#">不紧急 | 重要</a></li>
-					      <li><a href="#">不紧急 | 不重要</a></li>
+					      <li><a href="update.jsp?id=<%=work.getId()%>&rank=1">紧急 | 重要</a></li>
+					      <li><a href="update.jsp?id=<%=work.getId()%>&rank=2">紧急 | 不重要</a></li>
+					      <li><a href="update.jsp?id=<%=work.getId()%>&rank=3">不紧急 | 重要</a></li>
+					      <li><a href="update.jsp?id=<%=work.getId()%>&rank=4">不紧急 | 不重要</a></li>
 					    </ul>
 					  </div>
 					</div>
