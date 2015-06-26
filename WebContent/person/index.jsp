@@ -159,7 +159,7 @@
     				}
               %>
                 <tr class="<%=classType%>">
-                   <td>未完成</td>
+                   <td><%=work.isFinash()? "已完成" : "未完成" %></td>
                   <td><%=work.getTitle()%></td>
                   <td>目前还没这个功能！</td>
                   <td><%=rank%></td>

@@ -10,7 +10,7 @@
 %>
 <script type="text/javascript">
 <!--
-	window.location="index.html";
+	window.location="index.jsp";
 	alert("账号或密码错误！")
 //-->
 </script>
