@@ -38,8 +38,8 @@ public class WorkFactory {
 		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
 		
 		System.out.println("insert into works values(" + work.getId() + ",'" + work.getTitle() + "',"
-				 + work.getUserId() + "," + work.getRank() + ");");
+				 + work.getUserId() + "," + work.getRank() + "," + work.isFinash() + ");");
 		statement.execute("insert into works values(" + work.getId() + ",'" + work.getTitle() + "',"
-				 + work.getUserId() + "," + work.getRank() + ");");
+				 + work.getUserId() + "," + work.getRank() + "," + work.isFinash() + ");");
 	}
 }

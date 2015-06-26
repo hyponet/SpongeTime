@@ -22,11 +22,16 @@ public class WorkGroup {
 	
 	public List<Work> getUserAll() throws ClassNotFoundException, SQLException{
 		list.clear();
+		total = 0;
 		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
 		ResultSet set = statement.executeQuery("select * from works where work_user_id = " + userId + ";");
 		while(set.next()){
-			list.add(new Work(set.getInt("work_id"),set.getString("work_title"),
-					set.getInt("work_user_id"),null, set.getInt("work_rank")));
+			Work work = new Work(set.getInt("work_id"),set.getString("work_title"),
+					set.getInt("work_user_id"),null, set.getInt("work_rank"));
+			if(set.getBoolean("work_finash"))
+				work.finash();
+			list.add(work);
+			total++;
 		}
 		return list;
 	}
@@ -35,7 +40,7 @@ public class WorkGroup {
 		list.add(new WorkFactory().createWork(title, userId, data,rank));
 	}
 	
-	public Work getWork(int id){
+	public Work getWork(int id) throws ClassNotFoundException, SQLException{
 		int index = list.indexOf(new Work(id));
 		if(index >= 0){
 			return list.get(index);
@@ -58,6 +63,5 @@ public class WorkGroup {
 	public int getUserId() {
 		return userId;
 	}
-	
 	
 }

@@ -1,16 +1,32 @@
 package net.ihypo.work;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import net.ihypo.db.DbDriver;
+
+import com.mysql.jdbc.Statement;
+
 public class Work {
 	private int id;
 	private String title;
-	private int userId;
+	private int userId = 0;
 	private String data;
 	//rank：1=重要且紧急 2=不重要但紧急 3=重要不紧急 4=不重要不紧急
 	private int rank;
 	private boolean finash;
 	
-	public Work(int id){
+	public Work(int id) throws ClassNotFoundException, SQLException{
 		this.id = id;
+		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
+		ResultSet set = statement.executeQuery("select * from works where work_id = " + id + ";");
+		if(set.next()){
+			this.title = set.getString("work_title");
+			this.userId = set.getInt("work_user_id");
+			this.data = null;
+			this.rank = set.getInt("work_rank");
+			this.finash = set.getBoolean("work_finash");
+		}
 	}
 	
 	public Work(int id,String title,int userId,String data,int rank){
@@ -53,6 +69,10 @@ public class Work {
 	public void finash(){
 		this.finash = true;
 	}
+	
+	public void unFinash(){
+		this.finash = false;
+	}
 
 	@Override
 	public int hashCode() {
@@ -74,5 +94,10 @@ public class Work {
 		if (id != other.id)
 			return false;
 		return true;
+	}
+	public void update() throws ClassNotFoundException, SQLException{
+		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
+		statement.execute("update works set work_title = '" + title + "',work_user_id = "
+				 + userId + ",work_rank = " + rank + ", work_finash = " + finash + " where work_id = " + id + ";");
 	}
 }
