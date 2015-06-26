@@ -56,7 +56,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.jsp">SpongeTime 个人中心</a>
+          <a class="navbar-brand" href="../person/index.jsp">SpongeTime 个人中心</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -76,14 +76,14 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="#">概观</span></a></li>
+            <li><a href="../person/index.jsp">概观</span></a></li>
             <li class="active"><a href="index.jsp">任务进度<span class="sr-only">(current)</a></li>
             <li><a href="#">时间线</a></li>
             <li><a href="#">计划月历</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="work/addwork.jsp">添加事件</a></li>
-            <li><a href="work/manage.jsp">管理事件</a></li>
+            <li><a href="../person/work/addwork.jsp">添加事件</a></li>
+            <li><a href="../person/work/manage.jsp">管理事件</a></li>
             <li><a href="">添加事件组</a></li>
             <li><a href="">管理事件组</a></li>
             <li><a href="">计划规划</a></li>
@@ -97,7 +97,12 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">任务进度</h1>
 
-          
+              <div class="progress progress-striped active">
+			    <div class="bar" style="width:50%;">
+			    </div>
+			   </div>
+    
+    
         </div>
       </div>
     </div>
