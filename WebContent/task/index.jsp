@@ -76,8 +76,8 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">概观<span class="sr-only">(current)</span></a></li>
-            <li><a href="../task/index.jsp">任务进度</a></li>
+            <li><a href="#">概观</span></a></li>
+            <li class="active"><a href="index.jsp">任务进度<span class="sr-only">(current)</a></li>
             <li><a href="#">时间线</a></li>
             <li><a href="#">计划月历</a></li>
           </ul>
@@ -95,81 +95,9 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">概观</h1>
+          <h1 class="page-header">任务进度</h1>
 
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="js/holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>事件进度</h4>
-              <span class="text-muted">所有事件的完成比例</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="js/holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>任务进度</h4>
-              <span class="text-muted">所有事件组的完成比例</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="js/holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>计划进度</h4>
-              <span class="text-muted">长期计划的任务完成比例</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="js/holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>团队进度</h4>
-              <span class="text-muted">团队任务完成比例</span>
-            </div>
-          </div>
-
-          <h2 class="sub-header">Todo List</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>状态</th>
-                  <th>主题</th>
-                  <th>备注</th>
-                  <th>优先级</th>
-                  <th>预计完成</th>
-                  <th>FINASH</th>
-                </tr>
-              </thead>
-              <tbody>
-              <%
-              	WorkGroup group = new WorkGroup(user.getId());
-    			for(Iterator<Work> i = group.getUserAll().iterator();i.hasNext();){
-    				Work work = i.next();
-    				String classType = null;
-    				String rank = null;
-    				if(work.getRank() == 1){
-    					classType = "danger";
-    					rank = "<b>紧急</b> | <b>重要</b>";
-    				}else if(work.getRank() == 2){
-    					classType = "info";
-    					rank = "<b>紧急</b>";
-    				}else if(work.getRank() == 3){
-    					classType = "warning";
-    					rank = "<b>重要</b>";
-    				}else if(work.getRank() == 4){
-    					classType = "success";
-    					rank = "";
-    				}else{
-    					classType = "active";
-    					rank = "出现BUG";
-    					rank = "出现BUG";
-    				}
-              %>
-                <tr class="<%=classType%>">
-                   <td><%=work.isFinash()? "已完成" : "<b>未完成</b>" %></td>
-                  <td><%=work.getTitle()%></td>
-                  <td>目前还没这个功能！</td>
-                  <td><%=rank%></td>
-                  <td>X天后</td>
-                  <td><a class="btn btn-sm <%=work.isFinash()? "btn-default" : "btn-success" %>" href="work/finash.jsp?id=<%=work.getId() %>" role="button"><%=work.isFinash()? "取消" : "完成" %></a></td>
-                </tr>
-                <%} %>
-              </tbody>
-            </table>
-          </div>
+          
         </div>
       </div>
     </div>
