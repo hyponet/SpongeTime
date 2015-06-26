@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String title = request.getParameter("title");
+	String title = new String(request.getParameter("title").getBytes("ISO-8859-1"),"UTF-8");
 	int rank = Integer.parseInt(request.getParameter("rank"));
 	User user = (User)session.getAttribute("user");
 	if(user != null){
