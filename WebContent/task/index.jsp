@@ -97,10 +97,9 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">任务进度</h1>
 
-              <div class="progress progress-striped active">
-			    <div class="bar" style="width:50%;">
-			    </div>
-			   </div>
+                  <div class="progress progress-striped active">
+    	<div class="bar" style="width:40%"></div>
+  		  </div>
     
     
         </div>
