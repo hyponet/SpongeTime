@@ -77,7 +77,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">概观<span class="sr-only">(current)</span></a></li>
-            <li><a href="#">待办记事</a></li>
+            <li><a href="#">任务进度</a></li>
             <li><a href="#">时间线</a></li>
             <li><a href="#">计划月历</a></li>
           </ul>
@@ -99,22 +99,22 @@
 
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+              <img data-src="js/holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>事件进度</h4>
               <span class="text-muted">所有事件的完成比例</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+              <img data-src="js/holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>任务进度</h4>
               <span class="text-muted">所有事件组的完成比例</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
+              <img data-src="js/holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>计划进度</h4>
               <span class="text-muted">长期计划的任务完成比例</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
-              <img data-src="holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
+              <img data-src="js/holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
               <h4>团队进度</h4>
               <span class="text-muted">团队任务完成比例</span>
             </div>
@@ -159,12 +159,12 @@
     				}
               %>
                 <tr class="<%=classType%>">
-                   <td><%=work.isFinash()? "已完成" : "未完成" %></td>
+                   <td><%=work.isFinash()? "已完成" : "<b>未完成</b>" %></td>
                   <td><%=work.getTitle()%></td>
                   <td>目前还没这个功能！</td>
                   <td><%=rank%></td>
                   <td>X天后</td>
-                  <td><a class="btn btn-sm btn-success" href="#" role="button">完成</a></td>
+                  <td><a class="btn btn-sm <%=work.isFinash()? "btn-default" : "btn-success" %>" href="work/finash.jsp?id=<%=work.getId() %>" role="button"><%=work.isFinash()? "取消" : "完成" %></a></td>
                 </tr>
                 <%} %>
               </tbody>

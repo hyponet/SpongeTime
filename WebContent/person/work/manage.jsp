@@ -76,7 +76,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li><a href="../index.jsp">概观</a></li>
-            <li><a href="#">待办记事</a></li>
+            <li><a href="#">任务进度</a></li>
             <li><a href="#">时间线</a></li>
             <li><a href="#">计划月历</a></li>
           </ul>
@@ -100,7 +100,7 @@
 			  无论是独立事件还是事件组事件都可以在此管理！
 			</div>
           	</div>
-          	<h2 class="sub-header">Todo List</h2>
+          	<h2 class="sub-header">事件管理</h2>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -139,7 +139,7 @@
     				}
               %>
                 <tr class="<%=classType%>">
-                   <td><%=work.isFinash()? "已完成" : "未完成" %></td>
+                   <td><%=work.isFinash()? "已完成" : "<b>未完成</b>" %></td>
                   <td><%=work.getTitle()%></td>
                   <td>目前还没这个功能！</td>
                   <td><%=rank%></td>
