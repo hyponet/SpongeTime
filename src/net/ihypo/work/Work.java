@@ -7,6 +7,7 @@ public class Work {
 	private String data;
 	//rank：1=重要且紧急 2=不重要但紧急 3=重要不紧急 4=不重要不紧急
 	private int rank;
+	private boolean finash;
 	
 	public Work(int id){
 		this.id = id;
@@ -18,6 +19,7 @@ public class Work {
 		this.userId = userId;
 		this.data = data;
 		this.rank = rank;
+		this.finash = false;
 	}
 
 	public int getId() {
@@ -43,6 +45,14 @@ public class Work {
 	public void setRank(int rank){
 		this.rank = rank;
 	}
+	
+	public boolean isFinash() {
+		return finash;
+	}
+	
+	public void finash(){
+		this.finash = true;
+	}
 
 	@Override
 	public int hashCode() {
@@ -65,5 +75,4 @@ public class Work {
 			return false;
 		return true;
 	}
-	
 }
