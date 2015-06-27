@@ -46,7 +46,6 @@
   </head>
 
   <body>
-
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -111,12 +110,12 @@
 			  <div class="panel panel-default">
 			    <div class="panel-heading" role="tab" id="headingOne">
 			      <h4 class="panel-title">
-			        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#workgroup<%=group.getId() %>" aria-expanded="true" aria-controls="collapseOne">
+			        <a role="button" data-toggle="collapse"  data-parent="#accordion" href="#workgroup<%=group.getId() %>" aria-expanded="true" aria-controls="collapseOne">
 			          <%=group.getTitle() %>
 			        </a>
-			        <div class="btn-group navbar-right" role="group" aria-label="...">
-                  		<a data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs editbtn" id="">编辑</a>
-					    <a data-toggle="modal" data-target="#del" class="btn btn-danger btn-xs delbtn" id="">删除</a>
+			        <div class="btn-group navbar-right" role="group" style="padding-right: 20px;">
+                  		<a data-toggle="modal" data-target="#edittask" class="btn btn-primary btn-xs edittask" id="<%=group.getId()%>">编辑</a>
+					    <a data-toggle="modal" data-target="#deltask" class="btn btn-danger btn-xs deltask" id="<%=group.getId()%>">删除</a>
 					  <div class="btn-group" role="group">
 					    <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					      优先级
@@ -132,7 +131,7 @@
 					</div>
 			      </h4>
 			    </div>
-			    <div id="workgroup<%=group.getId() %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+			    <div id="workgroup<%=group.getId() %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 			      <div class="panel-body">
 			      <table class="table table-striped">
 		              <thead>
@@ -194,7 +193,96 @@
         </div>
       </div>
     </div>
-
+<div class="modal fade" id="edittask" tabindex="-1" role="dialog" aria-labelledby="EditLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="EditLabel">编辑事件组详情</h4>
+		      </div>
+		      <form action="edit.jsp" method="post">
+		      <div class="modal-body">
+		      		<input type="hidden" id="edittaskid" name="edittaskid">
+				  <div class="form-group">
+				    <label for="title">主题</label>
+				    <input type="text" class="form-control" id="title" name="title" placeholder="主题">
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		        <button type="submit" class="btn btn-primary">保存修改</button>
+		      </div>
+		      </form>
+		    </div>
+		  </div>
+</div>
+<div class="modal fade" id="deltask" tabindex="-1" role="dialog" aria-labelledby="DelLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="DelLabel">警告</h4>
+      </div>
+      <div class="modal-body">
+        <p>删除后不可找回，确认删除？</p>
+      </div>
+      <div class="modal-footer">
+      	<form action="del.jsp" method="post">
+      		<input type="hidden" id="deltaskid" name="deltaskid" /> 
+       		<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        	<button type="submit" class="btn btn-danger">删除</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="EditLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="EditLabel">编辑事件详情</h4>
+		      </div>
+		      <form action="work/edit.jsp" method="post">
+		      <div class="modal-body">
+		      		<input type="hidden" id="editworkid" name="editworkid">
+				  <div class="form-group">
+				    <label for="title">主题</label>
+				    <input type="text" class="form-control" id="title" name="title" placeholder="主题">
+				  </div>
+				  <div class="form-group">
+				    <label for="title">完成时间</label>
+				    <input type="date" class="form-control" id="date" name="date" disabled>
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		        <button type="submit" class="btn btn-primary">保存修改</button>
+		      </div>
+		      </form>
+		    </div>
+		  </div>
+</div>
+<div class="modal fade" id="del" tabindex="-1" role="dialog" aria-labelledby="DelLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="DelLabel">警告</h4>
+      </div>
+      <div class="modal-body">
+        <p>删除后不可找回，确认删除？</p>
+      </div>
+      <div class="modal-footer">
+      	<form action="work/del.jsp" method="post">
+      		<input type="hidden" id="delworkid" name="delworkid" /> 
+       		<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        	<button type="submit" class="btn btn-danger">删除</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -204,34 +292,33 @@
     <script src="../../js/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../js/ie10-viewport-bug-workaround.js"></script>
+      <script type="text/javascript">
+    $(document).ready(function (){
+    	$(".edittask").click(function(){
+    		$("#edittaskid").attr("value",'');//清空内容
+        	$("#edittaskid").attr("value",$(this).attr("id"));//填充内容
+    	});
+    })
+    $(document).ready(function (){
+    	$(".deltask").click(function(){
+        	$("#deltaskid").attr("value",'');//清空内容
+        	$("#deltaskid").attr("value",$(this).attr("id"));//填充内容
+    	});
+    })
+    </script>
     <script type="text/javascript">
-    $(document).ready( function() {
-        $(".addwork").click(function(){
-        	var work_num = $(".work").length;
-            $(".works").append(
-            		"<tr class=\"work\" id=\""+"work"+(work_num + 1)+"\">"+
-              		"<td><b>"+ (work_num+1) +"</b></td>"+
-              		"<td>"+"<input type=\"text\" class=\"form-control\" name=\""+"worktitle"+(work_num+1)+"\" placeholder=\"主题\">"+"</td>"+
-              		"<td>"+"<input type=\"text\" class=\"form-control\" name=\""+"workremark"+(work_num+1)+"\" placeholder=\"备注\" disabled=\"disabled\">"+"</td>"+
-             		"</tr>"
-              );
-            $("#worknum").attr("value",'');//清空内容
-        	$("#worknum").attr("value",work_num+1);//填充内容
-        });
-      })
-
-      $(document).ready(function() {
-        $(".delwork").click(function() {
-        	var work_num = $(".work").length;
-            if(work_num > 2) {
-              $("#work" + work_num).remove();
-              $("#worknum").attr("value",'');//清空内容
-          	  $("#worknum").attr("value",work_num-1);//填充内容
-            }
-            else
-              alert("事件组中的事件不能小于两件！");
-        }); 
-      })
+    $(document).ready(function (){
+    	$(".editbtn").click(function(){
+    		$("#editworkid").attr("value",'');//清空内容
+        	$("#editworkid").attr("value",$(this).attr("id"));//填充内容
+    	});
+    })
+    $(document).ready(function (){
+    	$(".delbtn").click(function(){
+        	$("#delworkid").attr("value",'');//清空内容
+        	$("#delworkid").attr("value",$(this).attr("id"));//填充内容
+    	});
+    })
     </script>
   </body>
 </html>
