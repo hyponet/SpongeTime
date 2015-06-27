@@ -142,7 +142,7 @@
               %>
                 <tr class="<%=classType%>">
                    <td><%=work.isFinash()? "已完成" : "<b>未完成</b>" %></td>
-                  <td><%=work.getTitle()%></td>
+                  <td><%=work.getGroupName() == null ? "":  "<b>" + work.getGroupName() + "</b>:"%><%=work.getTitle()%></td>
                   <td>目前还没这个功能！</td>
                   <td><%=rank%></td>
                   <td>X天后</td>

@@ -21,7 +21,7 @@
 <%}else{%>
 <script type="text/javascript">
 <!--
-	window.location="../../login/index.jsp";
+	window.location="manage.jsp";
 	alert("登录超时！");
 //-->
 </script>
