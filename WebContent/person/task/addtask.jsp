@@ -81,7 +81,7 @@
             <li><a href="../work/addwork.jsp">添加事件</a></li>
             <li><a href="../work/manage.jsp">管理事件</a></li>
             <li class="active"><a href="addtask.jsp">添加事件组<span class="sr-only">(current)</span></a></li>
-            <li><a href="">管理事件组</a></li>
+            <li><a href="manage.jsp">管理事件组</a></li>
             <li><a href="">计划规划</a></li>
           </ul>
           <ul class="nav nav-sidebar">
@@ -97,8 +97,10 @@
 			  事件与事件组是不一样的！事件更适合单一/琐碎事件计划，事件组更适合任务安排。
 			</div>
           	</div>
+          	<h2 class="sub-header">添加事件组</h2>
           	<div>
           		<form action="adg.jsp" method="post">
+          			<input type="hidden" id="worknum" name="worknum" value="2">
 				  <div class="form-group">
 				    <label for="title">主题</label>
 				    <input type="text" class="form-control" id="title" name="title" placeholder="主题">
@@ -137,8 +139,8 @@
              				</tr>
 			              </tbody>
 					</table>
-					<button type="button" class="close delwork"><span class="glyphicon glyphicon-minus"></span></button>
-					<button type="button" class="close addwork"><span class="glyphicon glyphicon-plus"></span></button>
+					<button type="button" class="close delwork"><span class="glyphicon glyphicon-minus" style="font-size: 40px;"></span></button>
+					<button type="button" class="close addwork"><span class="glyphicon glyphicon-plus" style="font-size: 40px;"></span></button>
 				  <button type="submit" class="btn btn-default">添加事件组</button>
 				</form>
           	</div>
@@ -166,6 +168,8 @@
               		"<td>"+"<input type=\"text\" class=\"form-control\" name=\""+"workremark"+(work_num+1)+"\" placeholder=\"备注\" disabled=\"disabled\">"+"</td>"+
              		"</tr>"
               );
+            $("#worknum").attr("value",'');//清空内容
+        	$("#worknum").attr("value",work_num+1);//填充内容
         });
       })
 
@@ -174,6 +178,8 @@
         	var work_num = $(".work").length;
             if(work_num > 2) {
               $("#work" + work_num).remove();
+              $("#worknum").attr("value",'');//清空内容
+          	  $("#worknum").attr("value",work_num-1);//填充内容
             }
             else
               alert("事件组中的事件不能小于两件！");
