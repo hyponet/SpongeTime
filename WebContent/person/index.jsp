@@ -100,13 +100,13 @@
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="js/holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>事件进度</h4>
-              <span class="text-muted">所有事件的完成比例</span>
+              <h4>优先级分布</h4>
+              <span class="text-muted">四种优先级所占比例</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="js/holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>任务进度</h4>
-              <span class="text-muted">所有事件组的完成比例</span>
+              <h4>任务预期</h4>
+              <span class="text-muted">任务预期完成时间比例</span>
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="js/holder.js/200x200/auto/sky" class="img-responsive" alt="Generic placeholder thumbnail">
@@ -115,8 +115,8 @@
             </div>
             <div class="col-xs-6 col-sm-3 placeholder">
               <img data-src="js/holder.js/200x200/auto/vine" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>团队进度</h4>
-              <span class="text-muted">团队任务完成比例</span>
+              <h4>团队任务</h4>
+              <span class="text-muted">团队任务所占比例</span>
             </div>
           </div>
 
@@ -160,7 +160,7 @@
               %>
                 <tr class="<%=classType%>">
                    <td><%=work.isFinash()? "已完成" : "<b>未完成</b>" %></td>
-                  <td><%=work.getTitle()%></td>
+                  <td><%=work.getGroupName() == null ? "": "<b>" + work.getGroupName() + "</b>:"%><%=work.getTitle()%></td>
                   <td>目前还没这个功能！</td>
                   <td><%=rank%></td>
                   <td>X天后</td>
