@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>添加事件 - SpongeTime个人中心</title>
+    <title>添加事件组 - SpongeTime个人中心</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -78,9 +78,9 @@
             <li><a href="#">计划月历</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="addwork.jsp">添加事件<span class="sr-only">(current)</span></a></li>
-            <li><a href="manage.jsp">管理事件</a></li>
-            <li><a href="../task/addtask.jsp">添加事件组</a></li>
+            <li><a href="../work/addwork.jsp">添加事件</a></li>
+            <li><a href="../work/manage.jsp">管理事件</a></li>
+            <li class="active"><a href="addtask.jsp">添加事件组<span class="sr-only">(current)</span></a></li>
             <li><a href="">管理事件组</a></li>
             <li><a href="">计划规划</a></li>
           </ul>
@@ -98,7 +98,7 @@
 			</div>
           	</div>
           	<div>
-          		<form action="adw.jsp" method="post">
+          		<form action="adg.jsp" method="post">
 				  <div class="form-group">
 				    <label for="title">主题</label>
 				    <input type="text" class="form-control" id="title" name="title" placeholder="主题">
@@ -116,7 +116,30 @@
 				    <label for="title">完成时间</label>
 				    <input type="date" class="form-control" id="date" name="date" disabled>
 				  </div>
-				  <button type="submit" class="btn btn-default">添加事件</button>
+				  	<table class="table table-hover">
+						 <thead>
+			                <tr>
+			                  <th>#</th>
+			                  <th>主题</th>
+			                  <th>备注</th>
+			                </tr>
+			              </thead>
+			              <tbody class="works">
+			              	<tr class="work" id="work1">
+              					<td><b>1</b></td>
+              					<td><input type="text" class="form-control" name="worktitle1" placeholder="主题"></td>
+              					<td><input type="text" class="form-control" name="workremark1" placeholder="备注" disabled="disabled"></td>
+             				</tr>
+             				<tr class="work" id="work2">
+              					<td><b>2</b></td>
+              					<td><input type="text" class="form-control" name="worktitle2" placeholder="主题"></td>
+              					<td><input type="text" class="form-control" name="workremark2" placeholder="备注"  disabled="disabled"></td>
+             				</tr>
+			              </tbody>
+					</table>
+					<button type="button" class="close delwork"><span class="glyphicon glyphicon-minus"></span></button>
+					<button type="button" class="close addwork"><span class="glyphicon glyphicon-plus"></span></button>
+				  <button type="submit" class="btn btn-default">添加事件组</button>
 				</form>
           	</div>
         </div>
@@ -132,6 +155,31 @@
     <script src="../../js/holder.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript">
+    $(document).ready( function() {
+        $(".addwork").click(function(){
+        	var work_num = $(".work").length;
+            $(".works").append(
+            		"<tr class=\"work\" id=\""+"work"+(work_num + 1)+"\">"+
+              		"<td><b>"+ (work_num+1) +"</b></td>"+
+              		"<td>"+"<input type=\"text\" class=\"form-control\" name=\""+"worktitle"+(work_num+1)+"\" placeholder=\"主题\">"+"</td>"+
+              		"<td>"+"<input type=\"text\" class=\"form-control\" name=\""+"workremark"+(work_num+1)+"\" placeholder=\"备注\" disabled=\"disabled\">"+"</td>"+
+             		"</tr>"
+              );
+        });
+      })
+
+      $(document).ready(function() {
+        $(".delwork").click(function() {
+        	var work_num = $(".work").length;
+            if(work_num > 2) {
+              $("#work" + work_num).remove();
+            }
+            else
+              alert("事件组中的事件不能小于两件！");
+        }); 
+      })
+    </script>
   </body>
 </html>
 <%}%>
