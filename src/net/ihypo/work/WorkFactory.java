@@ -26,8 +26,8 @@ public class WorkFactory {
 		return id;
 	}
 	
-	public Work createWork(String title,int userId,String data,int rank) throws ClassNotFoundException, SQLException{
-		Work work =  new Work(getNextId(), title, userId, data,rank);
+	public Work createWork(String title,int userId,String data,int rank,int workGroupId) throws ClassNotFoundException, SQLException{
+		Work work =  new Work(getNextId(), title, userId, data,rank,workGroupId);
 		id++;
 		insertWorkList(work);
 		return work;
@@ -37,9 +37,7 @@ public class WorkFactory {
 		//写入数据库
 		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
 		
-		System.out.println("insert into works values(" + work.getId() + ",'" + work.getTitle() + "',"
-				 + work.getUserId() + "," + work.getRank() + "," + work.isFinash() + ");");
 		statement.execute("insert into works values(" + work.getId() + ",'" + work.getTitle() + "',"
-				 + work.getUserId() + "," + work.getRank() + "," + work.isFinash() + ");");
+				 + work.getUserId() + "," + work.getRank() + "," + work.isFinash() + ", " + work.getGroupId() + ");");
 	}
 }

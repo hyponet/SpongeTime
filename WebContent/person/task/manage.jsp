@@ -1,3 +1,7 @@
+<%@page import="net.ihypo.work.WorkGroup"%>
+<%@page import="net.ihypo.task.TaskGroup"%>
+<%@page import="net.ihypo.work.Work"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="net.ihypo.user.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -80,8 +84,8 @@
           <ul class="nav nav-sidebar">
             <li><a href="../work/addwork.jsp">添加事件</a></li>
             <li><a href="../work/manage.jsp">管理事件</a></li>
-            <li class="active"><a href="addtask.jsp">添加事件组<span class="sr-only">(current)</span></a></li>
-            <li><a href="manage.jsp">管理事件组</a></li>
+            <li><a href="addtask.jsp">添加事件组</a></li>
+            <li class="active"><a href="manage.jsp">管理事件组<span class="sr-only">(current)</span></a></li>
             <li><a href="">计划规划</a></li>
           </ul>
           <ul class="nav nav-sidebar">
@@ -97,53 +101,96 @@
 			  事件与事件组是不一样的！事件更适合单一/琐碎事件计划，事件组更适合任务安排。
 			</div>
           	</div>
-          	<h2 class="sub-header">添加事件组</h2>
-          	<div>
-          		<form action="adg.jsp" method="post">
-          			<input type="hidden" id="worknum" name="worknum" value="2">
-				  <div class="form-group">
-				    <label for="title">主题</label>
-				    <input type="text" class="form-control" id="title" name="title" placeholder="主题">
-				  </div>
-				  <div class="form-group">
-				    <label for="title">优先级</label>
-				    <select class="form-control" name="rank">
-					  <option value="1">紧急且重要</option>
-					  <option value="2">紧急但不重要</option>
-					  <option value="3">不紧急但重要</option>
-					  <option value="4">不紧急且不重要</option>
-					</select>
-				  </div>
-				  <div class="form-group">
-				    <label for="title">完成时间</label>
-				    <input type="date" class="form-control" id="date" name="date" disabled>
-				  </div>
-				  	<table class="table table-hover">
-						 <thead>
-			                <tr>
-			                  <th>#</th>
-			                  <th>主题</th>
-			                  <th>备注</th>
-			                </tr>
-			              </thead>
-			              <tbody class="works">
-			              	<tr class="work" id="work1">
-              					<td><b>1</b></td>
-              					<td><input type="text" class="form-control" name="worktitle1" placeholder="主题"></td>
-              					<td><input type="text" class="form-control" name="workremark1" placeholder="备注" disabled="disabled"></td>
-             				</tr>
-             				<tr class="work" id="work2">
-              					<td><b>2</b></td>
-              					<td><input type="text" class="form-control" name="worktitle2" placeholder="主题"></td>
-              					<td><input type="text" class="form-control" name="workremark2" placeholder="备注"  disabled="disabled"></td>
-             				</tr>
-			              </tbody>
-					</table>
-					<button type="button" class="close delwork"><span class="glyphicon glyphicon-minus" style="font-size: 40px;"></span></button>
-					<button type="button" class="close addwork"><span class="glyphicon glyphicon-plus" style="font-size: 40px;"></span></button>
-				  <button type="submit" class="btn btn-default">添加事件组</button>
-				</form>
-          	</div>
+          	<h2 class="sub-header">管理事件组</h2>
+          	<div class="table-responsive">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <% 
+            	TaskGroup taskGroup = new TaskGroup(user.getId());
+            	for(WorkGroup group:taskGroup.getList()){
+            %>
+			  <div class="panel panel-default">
+			    <div class="panel-heading" role="tab" id="headingOne">
+			      <h4 class="panel-title">
+			        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#workgroup<%=group.getId() %>" aria-expanded="true" aria-controls="collapseOne">
+			          <%=group.getTitle() %>
+			        </a>
+			        <div class="btn-group navbar-right" role="group" aria-label="...">
+                  		<a data-toggle="modal" data-target="#edit" class="btn btn-primary btn-xs editbtn" id="">编辑</a>
+					    <a data-toggle="modal" data-target="#del" class="btn btn-danger btn-xs delbtn" id="">删除</a>
+					  <div class="btn-group" role="group">
+					    <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					      优先级
+					      <span class="caret"></span>
+					    </button>
+					    <ul class="dropdown-menu">
+					      <li><a href="update.jsp?id=&rank=1">紧急 | 重要</a></li>
+					      <li><a href="update.jsp?id=&rank=2">紧急 | 不重要</a></li>
+					      <li><a href="update.jsp?id=&rank=3">不紧急 | 重要</a></li>
+					      <li><a href="update.jsp?id=&rank=4">不紧急 | 不重要</a></li>
+					    </ul>
+					  </div>
+					</div>
+			      </h4>
+			    </div>
+			    <div id="workgroup<%=group.getId() %>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+			      <div class="panel-body">
+			      <table class="table table-striped">
+		              <thead>
+		                <tr>
+		                  <th>状态</th>
+		                  <th>主题</th>
+		                  <th>备注</th>
+		                  <th>优先级</th>
+		                  <th>预计完成</th>
+		                  <th>管理</th>
+		                </tr>
+		              </thead>
+		              <tbody>
+		              <%
+		    			for(Work work:group.getList()){
+		    				String classType = null;
+		    				String rank = null;
+		    				if(work.getRank() == 1){
+		    					classType = "danger";
+		    					rank = "<b>紧急</b> | <b>重要</b>";
+		    				}else if(work.getRank() == 2){
+		    					classType = "info";
+		    					rank = "<b>紧急</b>";
+		    				}else if(work.getRank() == 3){
+		    					classType = "warning";
+		    					rank = "<b>重要</b>";
+		    				}else if(work.getRank() == 4){
+		    					classType = "success";
+		    					rank = "";
+		    				}else{
+		    					classType = "active";
+		    					rank = "出现BUG";
+		    					rank = "出现BUG";
+		    				}
+		              %>
+		                <tr class="<%=classType%>">
+		                   <td><%=work.isFinash()? "已完成" : "<b>未完成</b>" %></td>
+		                  <td><%=work.getTitle()%></td>
+		                  <td>目前还没这个功能！</td>
+		                  <td><%=rank%></td>
+		                  <td>X天后</td>
+		                  <td>
+		                  	<div class="btn-group" role="group" aria-label="...">
+		                  		<a data-toggle="modal" data-target="#edit" class="btn btn-primary btn-sm editbtn" id="<%=work.getId()%>">编辑</a>
+							    <a data-toggle="modal" data-target="#del" class="btn btn-danger btn-sm delbtn" id="<%=work.getId()%>">删除</a>
+								<a class="btn btn-sm <%=work.isFinash()? "btn-default" : "btn-success" %>" href="work/finash.jsp?id=<%=work.getId() %>" role="button"><%=work.isFinash()? "取消" : "完成" %></a>
+							</div>
+		                  </td>
+		                </tr>
+		                <%} %>
+		              </tbody>
+		            </table>
+			      </div>
+			    </div>
+			  </div>
+			  <%} %>
+			</div>
+          </div>
         </div>
       </div>
     </div>

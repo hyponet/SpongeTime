@@ -8,7 +8,7 @@
 	User user = (User)session.getAttribute("user");
 	if(user != null){
 	int id = user.getId();
-	new WorkFactory().createWork(title, id, null, rank);
+	new WorkFactory().createWork(title, id, null, rank,-1);
 %>
 <script type="text/javascript">
 <!--

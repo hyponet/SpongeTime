@@ -97,6 +97,7 @@
 			  事件与事件组是不一样的！事件更适合单一/琐碎事件计划，事件组更适合任务安排。
 			</div>
           	</div>
+          	<h2 class="sub-header">添加事件</h2>
           	<div>
           		<form action="adw.jsp" method="post">
 				  <div class="form-group">
