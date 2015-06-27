@@ -33,18 +33,25 @@ public class WorkGroup {
 		total = 0;
 		this.userId = userId;
 		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
-		ResultSet set = statement.executeQuery("select * from works "
-				+ "where work_user_id = " + userId + " and work_group_id = " + taskId + ";");
-		
-		while(set.next()){
-			Work work = new Work(set.getInt("work_id"),set.getString("work_title"),
-					set.getInt("work_user_id"),null, set.getInt("work_rank"),taskId);
-			if(set.getBoolean("work_finash"))
-				work.finash();
-			else {
-				total++;
+		ResultSet set = statement.executeQuery("select * from tasks "
+				+ "where task_id = " + taskId + ";");
+		if(set.next()){
+			title = set.getString("task_title");
+			rank = set.getInt("task_rank");
+			statement = (Statement) new DbDriver().getConnection().createStatement();
+			set = statement.executeQuery("select * from works "
+					+ "where work_user_id = " + userId + " and work_group_id = " + taskId + ";");
+			
+			while(set.next()){
+				Work work = new Work(set.getInt("work_id"),set.getString("work_title"),
+						set.getInt("work_user_id"),null, set.getInt("work_rank"),taskId);
+				if(set.getBoolean("work_finash"))
+					work.finash();
+				else {
+					total++;
+				}
+				list.add(work);
 			}
-			list.add(work);
 		}
 	}
 	
@@ -121,13 +128,23 @@ public class WorkGroup {
 		}else{
 			this.id = 1;
 		}
-		System.out.println("insert into tasks values("
-				+ id + ",'"+ title + "'," + rank + "," + userId + "," + (total == 0) + ";");
+		
 		statement.execute("insert into tasks values("
-				+ id + ",'"+ title + "'," + rank + "," + userId + "," + (total == 0) + ");");
+				+ id + ",'"+ title + "'," + rank + "," + userId + "," + total + ");");
 	}
 	
-	public void update(){
-		
+	public void update() throws ClassNotFoundException, SQLException{
+		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
+		statement.execute("update tasks set task_title = '"
+				+ title + "',task_rank = " + rank + ", task_user_id = " + userId + ",task_unfinash = " + total
+				+ " where task_id = " + id + ";");
+	}
+	
+	public void drop() throws ClassNotFoundException, SQLException{
+		if(id != 0 && userId != 0){
+			Statement statement = (Statement) new DbDriver().getConnection().createStatement();
+			statement.execute("delete from works where work_group_id = " + id + ";");
+			statement.execute("delete from tasks where task_id = " + id + ";");
+		}
 	}
 }

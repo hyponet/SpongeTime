@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import net.ihypo.db.DbDriver;
+import net.ihypo.task.TaskFactory;
 
 import com.mysql.jdbc.Statement;
 
@@ -73,11 +74,11 @@ public class Work {
 		return finash;
 	}
 	
-	public void finash(){
+	public void finash() throws ClassNotFoundException, SQLException{
 		this.finash = true;
 	}
 	
-	public void unFinash(){
+	public void unFinash() throws ClassNotFoundException, SQLException{
 		this.finash = false;
 	}
 	
@@ -118,5 +119,14 @@ public class Work {
 	public void drop() throws ClassNotFoundException, SQLException{
 		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
 		statement.execute("delete from works where work_id = " + id + ";");
+	}
+	
+	public String getGroupName() throws ClassNotFoundException, SQLException{
+		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
+		ResultSet set = statement.executeQuery("select task_title from tasks where task_id = " + workGroupId + ";");
+		if(set.next()){
+			return set.getString("task_title");
+		}
+		return null;
 	}
 }
