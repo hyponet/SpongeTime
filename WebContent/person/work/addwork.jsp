@@ -80,7 +80,7 @@
           <ul class="nav nav-sidebar">
             <li class="active"><a href="addwork.jsp">添加事件<span class="sr-only">(current)</span></a></li>
             <li><a href="manage.jsp">管理事件</a></li>
-            <li><a href="">添加事件组</a></li>
+            <li><a href="../task/addtask.jsp">添加事件组</a></li>
             <li><a href="">管理事件组</a></li>
             <li><a href="">计划规划</a></li>
           </ul>

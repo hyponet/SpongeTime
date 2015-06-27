@@ -84,7 +84,7 @@
           <ul class="nav nav-sidebar">
             <li><a href="../person/work/addwork.jsp">添加事件</a></li>
             <li><a href="../person/work/manage.jsp">管理事件</a></li>
-            <li><a href="">添加事件组</a></li>
+            <li><a href="../person/task/addtask.jsp">添加事件组</a></li>
             <li><a href="">管理事件组</a></li>
             <li><a href="">计划规划</a></li>
           </ul>
