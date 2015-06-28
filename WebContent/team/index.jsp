@@ -121,7 +121,7 @@
 				      </div>
 				     <div class="form-group">
 				           <label for="title">团队地址:</label>
-				           <input type="text" class="form-control"  id="TeamAdd"  name="TeamAdd" placeholder="地址">
+				           <input type="text" class="form-control"  id="teamAdd"  name="teamAdd" placeholder="地址">
 				      </div>
 				  <input  type="submit"  onclick="return CheckTeam( )"  class="btn btn-default" value="创建团队" />
 				</form>    

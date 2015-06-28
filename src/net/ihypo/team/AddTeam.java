@@ -10,36 +10,22 @@ public class AddTeam{
 		  super();
 	  }
 	 public void getId(String teamName,String teamEmail,String teamTel,String teamAdd) throws ClassNotFoundException, SQLException{ 
+		 
 		 Statement statement = (Statement) new DbDriver().getConnection().createStatement();
 		 ResultSet  rs  =    statement.executeQuery("select *  from teams");
-		 boolean flag = false;
-		 String str="1000";
-		 if(rs.next())
-		 {
-		 	 str =  rs.getString("teams_id");
-		 	System.out. println("sdhuaaaaaaaaaaaaaaaaaaa");
-		 	 flag = true;
+		 if(!rs.next()) {
+			 statement.execute("insert into teams(team_id,team_name,team_email,team_tel,team_add) "
+			 			+ "values ('1000','"+teamName+"','"+teamEmail+"','"+teamTel+"','"+teamAdd+"');");
 		 }
-			
-		 if(!rs.next()){
-		    str = rs.getString("teams_id");
-		 }
-		 if(flag==true){
-		 	 long ID = Long.parseLong(str);
-		 	 ID++;
-		 	str =  Long.toString(ID); 
-		 	statement.execute("insert into teams(teams_id,teams_name,teams_email,teams_Tel,teams_Add) values ("+str+",'"+teamName+"','"+teamEmail+"','"+teamTel+"','"+teamAdd+"');");
-		 }
-		 else{
-		 	 statement.execute("insert into teams(teams_id,teams_name,teams_email,teams_Tel,teams_Add) values ("+str+",'"+teamName+"','"+teamEmail+"','"+teamTel+"','"+teamAdd+"');");
-		 	// out.println("insert into teams(teams_id,teams_name,teams_email,teams_Tel,teams_Add) values ("+str+",'"+teamName+",'"+teamEmail+",'"+teamTel+",'"+teamAdd+"');");
+		 else {
+				ResultSet set = statement.executeQuery("select max(team_id) from teams;");
+				if(set.next()){
+					int ID = set.getInt("max(team_id)") + 1;
+					statement.execute("insert into teams(team_id,team_name,team_email,team_tel,team_add) "
+				 			+ "values ("+ID+",'"+teamName+"','"+teamEmail+"','"+teamTel+"','"+teamAdd+"');");
+				}
 		 }
 		 
 	 }
-	/* public static void main(String[] args) throws Exception {
-		AddTeam temp  = new AddTeam();
-		temp.getId("1222","aaa","sss","saaa");
-		}*/
-	
 }
 
