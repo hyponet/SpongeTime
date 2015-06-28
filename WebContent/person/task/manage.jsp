@@ -116,18 +116,7 @@
 			        <div class="btn-group navbar-right" role="group" style="padding-right: 20px;">
                   		<a data-toggle="modal" data-target="#edittask" class="btn btn-primary btn-xs edittask" id="<%=group.getId()%>">编辑</a>
 					    <a data-toggle="modal" data-target="#deltask" class="btn btn-danger btn-xs deltask" id="<%=group.getId()%>">删除</a>
-					  <div class="btn-group" role="group">
-					    <button type="button" class="btn btn-warning btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					      优先级
-					      <span class="caret"></span>
-					    </button>
-					    <ul class="dropdown-menu">
-					      <li><a href="update.jsp?id=&rank=1">紧急 | 重要</a></li>
-					      <li><a href="update.jsp?id=&rank=2">紧急 | 不重要</a></li>
-					      <li><a href="update.jsp?id=&rank=3">不紧急 | 重要</a></li>
-					      <li><a href="update.jsp?id=&rank=4">不紧急 | 不重要</a></li>
-					    </ul>
-					  </div>
+					    <a class="btn btn-warning btn-xs deltask" href="addwork.jsp?id=<%=group.getId() %>">添加</a>
 					</div>
 			      </h4>
 			    </div>
