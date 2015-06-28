@@ -108,7 +108,7 @@
            <div>
           		<form action="addNewteam.jsp " method="post">
 				     <div class="form-group">
-				           <label for="title">团队名:</label>
+				           <label for="title">团队名称:</label>
 				           <input type="text" class="form-control"  id="teamName"  name="teamName"  placeholder="团队名">
 				      </div>
 				       <div class="form-group">
@@ -126,8 +126,6 @@
 				  <input  type="submit"  onclick="return CheckTeam( )"  class="btn btn-default" value="创建团队" />
 				</form>    
           	</div>
-           
-
 
         </div>
       </div>
