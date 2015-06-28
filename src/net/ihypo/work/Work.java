@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import net.ihypo.db.DbDriver;
+import net.ihypo.task.TaskFactory;
 
 import com.mysql.jdbc.Statement;
 
@@ -15,6 +16,7 @@ public class Work {
 	//rank：1=重要且紧急 2=不重要但紧急 3=重要不紧急 4=不重要不紧急
 	private int rank;
 	private boolean finash;
+	private int workGroupId;
 	
 	public Work(int id) throws ClassNotFoundException, SQLException{
 		this.id = id;
@@ -26,16 +28,18 @@ public class Work {
 			this.data = null;
 			this.rank = set.getInt("work_rank");
 			this.finash = set.getBoolean("work_finash");
+			this.workGroupId = set.getInt("work_group_id");
 		}
 	}
 	
-	public Work(int id,String title,int userId,String data,int rank){
+	public Work(int id,String title,int userId,String data,int rank,int workGroupId){
 		this.id = id;
 		this.title = title;
 		this.userId = userId;
 		this.data = data;
 		this.rank = rank;
 		this.finash = false;
+		this.workGroupId = workGroupId;
 	}
 
 	public int getId() {
@@ -44,6 +48,10 @@ public class Work {
 
 	public String getTitle() {
 		return title;
+	}
+	
+	public void setTitle(String title){
+		this.title = title;
 	}
 
 	public int getUserId() {
@@ -66,14 +74,21 @@ public class Work {
 		return finash;
 	}
 	
-	public void finash(){
+	public void finash() throws ClassNotFoundException, SQLException{
 		this.finash = true;
 	}
 	
-	public void unFinash(){
+	public void unFinash() throws ClassNotFoundException, SQLException{
 		this.finash = false;
 	}
-
+	
+	public int getGroupId(){
+		return this.workGroupId;
+	}
+	
+	public void setGroupId(int workGroupId){
+		this.workGroupId = workGroupId;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -98,6 +113,20 @@ public class Work {
 	public void update() throws ClassNotFoundException, SQLException{
 		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
 		statement.execute("update works set work_title = '" + title + "',work_user_id = "
-				 + userId + ",work_rank = " + rank + ", work_finash = " + finash + " where work_id = " + id + ";");
+				 + userId + ",work_rank = " + rank + ", work_finash = " + finash + ",work_group_id = " + workGroupId + " where work_id = " + id +  ";");
+	}
+	
+	public void drop() throws ClassNotFoundException, SQLException{
+		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
+		statement.execute("delete from works where work_id = " + id + ";");
+	}
+	
+	public String getGroupName() throws ClassNotFoundException, SQLException{
+		Statement statement = (Statement) new DbDriver().getConnection().createStatement();
+		ResultSet set = statement.executeQuery("select task_title from tasks where task_id = " + workGroupId + ";");
+		if(set.next()){
+			return set.getString("task_title");
+		}
+		return null;
 	}
 }
