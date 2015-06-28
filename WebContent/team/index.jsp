@@ -106,7 +106,7 @@
           		</div>
             <h1 class="page-header">创建团队</h1>
            <div>
-          		<form action=" " method="post">
+          		<form action="addNewteam.jsp " method="post">
 				     <div class="form-group">
 				           <label for="title">团队名:</label>
 				           <input type="text" class="form-control"  id="teamName"  name="teamName"  placeholder="团队名">

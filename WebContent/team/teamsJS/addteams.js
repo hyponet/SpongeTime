@@ -3,10 +3,10 @@ function CheckTeam( ){
 	var teamTel=document.getElementById("teamTel");
 	var teamEmail=document.getElementById("teamEmail");
 	var teamAdd=document.getElementById("teamAdd");
-	if(teamName.value==""|| teamTel.value==""||teamEmail.value==""||teamAdd.value=="")
+	if(teamName.value==""||teamAdd.value==""|| teamTel.value==""||teamEmail.value=="")
 		{
 	            alert("所有输入项都不能为空");
-	           return ;
+	           return false;
 		}
 }
 /*
