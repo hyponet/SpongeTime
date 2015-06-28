@@ -5,15 +5,20 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.io.*"%>
+<%@page import="net.ihypo.user.User"%>
 
 <%
-    String  teamName = new String(request.getParameter("teamName").getBytes("ISO-8859-1"),"UTF-8");
+	User user = (User)session.getAttribute("user");
+	int temp_id=user. getId();
+   String temp_name=user.getName();
+   
+   String  teamName = new String(request.getParameter("teamName").getBytes("ISO-8859-1"),"UTF-8");
    String  teamEmail = new String(request.getParameter("teamEmail").getBytes("ISO-8859-1"),"UTF-8");
    String    teamTel = request.getParameter("teamTel");
    String  teamAdd = new String(request.getParameter("teamAdd").getBytes("ISO-8859-1"),"UTF-8");
    AddTeam zan = new AddTeam();
-    zan.getId(teamName,teamEmail, teamTel,teamAdd);
-%>
+    zan.getId(teamName,teamEmail, teamTel,teamAdd,temp_id,temp_name);
+ %>
 <script type="text/javascript">
     window.location="index.jsp";
 </script>
