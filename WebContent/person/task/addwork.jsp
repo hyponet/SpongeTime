@@ -106,8 +106,77 @@
           	</div>
           	<h2 class="sub-header">添加事件到 [<%=group.getTitle() %>]</h2>
           	
-          	
-          	
+          	<h4 class="sub-header">新建事件</h4>
+          	<form action="" method="post">
+				  <div class="form-group">
+				    <label for="title">主题</label>
+				    <input type="text" class="form-control" id="title" name="title" placeholder="主题">
+				  </div>
+				  <div class="form-group">
+				    <label for="title">优先级</label>
+				    <select class="form-control" name="rank">
+					  <option value="1">紧急且重要</option>
+					  <option value="2">紧急但不重要</option>
+					  <option value="3">不紧急但重要</option>
+					  <option value="4">不紧急且不重要</option>
+					</select>
+				  </div>
+				  <div class="form-group">
+				    <label for="title">完成时间</label>
+				    <input type="date" class="form-control" id="date" name="date" disabled>
+				  </div>
+				  <button type="submit" class="btn btn-default">添加事件</button>
+				</form>
+				<br/>
+          	<h4 class="sub-header">添加事件</h4>
+          	<div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>状态</th>
+                  <th>主题</th>
+                  <th>备注</th>
+                  <th>优先级</th>
+                  <th>预计完成</th>
+                  <th>FINASH</th>
+                </tr>
+              </thead>
+              <tbody>
+              <%
+    			for(Iterator<Work> i = group.getUserAll().iterator();i.hasNext();){
+    				Work work = i.next();
+    				String classType = null;
+    				String rank = null;
+    				if(work.getRank() == 1){
+    					classType = "danger";
+    					rank = "<b>紧急</b> | <b>重要</b>";
+    				}else if(work.getRank() == 2){
+    					classType = "info";
+    					rank = "<b>紧急</b>";
+    				}else if(work.getRank() == 3){
+    					classType = "warning";
+    					rank = "<b>重要</b>";
+    				}else if(work.getRank() == 4){
+    					classType = "success";
+    					rank = "";
+    				}else{
+    					classType = "active";
+    					rank = "出现BUG";
+    					rank = "出现BUG";
+    				}
+              %>
+                <tr class="<%=classType%>">
+                   <td><%=work.isFinash()? "已完成" : "<b>未完成</b>" %></td>
+                  <td><%=work.getGroupName() == null ? "": "<b>" + work.getGroupName() + "</b>:"%><%=work.getTitle()%></td>
+                  <td>目前还没这个功能！</td>
+                  <td><%=rank%></td>
+                  <td>X天后</td>
+                  <td><a class="btn btn-sm <%=work.isFinash()? "btn-default" : "btn-success" %>" href="work/finash.jsp?id=<%=work.getId() %>" role="button"><%=work.isFinash()? "取消" : "完成" %></a></td>
+                </tr>
+                <%} %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
