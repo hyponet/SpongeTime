@@ -138,6 +138,7 @@
               	WorkGroup group = new WorkGroup(user.getId());
     			for(Iterator<Work> i = group.getUserAll().iterator();i.hasNext();){
     				Work work = i.next();
+    				if(!work.isFinash()){
     				String classType = null;
     				String rank = null;
     				if(work.getRank() == 1){
@@ -166,7 +167,40 @@
                   <td>X天后</td>
                   <td><a class="btn btn-sm <%=work.isFinash()? "btn-default" : "btn-success" %>" href="work/finash.jsp?id=<%=work.getId() %>" role="button"><%=work.isFinash()? "取消" : "完成" %></a></td>
                 </tr>
-                <%} %>
+                <%}} %>
+                <%
+	    			for(Iterator<Work> i = group.getUserAll().iterator();i.hasNext();){
+	    				Work work = i.next();
+	    				if(work.isFinash()){
+	    				String classType = null;
+	    				String rank = null;
+	    				if(work.getRank() == 1){
+	    					classType = "danger";
+	    					rank = "<b>紧急</b> | <b>重要</b>";
+	    				}else if(work.getRank() == 2){
+	    					classType = "info";
+	    					rank = "<b>紧急</b>";
+	    				}else if(work.getRank() == 3){
+	    					classType = "warning";
+	    					rank = "<b>重要</b>";
+	    				}else if(work.getRank() == 4){
+	    					classType = "success";
+	    					rank = "";
+	    				}else{
+	    					classType = "active";
+	    					rank = "出现BUG";
+	    					rank = "出现BUG";
+	    				}
+	              %>
+	                <tr class="<%=classType%>">
+	                   <td><%=work.isFinash()? "已完成" : "<b>未完成</b>" %></td>
+	                  <td><s>-<%=work.getGroupName() == null ? "": "<b>" + work.getGroupName() + "</b>:"%><%=work.getTitle()%>-</s></td>
+	                  <td>目前还没这个功能！</td>
+	                  <td><%=rank%></td>
+	                  <td>X天后</td>
+	                  <td><a class="btn btn-sm <%=work.isFinash()? "btn-default" : "btn-success" %>" href="work/finash.jsp?id=<%=work.getId() %>" role="button"><%=work.isFinash()? "取消" : "完成" %></a></td>
+	                </tr>
+	                <%}} %>
               </tbody>
             </table>
           </div>
