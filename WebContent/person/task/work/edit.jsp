@@ -11,11 +11,12 @@
 		int id = user.getId();
 		Work work = new Work(workId);
 		work.setTitle(title);
+		int tId = work.getGroupId();
 		work.update();
 %>
 <script type="text/javascript">
 <!--
-	window.location="../manage.jsp";
+	window.location="../manage.jsp?tid=<%=tId%>";
 //-->
 </script>
 <%}else{%>

@@ -10,12 +10,13 @@
 		if(work.getUserId() != 0){
 			int rank = Integer.parseInt(request.getParameter("rank"));
 			work.setRank(rank);
+			int tId = work.getGroupId();
 			work.update();
 		}
 %>
 <script type="text/javascript">
 <!--
-	window.location="../manage.jsp";
+	window.location="../manage.jsp?tid=<%=tId%>";
 //-->
 </script>
 <%}else{%>
