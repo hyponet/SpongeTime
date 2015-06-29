@@ -107,7 +107,7 @@
           	<h2 class="sub-header">添加事件到 [<%=group.getTitle() %>]</h2>
           	
           	<h4 class="sub-header">新建事件</h4>
-          	<form action="adw.jsp" method="post">
+          	<form action="adw.jsp?taskid=<%=group.getId() %>" method="post">
 				  <div class="form-group">
 				    <label for="title">主题</label>
 				    <input type="text" class="form-control" id="title" name="title" placeholder="主题">
@@ -171,7 +171,7 @@
                   <td>目前还没这个功能！</td>
                   <td><%=rank%></td>
                   <td>X天后</td>
-                  <td><a class="btn btn-sm <%=work.getGroupId() == group.getId()? "btn-default" : "btn-success" %>" href="adw.jsp?id=<%=work.getId() %>" role="button"><%=work.getGroupId() == group.getId()? "移除" : "添加" %></a></td>
+                  <td><a class="btn btn-sm <%=work.getGroupId() == group.getId()? "btn-default" : "btn-success" %>" href="adw.jsp?taskid=<%=group.getId() %>&id=<%=work.getId() %>" role="button"><%=work.getGroupId() == group.getId()? "移除" : "添加" %></a></td>
                 </tr>
                 <%} %>
               </tbody>
