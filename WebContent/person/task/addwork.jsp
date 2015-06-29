@@ -171,7 +171,7 @@
                   <td>目前还没这个功能！</td>
                   <td><%=rank%></td>
                   <td>X天后</td>
-                  <td><a class="btn btn-sm <%=work.isFinash()? "btn-default" : "btn-success" %>" href="work/finash.jsp?id=<%=work.getId() %>" role="button"><%=work.isFinash()? "取消" : "完成" %></a></td>
+                  <td><a class="btn btn-sm <%=work.getGroupId() == group.getId()? "btn-default" : "btn-success" %>" href="work/finash.jsp?id=<%=work.getId() %>" role="button"><%=work.getGroupId() == group.getId()? "移除" : "添加" %></a></td>
                 </tr>
                 <%} %>
               </tbody>
