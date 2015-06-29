@@ -8,11 +8,12 @@
 	User user = (User)session.getAttribute("user");
 	if(user != null){
 		Work work = new Work(workId);
+		int tId = work.getGroupId();
 		work.drop();
 %>
 <script type="text/javascript">
 <!--
-	window.location="../manage.jsp";
+	window.location="../manage.jsp?tid=<%=tId%>";
 //-->
 </script>
 <%}else{%>

@@ -105,6 +105,11 @@
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             <% 
             	TaskGroup taskGroup = new TaskGroup(user.getId());
+	    		String tidString = request.getParameter("tid");
+	    		int tid = -1;
+	    		if(tidString != null){
+	    			tid = Integer.parseInt(tidString);
+	    		}
             	for(WorkGroup group:taskGroup.getList()){
             %>
 			  <div class="panel panel-default">
@@ -120,7 +125,7 @@
 					</div>
 			      </h4>
 			    </div>
-			    <div id="workgroup<%=group.getId() %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+			    <div id="workgroup<%=group.getId() %>" class="panel-collapse collapse <%= tid==group.getId() ? "in":"" %>" role="tabpanel" aria-labelledby="headingOne">
 			      <div class="panel-body">
 			      <table class="table table-striped">
 		              <thead>
@@ -166,7 +171,7 @@
 		                  	<div class="btn-group" role="group" aria-label="...">
 		                  		<a data-toggle="modal" data-target="#edit" class="btn btn-primary btn-sm editbtn" id="<%=work.getId()%>">编辑</a>
 							    <a data-toggle="modal" data-target="#del" class="btn btn-danger btn-sm delbtn" id="<%=work.getId()%>">删除</a>
-								<a class="btn btn-sm <%=work.isFinash()? "btn-default" : "btn-success" %>" href="work/finash.jsp?id=<%=work.getId() %>" role="button"><%=work.isFinash()? "取消" : "完成" %></a>
+								<a class="btn btn-sm <%=work.isFinash()? "btn-default" : "btn-success" %>" href="work/finash.jsp?tid=<%=group.getId() %>&id=<%=work.getId() %>" role="button"><%=work.isFinash()? "取消" : "完成" %></a>
 							</div>
 		                  </td>
 		                </tr>
@@ -235,6 +240,7 @@
 		      <form action="work/edit.jsp" method="post">
 		      <div class="modal-body">
 		      		<input type="hidden" id="editworkid" name="editworkid">
+		      		<input type="hidden" id="tid" name="tid">
 				  <div class="form-group">
 				    <label for="title">主题</label>
 				    <input type="text" class="form-control" id="title" name="title" placeholder="主题">
@@ -265,6 +271,7 @@
       <div class="modal-footer">
       	<form action="work/del.jsp" method="post">
       		<input type="hidden" id="delworkid" name="delworkid" /> 
+      		<input type="hidden" id="tid" name="tid">
        		<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
         	<button type="submit" class="btn btn-danger">删除</button>
         </form>

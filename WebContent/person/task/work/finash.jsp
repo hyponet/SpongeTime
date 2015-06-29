@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <%
 	int workId = Integer.parseInt(request.getParameter("id"));
+	int tId = Integer.parseInt(request.getParameter("tid"));
 	Work work = new Work(workId);
 	if(work.getUserId() != 0){
 		if(work.isFinash()){
@@ -19,5 +20,5 @@
 	}
 %>
 <script type="text/javascript">
-	window.location="../manage.jsp";
+	window.location="../manage.jsp?tid=<%=tId%>";
 </script>
