@@ -138,7 +138,7 @@
                   <th>备注</th>
                   <th>优先级</th>
                   <th>预计完成</th>
-                  <th>FINASH</th>
+                  <th>添加</th>
                 </tr>
               </thead>
               <tbody>

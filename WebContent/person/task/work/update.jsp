@@ -17,7 +17,7 @@
 <script type="text/javascript">
 <!--
 	window.location="../manage.jsp?tid=<%=tId%>";
-//-->
+--!>
 </script>
 <%}else{%>
 <script type="text/javascript">
