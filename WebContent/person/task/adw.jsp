@@ -27,13 +27,12 @@
 <script type="text/javascript">
 <!--
 	window.location="addwork.jsp?id=<%=taskid%>";
-	alert("添加成功！");
 //-->
 </script>
 <%}else{%>
 <script type="text/javascript">
 <!--
-	window.location="addwork.jsp";
+	window.location="../../login/index.jsp";
 	alert("登录超时！");
 //-->
 </script>
