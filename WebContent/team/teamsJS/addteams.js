@@ -9,6 +9,17 @@ function CheckTeam( ){
 	           return false;
 		}
 }
+
+function CheckTeam2( ){
+	var teamName=document.getElementById("teamName");
+	var teamPsw=document.getElementById("teamPsw");
+	
+	if(teamName.value==""||teamPsw.value=="")
+		{
+	            alert("所有输入项都不能为空");
+	           return false;
+		}
+}
 /*
    之后用正则限制每一项的输入条件.
 

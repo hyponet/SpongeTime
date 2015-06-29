@@ -104,26 +104,19 @@
 		 	                 暂时不知道些什么
 						</div>
           		</div>
-            <h1 class="page-header">创建团队</h1>
+            <h1 class="page-header">加入团队</h1>
            <div>
-          		<form action="addNewteam.jsp " method="post">
+          		<form action="JoinTeam2.jsp" method="post">
 				     <div class="form-group">
 				           <label for="title">团队名称:</label>
 				           <input type="text" class="form-control"  id="teamName"  name="teamName"  placeholder="团队名">
 				      </div>
-				       <div class="form-group">
-				           <label for="title">团队电话:</label>
-				           <input type="text" class="form-control"  id="teamTel" name="teamTel" placeholder="联系方式">
-				      </div>
-				      <div class="form-group">
-				           <label for="title">团队邮箱</label>
-				           <input type="text" class="form-control"  id="teamEmail" name="teamEmail" placeholder="邮箱">
-				      </div>
+				    
 				     <div class="form-group">
-				           <label for="title">团队地址:</label>
-				           <input type="text" class="form-control"  id="teamAdd"  name="teamAdd" placeholder="地址">
+				           <label for="title">申请加入团队密令:</label>
+				           <input type="text" class="form-control"  id="teamPsw"  name="teamPsw" placeholder="验证码">
 				      </div>
-				  <input  type="submit"  onclick="return CheckTeam( )"  class="btn btn-default" value="创建团队" />
+				  <input  type="submit"  onclick="return CheckTeam2( )"  class="btn btn-default" value="加入团队" />
 				</form>    
           	</div>
 
