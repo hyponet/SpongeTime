@@ -18,12 +18,12 @@
 %>   
 <script type="text/javascript">
      alert("不存在这个团队");
-    window.location="index.jsp";
+    window.location="joinTeam.jsp";
 </script>   
 <% 
    }
  %>
 <script type="text/javascript">
       alert("加入成功");
-    window.location="index.jsp";
+    window.location="joinTeam.jsp";
 </script>
