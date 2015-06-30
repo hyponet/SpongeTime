@@ -44,11 +44,9 @@ public class ManageTeam
 			 else {
 				   String Zan_name;
 				   String Zan_host;
-				  
-				     ResultSet  Temp  =    statement.executeQuery("select teamUser_host from teamUser where teamUser_tid="+Team_tid+";");
+				     ResultSet  Temp  =    statement.executeQuery("select *  from teamUser where teamUser_tid="+Team_tid+";");
 				     if(Temp.next()){
 				    	 Zan_name  = Temp.getString("teamUser_tname");
-				    	 System.out.println("ssss");
 				    	 Zan_host  = Temp.getString("teamUser_host");
 				    		statement.execute("insert into teamUser(teamUser_tid,teamUser_tname,teamUser_uid,teamUser_uname,teamUser_host) "
 						 			+ "values ("+Team_tid+",'"+Zan_name+"','"+Temp_uid+"','"+Temp_uname+"','"+Zan_host+"');");
@@ -56,11 +54,5 @@ public class ManageTeam
 				    return true;
 				}
 		 }
-	
-		    public static void main(String args[]) throws Exception{
-		    	 ManageTeam zan = new ManageTeam();
-		    	boolean Flag= zan.getTeam(1002, 4,"zmczz");
-		    	if(Flag==true) System.out.println("hahahha");
-		    }
 }
      
