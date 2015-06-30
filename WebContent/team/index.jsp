@@ -79,7 +79,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li><a href="../person/index.jsp">概观</span></a></li>
-            <li class="active"><a href="index.jsp">任务进度<span class="sr-only">(current)</a></li>
+            <li><a href="index.jsp">任务进度</a></li>
             <li><a href="#">时间线</a></li>
             <li><a href="#">计划月历</a></li>
           </ul>
@@ -91,7 +91,7 @@
             <li><a href="">计划规划</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="index.jsp">创建团队</a></li>
+            <li class="active"><a href="index.jsp">创建团队<span class="sr-only">(current)</a></li>
             <li><a href="joinTeam.jsp">加入团队</a></li>
             <li><a href="">团队计划</a></li>
           </ul>
