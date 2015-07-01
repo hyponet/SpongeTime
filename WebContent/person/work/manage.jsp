@@ -89,8 +89,8 @@
             <li><a href="">计划规划</a></li>
           </ul>
           <ul class="nav nav-sidebar">
-            <li><a href="">创建团队</a></li>
-            <li><a href="">加入团队</a></li>
+            <li><a href="../../team/addNewteam.jsp">创建团队</a></li>
+            <li><a href="../../team/joinTeam.jsp">加入团队</a></li>
             <li><a href="">团队计划</a></li>
           </ul>
         </div>
