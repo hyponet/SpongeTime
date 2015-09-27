@@ -106,7 +106,7 @@
 
 包括用户与团队的数据管理相关。
 
-[users](https://raw.githubusercontent.com/Coderhypo/SpongeTime/master/users.png)
+![users](https://raw.githubusercontent.com/Coderhypo/SpongeTime/master/users.png)
 
 ### 用户表
 
@@ -128,7 +128,7 @@
 
 事件与事件组相关，注意事件组在团队与个人使用中的区别。
 
-[events](https://raw.githubusercontent.com/Coderhypo/SpongeTime/master/events.png)
+![events](https://raw.githubusercontent.com/Coderhypo/SpongeTime/master/events.png)
 
 ### 事件表
 
