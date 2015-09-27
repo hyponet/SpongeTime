@@ -110,19 +110,50 @@
 
 ### 用户表
 
- ...
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| user_id       | int(32)     | NO   | PRI | NULL    | auto_increment |
+| user_login    | varchar(64) | NO   | MUL | NULL    |                |
+| user_nicename | varchar(64) | NO   |     | NULL    |                |
+| user_email    | varchar(64) | NO   |     | NULL    |                |
+| user_pass     | varchar(64) | NO   |     | NULL    |                |
+| user_url      | varchar(64) | YES  |     | NULL    |                |
+| user_rule     | int(5)      | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+
 
 ### 团队表
 
- ...
++------------------+-------------+------+-----+---------+----------------+
+| Field            | Type        | Null | Key | Default | Extra          |
++------------------+-------------+------+-----+---------+----------------+
+| user_group_id    | int(32)     | NO   | PRI | NULL    | auto_increment |
+| user_group_name  | varchar(64) | NO   |     | NULL    |                |
+| user_group_intro | mediumtext  | YES  |     | NULL    |                |
++------------------+-------------+------+-----+---------+----------------+
 
 ### 团队成员表
 
- ...
++-------------------+---------+------+-----+---------+-------+
+| Field             | Type    | Null | Key | Default | Extra |
++-------------------+---------+------+-----+---------+-------+
+| user_id           | int(32) | NO   | MUL | NULL    |       |
+| group_id          | int(32) | NO   | MUL | NULL    |       |
+| group_member_rule | int(5)  | NO   |     | NULL    |       |
++-------------------+---------+------+-----+---------+-------+
+
 
 ### 团队邀请表
 
- ...
++------------+---------+------+-----+---------+-------+
+| Field      | Type    | Null | Key | Default | Extra |
++------------+---------+------+-----+---------+-------+
+| group_id   | int(32) | NO   | MUL | NULL    |       |
+| inviter_id | int(32) | NO   |     | NULL    |       |
+| invitee_id | int(32) | NO   |     | NULL    |       |
++------------+---------+------+-----+---------+-------+
+
 
 ## 事件模块
 
@@ -132,13 +163,46 @@
 
 ### 事件表
 
- ...
++--------------------+------------+------+-----+---------+----------------+
+| Field              | Type       | Null | Key | Default | Extra          |
++--------------------+------------+------+-----+---------+----------------+
+| event_id           | int(64)    | NO   | PRI | NULL    | auto_increment |
+| event_title        | mediumtext | YES  |     | NULL    |                |
+| event_created_time | datetime   | NO   |     | NULL    |                |
+| event_expect       | datetime   | NO   |     | NULL    |                |
+| event_finish_time  | datetime   | NO   |     | NULL    |                |
+| event_weight       | int(5)     | NO   |     | NULL    |                |
+| event_owner_id     | int(32)    | NO   |     | NULL    |                |
+| event_doer_id      | int(32)    | NO   |     | NULL    |                |
+| event_ender_id     | int(32)    | NO   |     | NULL    |                |
+| event_group_id     | int(32)    | NO   | MUL | NULL    |                |
++--------------------+------------+------+-----+---------+----------------+
+
 
 ### 事件组表
 
- ...
++--------------------------+------------+------+-----+---------+----------------+
+| Field                    | Type       | Null | Key | Default | Extra          |
++--------------------------+------------+------+-----+---------+----------------+
+| event_group_id           | int(32)    | NO   | PRI | NULL    | auto_increment |
+| event_group_title        | mediumtext | NO   |     | NULL    |                |
+| event_group_created_time | datetime   | NO   |     | NULL    |                |
+| event_group_expect       | datetime   | NO   |     | NULL    |                |
+| event_group_finish_time  | datetime   | NO   |     | NULL    |                |
+| event_group_weight       | int(5)     | NO   |     | NULL    |                |
+| event_group_owner_id     | int(32)    | NO   |     | NULL    |                |
+| event_group_group_id     | int(32)    | YES  |     | NULL    |                |
++--------------------------+------------+------+-----+---------+----------------+
 
 ### 事件权重表
 
- ...
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| event_id     | int(64)     | NO   | MUL | NULL    |       |
+| event_weight | double(5,2) | NO   |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+
+
+
 
