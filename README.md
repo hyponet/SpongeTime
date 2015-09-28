@@ -110,28 +110,19 @@
 
 ### 用户表
 
+`
 +---------------+-------------+------+-----+---------+----------------+
-
 | Field         | Type        | Null | Key | Default | Extra          |
-
 +---------------+-------------+------+-----+---------+----------------+
-
 | user_id       | int(32)     | NO   | PRI | NULL    | auto_increment |
-
 | user_login    | varchar(64) | NO   | MUL | NULL    |                |
-
 | user_nicename | varchar(64) | NO   |     | NULL    |                |
-
 | user_email    | varchar(64) | NO   |     | NULL    |                |
-
 | user_pass     | varchar(64) | NO   |     | NULL    |                |
-
 | user_url      | varchar(64) | YES  |     | NULL    |                |
-
 | user_rule     | int(5)      | NO   |     | NULL    |                |
-
 +---------------+-------------+------+-----+---------+----------------+
-
+`
 
 ### 团队表
 
