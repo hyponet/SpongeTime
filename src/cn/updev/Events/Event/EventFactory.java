@@ -39,16 +39,19 @@ public class EventFactory {
         this.weight = weight;
     }
 
+    //立马生成创建事件
     public Timestamp getCreateTime() {
         createTime = new Timestamp(new Date().getTime());
         return createTime;
     }
 
+    //默认正在做这件事的人为创建者
     private Integer getDoerId() {
         doerId = ownerId;
         return doerId;
     }
 
+    //事件没有完成，完成者为空
     private Integer getEnderId() {
         enderId = null;
         return enderId;
@@ -63,6 +66,7 @@ public class EventFactory {
         return eventTitle;
     }
 
+    //预期完成时间
     private Timestamp getExpectTime() {
 
         return expectTime;
@@ -73,18 +77,22 @@ public class EventFactory {
         return finishTime;
     }
 
+    //如果不是团队事件，将返回null
     private Integer getGroupId() {
         return groupId;
     }
 
+    //返回创建者的ID
     private Integer getOwnerId() {
         return ownerId;
     }
 
+    //权重
     private EventWeight getWeight() {
         return weight;
     }
 
+    //创建一个时间，通过数据持久化获得ID，并返回这个事件对象
     public IEvent getEvent(){
 
         IEvent event = new Event(getCreateTime(),getDoerId(),getEnderId(),
