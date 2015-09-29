@@ -3,6 +3,9 @@ package cn.updev.Db.Update;
 import cn.updev.Users.Static.IUser;
 import cn.updev.Users.Static.UserRule;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * Created by hypo on 15-9-29.
  */
@@ -23,9 +26,22 @@ public class UserUpdate {
     }
 
     public void setPassWord(String passWord) {
+
+        //密码MD5加密 把注册邮箱作为盐
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update((passWord + user.geteMail()).getBytes());
+            passWord = new String(md.digest());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        user.setPassWord(passWord);
     }
 
     public void setRule(UserRule rule) {
+
+        user.setRule(rule);
     }
 
     public void setUrl(String url) {
