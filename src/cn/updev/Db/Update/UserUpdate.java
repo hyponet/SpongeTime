@@ -48,9 +48,9 @@ public class UserUpdate {
     }
 
     //数据持久化
-    public Boolean update(){
+    public IUser update(){
 
-        return false;
+        return null;
     }
 
     //删除

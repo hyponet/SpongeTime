@@ -9,10 +9,10 @@ import java.util.Date;
 /**
  * Created by hypo on 15-9-29.
  */
-public class EvenyUpdate {
+public class EventUpdate {
     private IEvent event;
 
-    public EvenyUpdate(IEvent event) {
+    public EventUpdate(IEvent event) {
         this.event = event;
     }
 

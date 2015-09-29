@@ -1,5 +1,6 @@
 package cn.updev.Users.User;
 
+import cn.updev.Db.Update.UserUpdate;
 import cn.updev.Users.Static.IUser;
 import cn.updev.Users.Static.UserRule;
 
@@ -78,7 +79,9 @@ public class UserFactory {
 
         IUser user = new User(geteMail(),getNickName(),getPassWord(),UserRule.User,null,null,getUserName());
         //数据持久化并获得ID
+        UserUpdate update = new UserUpdate(user);
 
+        user = update.update();
 
         return user;
     }
