@@ -13,8 +13,9 @@ public interface IUser {
     void setRule(UserRule rule);
     String getUrl();
     void setUrl(String url);
-    int getUserId();
+    Integer getUserId();
     String getUserName();
     void setUserName(String userName);
     boolean isAdmin();
+    void setPassWord(String passWord);
 }
