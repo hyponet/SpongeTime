@@ -61,7 +61,6 @@ public class UserFactory {
 
         //数据持久化并获得ID
 
-
         return user;
     }
 }
