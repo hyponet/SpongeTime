@@ -77,6 +77,10 @@ public class User implements IUser{
         this.passWord = passWord;
     }
 
+    public String getPassWord() {
+        return passWord;
+    }
+
     public boolean isAdmin(){
         return rule.isAdmin();
     }
