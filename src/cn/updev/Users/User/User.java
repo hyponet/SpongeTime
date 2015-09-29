@@ -7,16 +7,18 @@ import cn.updev.Users.Static.UserRule;
  * Created by hypo on 15-9-28.
  */
 public class User implements IUser{
-    private int userId;
+    private Integer userId;
     private String userName;
     private String nickName;
     private String eMail;
+    private String passWord;
     private String url;
     private UserRule rule;
 
-    public User(String eMail, String nickName, UserRule rule, String url, int userId, String userName) {
+    public User(String eMail, String nickName, String passWord, UserRule rule, String url, Integer userId, String userName) {
         this.eMail = eMail;
         this.nickName = nickName;
+        this.passWord = passWord;
         this.rule = rule;
         this.url = url;
         this.userId = userId;
@@ -55,11 +57,11 @@ public class User implements IUser{
         this.url = url;
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -69,6 +71,10 @@ public class User implements IUser{
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
     public boolean isAdmin(){

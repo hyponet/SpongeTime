@@ -1,5 +1,6 @@
 package cn.updev.Users.User;
 
+import cn.updev.Users.Static.IUser;
 import cn.updev.Users.Static.UserRule;
 
 import java.util.regex.Matcher;
@@ -13,14 +14,16 @@ public class UserFactory {
     private String userName;
     private String nickName;
     private String eMail;
+    private String passWord;
 
-    public UserFactory(String eMail, String nickName, String userName) {
+    public UserFactory(String eMail, String nickName, String userName, String passWord) {
         this.eMail = eMail;
         this.nickName = nickName;
         this.userName = userName;
+        this.passWord = passWord;
     }
 
-    public String geteMail() {
+    private String geteMail() {
 
         //判断合法E-Mail
         Pattern pattern = Pattern.compile("^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$");
@@ -33,7 +36,7 @@ public class UserFactory {
         return null;
     }
 
-    public String getNickName() {
+    private String getNickName() {
 
         //限制长度
         if(nickName.length() > 10){
@@ -42,7 +45,7 @@ public class UserFactory {
         return nickName;
     }
 
-    public String getUserName() {
+    private String getUserName() {
 
         //限制长度
         if(userName.length() > 10){
@@ -51,14 +54,17 @@ public class UserFactory {
         return userName;
     }
 
-    public User getUser(){
+    private String getPassWord() {
+        return passWord;
+    }
+
+    public IUser getUser(){
 
         if(geteMail() == null){
             return null;
         }
 
-        User user = new User(geteMail(),getNickName(),UserRule.User,null,-1,getUserName());
-
+        IUser user = new User(geteMail(),getNickName(),getPassWord(),UserRule.User,null,null,getUserName());
         //数据持久化并获得ID
 
         return user;

@@ -11,19 +11,19 @@ import java.sql.Timestamp;
  */
 public class Event implements IEvent{
 
-    private long eventId;
+    private Long eventId;
     private String eventTitle;
     private Timestamp createTime;
     private Timestamp expectTime;
     private Timestamp finishTime;
     private EventWeight weight;
-    private int ownerId;
-    private int doerId;
-    private int enderId;
-    private int groupId;
+    private Integer ownerId;
+    private Integer doerId;
+    private Integer enderId;
+    private Integer groupId;
 
-    public Event(Timestamp createTime, int doerId, int enderId, long eventId, String eventTitle,
-                 Timestamp expectTime, Timestamp finishTime, int groupId, int ownerId, EventWeight weight) {
+    public Event(Timestamp createTime, Integer doerId, Integer enderId, Long eventId, String eventTitle,
+                 Timestamp expectTime, Timestamp finishTime, Integer groupId, Integer ownerId, EventWeight weight) {
         this.createTime = createTime;
         this.doerId = doerId;
         this.enderId = enderId;
@@ -44,23 +44,23 @@ public class Event implements IEvent{
         this.createTime = createTime;
     }
 
-    public int getDoerId() {
+    public Integer getDoerId() {
         return doerId;
     }
 
-    public void setDoerId(int doerId) {
+    public void setDoerId(Integer doerId) {
         this.doerId = doerId;
     }
 
-    public int getEnderId() {
+    public Integer getEnderId() {
         return enderId;
     }
 
-    public void setEnderId(int enderId) {
+    public void setEnderId(Integer enderId) {
         this.enderId = enderId;
     }
 
-    public long getEventId() {
+    public Long getEventId() {
         return eventId;
     }
 
@@ -92,19 +92,19 @@ public class Event implements IEvent{
         this.finishTime = finishTime;
     }
 
-    public int getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
-    public int getOwnerId() {
+    public Integer getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(int ownerId) {
+    public void setOwnerId(Integer ownerId) {
         this.ownerId = ownerId;
     }
 
