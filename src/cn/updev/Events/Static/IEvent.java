@@ -8,21 +8,21 @@ import java.sql.Timestamp;
 public interface IEvent {
 
     Timestamp getCreateTime();
-    int getDoerId();
-    void setDoerId(int doerId);
-    int getEnderId();
-    void setEnderId(int enderId);
-    long getEventId();
+    Integer getDoerId();
+    void setDoerId(Integer doerId);
+    Integer getEnderId();
+    void setEnderId(Integer enderId);
+    Long getEventId();
     String getEventTitle();
     void setEventTitle(String eventTitle);
     Timestamp getExpectTime();
     void setExpectTime(Timestamp expectTime);
     Timestamp getFinishTime();
     void setFinishTime(Timestamp finishTime);
-    int getGroupId();
-    void setGroupId(int groupId);
-    int getOwnerId();
-    void setOwnerId(int ownerId);
+    Integer getGroupId();
+    void setGroupId(Integer groupId);
+    Integer getOwnerId();
+    void setOwnerId(Integer ownerId);
     EventWeight getWeight();
     void setWeight(EventWeight weight);
 }
