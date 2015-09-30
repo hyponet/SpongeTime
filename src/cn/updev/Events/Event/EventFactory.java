@@ -94,7 +94,7 @@ public class EventFactory {
         return weight;
     }
 
-    //创建一个时间，通过数据持久化获得ID，并返回这个事件对象
+    //创建一个事件，通过数据持久化获得ID，并返回这个事件对象
     public IEvent getEvent(){
 
         IEvent event = new Event(getCreateTime(),getDoerId(),getEnderId(),
