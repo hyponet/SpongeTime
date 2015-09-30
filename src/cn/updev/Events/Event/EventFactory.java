@@ -60,6 +60,7 @@ public class EventFactory {
 
     private String getEventTitle() {
 
+        //限制事件Title长度，超出则截取
         if(eventTitle.length() > 20){
             eventTitle = eventTitle.substring(0,20);
         }
@@ -67,7 +68,7 @@ public class EventFactory {
         return eventTitle;
     }
 
-    //预期完成时间
+    //事件预期完成时间
     private Timestamp getExpectTime() {
 
         return expectTime;
