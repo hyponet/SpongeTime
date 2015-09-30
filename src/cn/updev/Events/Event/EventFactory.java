@@ -15,7 +15,6 @@ public class EventFactory {
     private String eventTitle;
     private Timestamp createTime;
     private Timestamp expectTime;
-    private Timestamp finishTime;
     private EventWeight weight;
     private Integer ownerId;
     private Integer doerId;
@@ -72,11 +71,6 @@ public class EventFactory {
     private Timestamp getExpectTime() {
 
         return expectTime;
-    }
-
-    private Timestamp getFinishTime() {
-        finishTime = null;
-        return finishTime;
     }
 
     //如果不是团队事件，将返回null
