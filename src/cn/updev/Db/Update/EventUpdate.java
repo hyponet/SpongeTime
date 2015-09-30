@@ -68,4 +68,21 @@ public class EventUpdate {
         clearEnderId();
         clearFinishTime();
     }
+
+    public IEvent update(){
+
+        //数据持久化
+
+        if(event.getEventId() == null){
+            //获取事件ID
+
+        }
+
+        return event;
+    }
+
+    public Boolean delete(){
+
+        return false;
+    }
 }

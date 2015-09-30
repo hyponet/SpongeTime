@@ -1,5 +1,6 @@
 package cn.updev.Events.Event;
 
+import cn.updev.Db.Update.EventUpdate;
 import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 
@@ -99,7 +100,9 @@ public class EventFactory {
                 null,getEventTitle(),getExpectTime(),null,getGroupId(),getOwnerId(),getWeight());
 
         //事件数据持久化 并获得 事件ID
+        EventUpdate update = new EventUpdate(event);
 
+        event = update.update();
 
         return event;
     }

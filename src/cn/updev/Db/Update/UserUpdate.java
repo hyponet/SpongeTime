@@ -50,7 +50,13 @@ public class UserUpdate {
     //数据持久化
     public IUser update(){
 
-        return null;
+        //数据持久化
+
+        if(user.getUserId() == null){
+            //获取用户ID
+
+        }
+        return user;
     }
 
     //删除
