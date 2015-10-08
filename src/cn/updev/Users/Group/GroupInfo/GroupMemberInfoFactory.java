@@ -30,4 +30,8 @@ public class GroupMemberInfoFactory {
     public List<GroupUser> findGroupMemberInfoAll(){
         return new GroupMemberInfo().findGroupMemberInfoAll();
     }
+    public GroupMemberInfo getGroupMemberInfo(GroupUser gu){
+        GroupMemberInfo gmi = new GroupMemberInfo(gu);
+        return gmi;
+    }
 }

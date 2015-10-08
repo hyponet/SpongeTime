@@ -10,6 +10,7 @@ import cn.updev.Users.User.GroupUser;
 
 public class GroupMemberInfo {
     private List <GroupUser> list;
+    public GroupMemberInfo(){}
     public GroupMemberInfo(GroupUser gu){//必须有创建者填进来，否这构不成一个团队
         list = new LinkedList<GroupUser>();
         list.add(gu);
@@ -28,12 +29,13 @@ public class GroupMemberInfo {
         //数据库持久化
         return true;
     }
-    public boolean findGroupMemberInfo(Integer userId){
+    public boolean findGroupMemberInfo(Integer userId,Integer groupId){
         //数据库持久化
         return true;
     }
-    public List findGroupMemberInfoAll(){//读取全部团队队员信息
+    public List<GroupUser> findGroupMemberInfoAll(){
+        //读取全部团队队员信息
         //数据库持久化
-        return null;
+        return list;
     }
 }

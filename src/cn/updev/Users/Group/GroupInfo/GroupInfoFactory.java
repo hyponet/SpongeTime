@@ -6,10 +6,12 @@ package cn.updev.Users.Group.GroupInfo;
 public class GroupInfoFactory {
     private String groupName;
     private String groupIntro;
+    private Integer userId;//userId为创建者Id
 
-    public GroupInfoFactory(String groupName,String groupIntro){
+    public GroupInfoFactory(String groupName,String groupIntro,Integer userId){
         this.groupName = groupName;
         this.groupIntro = groupIntro;
+        this.userId = userId;
     }
 
     private String getGroupName(){
@@ -24,9 +26,13 @@ public class GroupInfoFactory {
         }
         return groupIntro;
     }
+    private Integer getUserId(){
+        //判断此userId是否存在，若存在
+        return userId;
+    }
     public GroupInfo getGroupInfo(){
         //数据库持久化获得ID
-        GroupInfo groupinfo  = new GroupInfo(null,getGroupName(),getGroupIntro());
+        GroupInfo groupinfo  = new GroupInfo(null,getGroupName(),getGroupIntro(),getUserId());
 
 
         //需要填充

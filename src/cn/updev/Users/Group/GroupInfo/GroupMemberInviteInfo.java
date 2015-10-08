@@ -12,6 +12,7 @@ public class GroupMemberInviteInfo {
         this.inviterId = inviterId;
         this.inviteeId = inviteeId;
     }
+    public GroupMemberInviteInfo(){}
     public boolean saveGroupMemberInviteInfo(){
         //数据库持久化
         return true;

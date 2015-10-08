@@ -7,7 +7,7 @@ public class GroupUserFactory {
     private Integer userId;
     private Integer groupId;
     private Integer groupMemberRule;
-    public GroupUser(Integer userId,Integer groupId,Integer groupMemberRule){
+    public GroupUserFactory(Integer userId,Integer groupId,Integer groupMemberRule){
         this.userId = userId;
         this.groupId = groupId;
         this.groupMemberRule = groupMemberRule;
