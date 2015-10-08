@@ -26,8 +26,10 @@ public class GroupInfoFactory {
     }
     public GroupInfo getGroupInfo(){
         //数据库持久化获得ID
-        GroupInfo groupinfo  = new GroupInfo(getGroupName(),getGroupIntro());
-        //groupinfo.setGroupId(ID);
+        GroupInfo groupinfo  = new GroupInfo(null,getGroupName(),getGroupIntro());
+
+
+        //需要填充
         return groupinfo;
     }
 
