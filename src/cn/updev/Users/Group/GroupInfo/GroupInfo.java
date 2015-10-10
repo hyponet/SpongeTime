@@ -18,7 +18,7 @@ public class GroupInfo {
         groupcreater = new GroupUserFactory(userId,groupId,1).getGroupUser();//第一个参数是创建者的userId
         GroupMemberInfo gmi = new GroupMemberInfo(groupcreater);
     }
-
+    public GroupInfo(){}
     public Integer getGroupId() {
         return groupId;
     }
@@ -41,5 +41,13 @@ public class GroupInfo {
 
     public void setGroupIntro(String groupIntro) {
         this.groupIntro = groupIntro;
+    }
+    public boolean updateGroupInfo(){
+        //数据库更新,只更新团队介绍
+        return true;
+    }
+    public boolean dismissGroup(){
+        //删除groupId的团队记录
+        return new GroupMemberInfoFactory().delGroupMemberInfo(groupId);
     }
 }

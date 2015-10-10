@@ -14,7 +14,7 @@ public class GroupInfoFactory {
         this.userId = userId;
     }
 
-    private String getGroupName(){
+    public String getGroupName(){
         if(groupName.length()>20){
             groupName = groupName.substring(0,20);
         }
@@ -30,13 +30,19 @@ public class GroupInfoFactory {
         //判断此userId是否存在，若存在
         return userId;
     }
+    public boolean updateGroupInfo(){
+        GroupInfo gi = new GroupInfo(null,getGroupName(),getGroupIntro(),getUserId());
+        return gi.updateGroupInfo();
+    }
     public GroupInfo getGroupInfo(){
         //数据库持久化获得ID
         GroupInfo groupinfo  = new GroupInfo(null,getGroupName(),getGroupIntro(),getUserId());
 
-
         //需要填充
         return groupinfo;
+    }
+    public boolean dismissGroup() {
+        return new GroupInfo().dismissGroup();
     }
 
 }

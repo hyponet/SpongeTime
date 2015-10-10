@@ -13,10 +13,13 @@ public class GroupMemberInviteInfoFactory {
         this.inviteeId = inviteeId;
     }
     public boolean saveGroupMemberInviteInfo(){
-        //如果inviteeId存在，调用
+        //如果inviteeId和inviterId存在，调用
 
         return new GroupMemberInviteInfo().saveGroupMemberInviteInfo();
         //不存在则返回false
 
+    }
+    public boolean deleteGroupMemberInviteInfo(){
+        return new GroupMemberInviteInfo().deleteGroupMemberInviteInfo();
     }
 }

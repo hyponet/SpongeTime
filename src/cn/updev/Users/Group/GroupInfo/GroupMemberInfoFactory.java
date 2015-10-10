@@ -3,7 +3,6 @@ package cn.updev.Users.Group.GroupInfo;
 import cn.updev.Users.User.GroupUser;
 import cn.updev.Users.User.GroupUserFactory;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -33,5 +32,8 @@ public class GroupMemberInfoFactory {
     public GroupMemberInfo getGroupMemberInfo(GroupUser gu){
         GroupMemberInfo gmi = new GroupMemberInfo(gu);
         return gmi;
+    }
+    public boolean delGroupMemberInfoAll(Integer groupId){
+        return new GroupMemberInfo().delGroupMemberInfoAll(groupId);
     }
 }

@@ -38,4 +38,8 @@ public class GroupMemberInfo {
         //数据库持久化
         return list;
     }
+    public boolean delGroupMemberInfoAll(Integer groupId){
+        //删除所有与groupId匹配的记录
+        return true;
+    }
 }

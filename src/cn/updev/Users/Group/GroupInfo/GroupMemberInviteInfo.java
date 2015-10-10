@@ -17,4 +17,8 @@ public class GroupMemberInviteInfo {
         //数据库持久化
         return true;
     }
+    public boolean deleteGroupMemberInviteInfo(){
+        //数据库持久化
+        return true;
+    }
 }
