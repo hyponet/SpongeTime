@@ -4,11 +4,17 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url"/>
-        <property name="connection.driver_class"/>
-        <property name="connection.username"/>
-        <property name="connection.password"/>
-        <!-- DB schema will be updated if needed -->
-        <!-- <property name="hbm2ddl.auto">update</property> -->
+        <property name="show_sql">true</property>
+        <!-- SQL方言，这边设定的是MySQL -->
+        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+        <!--驱动程序-->
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!-- JDBC URL -->
+        <property name="connection.url">jdbc:mysql://localhost/SpongeTime?characterEncoding=utf-8</property>
+        <!-- 数据库用户名-->
+        <property name="connection.username">root</property>
+        <!-- 数据库密码-->
+        <property name="connection.password">password</property>
+        <!--映射文件 -->
     </session-factory>
 </hibernate-configuration>
