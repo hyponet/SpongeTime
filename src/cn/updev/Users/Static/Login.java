@@ -1,4 +1,4 @@
-package cn.updev.Db.Login;
+package cn.updev.Users.Static;
 
 import cn.updev.Users.Static.IUser;
 
@@ -18,11 +18,9 @@ public class Login {
         user = null;
 
         this.passWord = passWord;
-    }
 
-    private void MD5(){
-        //密码MD5加密 把注册邮箱作为盐
         try {
+            //密码MD5加密 把注册邮箱作为盐
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update((passWord + user.geteMail()).getBytes());
             passWord = new String(md.digest());
@@ -36,7 +34,7 @@ public class Login {
         if(user == null){
             return false;
         }
-        MD5();
+
         if(passWord.equals(user.getPassWord())){
             return true;
         }

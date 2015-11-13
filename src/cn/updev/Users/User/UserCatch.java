@@ -1,4 +1,4 @@
-package cn.updev.Db.Catch;
+package cn.updev.Users.User;
 
 import cn.updev.Users.Static.IUser;
 

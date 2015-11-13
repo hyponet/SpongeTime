@@ -1,4 +1,4 @@
-package cn.updev.Db.Update;
+package cn.updev.Events.Event;
 
 import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;

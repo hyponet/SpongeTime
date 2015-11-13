@@ -1,10 +1,8 @@
 package cn.updev.Events.Event;
 
-import cn.updev.Db.Update.EventUpdate;
 import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -13,8 +11,8 @@ import java.util.Date;
 public class EventFactory {
 
     private String eventTitle;
-    private Timestamp createTime;
-    private Timestamp expectTime;
+    private Date createTime;
+    private Date expectTime;
     private EventWeight weight;
     private Integer ownerId;
     private Integer doerId;
@@ -24,7 +22,7 @@ public class EventFactory {
     //个人事件添加
     public EventFactory(String eventTitle, Date expectTime,int ownerId, EventWeight weight) {
         this.eventTitle = eventTitle;
-        this.expectTime = new Timestamp(expectTime.getTime());
+        this.expectTime = new Date(expectTime.getTime());
         this.groupId = null;
         this.ownerId = ownerId;
         this.weight = weight;
@@ -33,15 +31,15 @@ public class EventFactory {
     //团队事件添加
     public EventFactory(String eventTitle, Date expectTime, int groupId, int ownerId, EventWeight weight) {
         this.eventTitle = eventTitle;
-        this.expectTime = new Timestamp(expectTime.getTime());
+        this.expectTime = new Date(expectTime.getTime());
         this.groupId = groupId;
         this.ownerId = ownerId;
         this.weight = weight;
     }
 
     //立马生成创建事件
-    public Timestamp getCreateTime() {
-        createTime = new Timestamp(new Date().getTime());
+    public Date getCreateTime() {
+        createTime = new Date(new Date().getTime());
         return createTime;
     }
 
@@ -68,7 +66,7 @@ public class EventFactory {
     }
 
     //事件预期完成时间
-    private Timestamp getExpectTime() {
+    private Date getExpectTime() {
 
         return expectTime;
     }

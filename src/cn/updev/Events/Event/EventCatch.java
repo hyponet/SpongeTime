@@ -1,4 +1,4 @@
-package cn.updev.Db.Catch;
+package cn.updev.Events.Event;
 
 import cn.updev.Events.Static.IEvent;
 
