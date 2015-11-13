@@ -1,13 +1,13 @@
 package cn.updev.Events.Static;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by hypo on 15-9-28.
  */
 public interface IEvent {
 
-    Timestamp getCreateTime();
+    Date getCreateTime();
     Integer getDoerId();
     void setDoerId(Integer doerId);
     Integer getEnderId();
@@ -15,10 +15,10 @@ public interface IEvent {
     Long getEventId();
     String getEventTitle();
     void setEventTitle(String eventTitle);
-    Timestamp getExpectTime();
-    void setExpectTime(Timestamp expectTime);
-    Timestamp getFinishTime();
-    void setFinishTime(Timestamp finishTime);
+    Date getExpectTime();
+    void setExpectTime(Date expectTime);
+    Date getFinishTime();
+    void setFinishTime(Date finishTime);
     Integer getGroupId();
     void setGroupId(Integer groupId);
     Integer getOwnerId();
