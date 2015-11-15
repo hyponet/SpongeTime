@@ -7,33 +7,25 @@ public class GroupUser {
     private Integer userId;
     private Integer groupId;
     private Integer groupMemberRule;
-    public GroupUser(Integer userId,Integer groupId,Integer groupMemberRule){
+    GroupUser(Integer userId,Integer groupId,Integer groupMemberRule){
         this.userId = userId;
         this.groupId = groupId;
         this.groupMemberRule = groupMemberRule;
     }
 
-    public Integer getUserId() {
+    //getters
+    public Integer getUserId(){
         return userId;
     }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getGroupId() {
+    public Integer getGroupId(){
         return groupId;
     }
-
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
-    }
-
-    public Integer getGroupMemberRule() {
+    public Integer getGroupMemberRule(){
         return groupMemberRule;
     }
 
-    public void setGroupMemberRule(Integer groupMemberRule) {
+    //setters
+    public void setGroupMemberRule(Integer groupMemberRule){
         this.groupMemberRule = groupMemberRule;
     }
 }
