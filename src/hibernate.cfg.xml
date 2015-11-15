@@ -16,5 +16,7 @@
         <!-- 数据库密码-->
         <property name="connection.password">password</property>
         <!--映射文件 -->
+        <mapping file="users.hbm.xml"/>
+        <mapping file="events.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
