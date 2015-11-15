@@ -1,44 +1,57 @@
 package cn.updev.Users.Group.GroupInfo;
 
+import cn.updev.Users.User.GroupUserFactory;
+
+import java.net.Inet4Address;
 import java.util.Iterator;
 
 /**
  * Created by blf2 on 15-9-29.
  */
 public class GroupInfoFactory {
+    private Integer groupId;
     private String groupName;
     private String groupIntro;
     private Integer userId;//userId为创建者Id
 
-    public GroupInfoFactory(String groupName,String groupIntro,Integer userId){
-
+    public GroupInfoFactory(Integer groupId,String groupName,String groupIntro,Integer userId){
+        this.setGroupId(groupId);
+        this.setGroupName(groupName);
+        this.setGroupIntro(groupIntro);
+        this.setUserId(userId);
     }
 
-    private void setGroupName(String groupName){//用户组名只有大小写英文字母和下划线合法
-        boolean flag = true;
-        if(groupName.length() <= 15){
-            for(int i = 0;i < groupName.length();i++){
-                if(!(Character.isLowerCase(groupName.charAt(i)) || Character.isUpperCase(groupName.charAt(i)) ||
-                        groupName.charAt(i) == '_')){
-                    flag = false;
-                    break;
-                }
-            }
-            if(flag)
-                this.groupName = groupName;
-            else
-                this.groupName = null;
-        }else{
-            this.groupName = null;
-        }
+    private void setGroupId(Integer groupId){
+        this.groupId = groupId;
     }
-
+    private void setGroupName(String groupName){
+        if(groupName.length() > 20)
+            groupName = groupName.substring(20);
+        this.groupName = groupName;
+    }
     private void setGroupIntro(String groupIntro){
-        boolean flag = true;
-        if(groupIntro.length() <= 50){
-            for(int i = 0;i < groupIntro.length();i++){
-                //if()
-            }
-        }
+        if(groupIntro.length() > 100)
+            groupIntro = groupIntro.substring(100);
+        this.groupIntro = groupIntro;
+    }
+    private void setUserId(int userId){
+        this.userId = userId;
+    }
+
+    public Integer createGroup(){
+        //把数据存入数据库
+        groupId = 0;//获得groupId
+        GroupUserFactory guf = new GroupUserFactory(userId,groupId,1);
+        //把创建者信息更新到数据库
+        return groupId;
+    }
+    public boolean updateGroup(){
+        //数据库持久化更新用户组信息
+        return true;
+    }
+    public boolean dismissGroup(){
+        //删除groupId群组信息
+        //删除groupId群组成员
+        return true;
     }
 }

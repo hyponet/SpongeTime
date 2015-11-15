@@ -10,13 +10,11 @@ public class GroupInfo {
     private Integer groupId;
     private String groupName;
     private String groupIntro;
-    private GroupUser groupcreater;
 
     public GroupInfo(Integer groupId,String groupName,String groupIntro,GroupUser groupcreater){
         this.groupId = groupId;
         this.groupName = groupName;
         this.groupIntro = groupIntro;
-        this.groupcreater = groupcreater;
     }
 
     public Integer getGroupId() {
@@ -29,10 +27,6 @@ public class GroupInfo {
 
     public String getGroupIntro() {
         return groupIntro;
-    }
-
-    public GroupUser getGroupcreater() {
-        return groupcreater;
     }
 
 }

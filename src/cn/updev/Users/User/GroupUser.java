@@ -25,7 +25,9 @@ public class GroupUser {
     }
 
     //setters
-    public void setGroupMemberRule(Integer groupMemberRule){
-        this.groupMemberRule = groupMemberRule;
+    public boolean setGroupMemberRule(Integer groupMemberRule){
+        //接口留给修改某个人在群组中的权限
+        //更新这个人的权限值
+        return true;
     }
 }
