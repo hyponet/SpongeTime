@@ -22,6 +22,10 @@ public class Event implements IEvent{
     private Integer enderId;
     private Integer groupId;
 
+    public Event(){
+
+    }
+
     public Event(Date createTime, Integer doerId, Integer enderId, Long eventId, String eventTitle,
                  Date expectTime, Date finishTime, Integer groupId, Integer ownerId, EventWeight weight) {
         this.createTime = createTime;
