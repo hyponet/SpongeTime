@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <typedef class="cn.updev.Users.Static.UserRule" name="rule"/>
+    <class name="cn.updev.Users.User.User" table="users">
+        <cache usage="read-write"/>
+        <id name="userId" column="user_id">
+            <generator class="native"/>
+        </id>
+        <property name="userName" type="string" column="user_name"/>
+        <property name="nickName" type="string" column="user_nickname"/>
+        <property name="eMail" type="string" column="user_email"/>
+        <property name="passWord" type="string" column="user_pass"/>
+        <property name="url" type="string" column="user_url"/>
+        <property name="rule" type="rule" column="user_rule"/>
+    </class>
+</hibernate-mapping>
