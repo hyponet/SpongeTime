@@ -3,17 +3,20 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <typedef class="cn.updev.Users.Static.UserRule" name="rule"/>
-    <class name="cn.updev.Users.User.User" table="users">
+    <typedef class="cn.updev.Events.Static.EventWeight" name="Weight"/>
+    <class name="cn.updev.Events.Event.Event" table="events">
         <cache usage="read-write"/>
-        <id name="userId" column="user_id">
+        <id name="eventId" column="event_id">
             <generator class="native"/>
         </id>
-        <property name="userName" type="string" column="user_name"/>
-        <property name="nickName" type="string" column="user_nickname"/>
-        <property name="eMail" type="string" column="user_email"/>
-        <property name="passWord" type="string" column="user_pass"/>
-        <property name="url" type="string" column="user_url"/>
-        <property name="rule" type="rule" column="user_rule"/>
+        <property name="eventTitle" type="java.lang.String" column="event_title"/>
+        <property name="createTime" type="java.util.Date" column="event_create_time"/>
+        <property name="expectTime" type="java.util.Date" column="event_expect_time"/>
+        <property name="finishTime" type="java.util.Date" column="event_finish_time"/>
+        <property name="weight" type="Weight" column="event_weight"/>
+        <property name="ownerId" type="java.lang.Integer" column="event_owner_id"/>
+        <property name="doerId" type="java.lang.Integer" column="event_doer_id"/>
+        <property name="enderId" type="java.lang.Integer" column="event_ender_id"/>
+        <property name="groupId" type="java.lang.Integer" column="event_group_id"/>
     </class>
 </hibernate-mapping>
