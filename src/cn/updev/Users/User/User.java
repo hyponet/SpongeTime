@@ -15,6 +15,10 @@ public class User implements IUser{
     private String url;
     private UserRule rule;
 
+    public User(){
+
+    }
+
     public User(String eMail, String nickName, String passWord, UserRule rule, String url, Integer userId, String userName) {
         this.eMail = eMail;
         this.nickName = nickName;
