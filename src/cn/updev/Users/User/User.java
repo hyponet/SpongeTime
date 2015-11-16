@@ -15,6 +15,10 @@ public class User implements IUser{
     private String url;
     private UserRule rule;
 
+    public User(){
+
+    }
+
     public User(String eMail, String nickName, String passWord, UserRule rule, String url, Integer userId, String userName) {
         this.eMail = eMail;
         this.nickName = nickName;
@@ -75,6 +79,10 @@ public class User implements IUser{
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+    }
+
+    public String getPassWord() {
+        return passWord;
     }
 
     public boolean isAdmin(){

@@ -18,4 +18,5 @@ public interface IUser {
     void setUserName(String userName);
     boolean isAdmin();
     void setPassWord(String passWord);
+    String getPassWord();
 }

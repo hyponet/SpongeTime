@@ -1,8 +1,11 @@
 package cn.updev.Users.User;
 
+import cn.updev.Db.Update.UserUpdate;
 import cn.updev.Users.Static.IUser;
 import cn.updev.Users.Static.UserRule;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,6 +58,16 @@ public class UserFactory {
     }
 
     private String getPassWord() {
+
+        //密码MD5加密 把注册邮箱作为盐
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update((passWord + geteMail()).getBytes());
+            passWord = new String(md.digest());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
         return passWord;
     }
 
@@ -66,6 +79,9 @@ public class UserFactory {
 
         IUser user = new User(geteMail(),getNickName(),getPassWord(),UserRule.User,null,null,getUserName());
         //数据持久化并获得ID
+        UserUpdate update = new UserUpdate(user);
+
+        user = update.update();
 
         return user;
     }

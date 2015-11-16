@@ -4,7 +4,7 @@ package cn.updev.Events.Event;
 import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Created by hypo on 15-9-28.
@@ -13,17 +13,21 @@ public class Event implements IEvent{
 
     private Long eventId;
     private String eventTitle;
-    private Timestamp createTime;
-    private Timestamp expectTime;
-    private Timestamp finishTime;
+    private Date createTime;
+    private Date expectTime;
+    private Date finishTime;
     private EventWeight weight;
     private Integer ownerId;
     private Integer doerId;
     private Integer enderId;
     private Integer groupId;
 
-    public Event(Timestamp createTime, Integer doerId, Integer enderId, Long eventId, String eventTitle,
-                 Timestamp expectTime, Timestamp finishTime, Integer groupId, Integer ownerId, EventWeight weight) {
+    public Event(){
+
+    }
+
+    public Event(Date createTime, Integer doerId, Integer enderId, Long eventId, String eventTitle,
+                 Date expectTime, Date finishTime, Integer groupId, Integer ownerId, EventWeight weight) {
         this.createTime = createTime;
         this.doerId = doerId;
         this.enderId = enderId;
@@ -36,11 +40,11 @@ public class Event implements IEvent{
         this.weight = weight;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
@@ -76,19 +80,19 @@ public class Event implements IEvent{
         this.eventTitle = eventTitle;
     }
 
-    public Timestamp getExpectTime() {
+    public Date getExpectTime() {
         return expectTime;
     }
 
-    public void setExpectTime(Timestamp expectTime) {
+    public void setExpectTime(Date expectTime) {
         this.expectTime = expectTime;
     }
 
-    public Timestamp getFinishTime() {
+    public Date getFinishTime() {
         return finishTime;
     }
 
-    public void setFinishTime(Timestamp finishTime) {
+    public void setFinishTime(Date finishTime) {
         this.finishTime = finishTime;
     }
 
