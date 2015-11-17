@@ -18,3 +18,5 @@ out/
 # IDEA TEMP Files
 .idea/
 *.iml
+
+src/hibernate.cfg.xml
