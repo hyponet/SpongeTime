@@ -27,15 +27,12 @@ public class Event implements IEvent{
 
     }
 
-    public Event(Date createTime, Integer doerId, Integer enderId, Long eventId, String eventTitle,
-                 Date expectTime, Date finishTime, Integer groupId, Integer ownerId, EventWeight weight) {
-        this.createTime = createTime;
+    public Event(Integer doerId, String eventTitle, Date expectTime, Integer groupId,
+                 Integer ownerId, EventWeight weight) {
+        this.createTime = new Date();
         this.doerId = doerId;
-        this.enderId = enderId;
-        this.eventId = eventId;
         this.eventTitle = eventTitle;
         this.expectTime = expectTime;
-        this.finishTime = finishTime;
         this.groupId = groupId;
         this.ownerId = ownerId;
         this.weight = weight;
