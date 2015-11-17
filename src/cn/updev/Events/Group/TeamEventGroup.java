@@ -12,7 +12,11 @@ import java.util.List;
  */
 public class TeamEventGroup extends AbstractEventGroup implements ITeamEvents {
 
-    public TeamEventGroup(Date groupExpect, Integer groupId, String groupTitle, List<IEvent> list, Integer ownerId, EventGroupWeight weight) {
-        super(groupExpect, groupId, groupTitle, list, ownerId, weight);
+    public TeamEventGroup(Date groupExpect, String groupTitle, List<IEvent> list, Integer ownerId, EventGroupWeight weight) {
+        super(groupExpect, groupTitle, list, ownerId, weight);
+    }
+
+    public TeamEventGroup(EventGroupInfo groupInfo, List<IEvent> list) {
+        super(groupInfo, list);
     }
 }
