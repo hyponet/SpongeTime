@@ -10,66 +10,27 @@ import java.util.List;
  * Created by hypo on 15-11-14.
  */
 public abstract class AbstractEventGroup {
-    private Integer groupId;
+    private EventGroupInfo groupInfo;
     private List<IEvent> list;
-    private String groupTitle;
-    private Date createTime;
-    private Date groupExpect;
-    private Date finishTime;
-    private EventGroupWeight weight;
-    private Integer ownerId;
 
-    public AbstractEventGroup(Date groupExpect, Integer groupId, String groupTitle, List<IEvent> list, Integer ownerId, EventGroupWeight weight) {
-        this.groupExpect = groupExpect;
-        this.groupId = groupId;
-        this.groupTitle = groupTitle;
+    public AbstractEventGroup(EventGroupInfo groupInfo, List<IEvent> list) {
+        this.groupInfo = groupInfo;
         this.list = list;
-        this.ownerId = ownerId;
-        this.weight = weight;
+    }
 
-        this.createTime = new Date();
-        this.finishTime = null;
+    public AbstractEventGroup(Date groupExpect, String groupTitle, List<IEvent> list, Integer ownerId, EventGroupWeight weight) {
+
+        this.groupInfo = new EventGroupInfo(groupExpect, groupTitle, ownerId, weight);
+        this.list = list;
 
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public EventGroupInfo getGroupInfo() {
+        return groupInfo;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getFinishTime() {
-        return finishTime;
-    }
-
-    public void setFinishTime(Date finishTime) {
-        this.finishTime = finishTime;
-    }
-
-    public Date getGroupExpect() {
-        return groupExpect;
-    }
-
-    public void setGroupExpect(Date groupExpect) {
-        this.groupExpect = groupExpect;
-    }
-
-    public Integer getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
-    }
-
-    public String getGroupTitle() {
-        return groupTitle;
-    }
-
-    public void setGroupTitle(String groupTitle) {
-        this.groupTitle = groupTitle;
+    public void setGroupInfo(EventGroupInfo groupInfo) {
+        this.groupInfo = groupInfo;
     }
 
     public List<IEvent> getList() {
@@ -80,22 +41,6 @@ public abstract class AbstractEventGroup {
         this.list = list;
     }
 
-    public Integer getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Integer ownerId) {
-        this.ownerId = ownerId;
-    }
-
-    public EventGroupWeight getWeight() {
-        return weight;
-    }
-
-    public void setWeight(EventGroupWeight weight) {
-        this.weight = weight;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,12 +48,16 @@ public abstract class AbstractEventGroup {
 
         AbstractEventGroup that = (AbstractEventGroup) o;
 
-        return !(getGroupId() != null ? !getGroupId().equals(that.getGroupId()) : that.getGroupId() != null);
+        if (getGroupInfo() != null ? !getGroupInfo().equals(that.getGroupInfo()) : that.getGroupInfo() != null)
+            return false;
+        return !(getList() != null ? !getList().equals(that.getList()) : that.getList() != null);
 
     }
 
     @Override
     public int hashCode() {
-        return getGroupId() != null ? getGroupId().hashCode() : 0;
+        int result = getGroupInfo() != null ? getGroupInfo().hashCode() : 0;
+        result = 31 * result + (getList() != null ? getList().hashCode() : 0);
+        return result;
     }
 }
