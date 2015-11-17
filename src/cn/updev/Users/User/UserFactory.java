@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by hypo on 15-9-28.
+ * Created by blf2 on 15-9-28.
  */
 public class UserFactory {
 
@@ -78,9 +78,6 @@ public class UserFactory {
 
         IUser user = new User(geteMail(),getNickName(),getPassWord(),UserRule.User,null,null,getUserName());
         //数据持久化并获得ID
-     //   UserUpdate update = new UserUpdate(user);
-
-    //    user = update.update();
 
         return user;
     }

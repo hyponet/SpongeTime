@@ -92,10 +92,6 @@ public class EventFactory {
         IEvent event = new Event(getCreateTime(),getDoerId(),getEnderId(),
                 null,getEventTitle(),getExpectTime(),null,getGroupId(),getOwnerId(),getWeight());
 
-        //事件数据持久化 并获得 事件ID
-        EventUpdate update = new EventUpdate(event);
-
-        event = update.update();
 
         return event;
     }

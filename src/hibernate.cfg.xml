@@ -4,19 +4,35 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="show_sql">true</property>
-        <!-- SQL方言，这边设定的是MySQL -->
-        <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <!--驱动程序-->
-        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
         <!-- JDBC URL -->
-        <property name="connection.url">jdbc:mysql://localhost/SpongeTime?characterEncoding=utf-8</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost/SpongeTime?characterEncoding=utf-8</property>
         <!-- 数据库用户名-->
-        <property name="connection.username">root</property>
+        <property name="hibernate.connection.username">root</property>
         <!-- 数据库密码-->
-        <property name="connection.password">password</property>
+        <property name="hibernate.connection.password">password</property>
+        <!-- SQL方言，这边设定的是MySQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="show_sql">true</property>
+        <property name="hbm2ddl.auto">update</property>
+        <property name="format_sql">true</property>
+        <!--C3P0配置 -->
+        <property name="hibernate.connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.timeout">120</property>
+        <property name="automaticTestTable">Test</property>
+        <property name="hibernate.c3p0.max_statements">100</property>
+        <property name="hibernate.c3p0.idle_test_period">120</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="c3p0.testConnectionOnCheckout">true</property>
+        <property name="c3p0.idleConnectionTestPeriod">18000</property>
+        <property name="c3p0.maxIdleTime">25000</property>
+        <property name="c3p0.idle_test_period">120</property>
+        <property name="hibernate.cache.use_second_level_cache">false</property>
         <!--映射文件 -->
-        <mapping file="users.hbm.xml"/>
-        <mapping file="events.hbm.xml"/>
+        <mapping resource="cn/updev/Users/Static/User.hbm.xml"/>
+        <mapping resource="cn/updev/Events/Static/Event.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

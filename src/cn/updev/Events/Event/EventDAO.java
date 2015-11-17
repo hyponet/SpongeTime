@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by hypo on 15-9-30.
  */
-public class EventCatch {
+public class EventDAO {
 
     public IEvent getEventById(Integer eventId){
 

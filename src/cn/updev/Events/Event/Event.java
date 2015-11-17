@@ -9,6 +9,7 @@ import java.util.Date;
 /**
  * Created by hypo on 15-9-28.
  */
+
 public class Event implements IEvent{
 
     private Long eventId;
