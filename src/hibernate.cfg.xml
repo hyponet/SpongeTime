@@ -32,7 +32,7 @@
         <property name="format_sql">true</property>
         <property name="hibernate.cache.use_second_level_cache">false</property>
         <!--映射文件 -->
-        <mapping resource="cn/updev/Users/Static/User.hbm.xml"/>
         <mapping resource="cn/updev/Events/Static/Event.hbm.xml"/>
+        <mapping resource="cn/updev/Events/Static/EventGroupInfo.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
