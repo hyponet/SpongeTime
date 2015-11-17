@@ -13,7 +13,7 @@ public class PrimaryUserRule {
        String name = gif.getGroupName();
         //判断是否存在这个名字的团队
         //如果不存在则
-        GroupInfo gi  = gif.getGroupInfo();
+      //  GroupInfo gi  = gif.getGroupIntro();
         //数据库持久化
 
         new GroupMemberInfoFactory().addGroupMemberInfo(creater.getGroupUser());

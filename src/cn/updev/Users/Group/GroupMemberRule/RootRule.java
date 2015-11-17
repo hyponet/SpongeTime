@@ -12,6 +12,7 @@ public class RootRule {
         return true;
     }
     public boolean appointAdmin(Integer groupId,Integer userId){
-        return new GroupMemberInfoFactory().changeGroupMemberInfo(new GroupUser(userId,groupId,2));
+     //   return new GroupMemberInfoFactory().changeGroupMemberInfo(new GroupUser(userId,groupId,2));
+        return true;
     }
 }

@@ -38,6 +38,22 @@ public class GroupInfoFactory {
         this.userId = userId;
     }
 
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public String getGroupIntro() {
+        return groupIntro;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
     public Integer createGroup(){
         //把数据存入数据库
         groupId = 0;//获得groupId

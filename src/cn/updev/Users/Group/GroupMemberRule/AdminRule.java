@@ -12,7 +12,7 @@ public class AdminRule extends PrimaryUserRule {
         return new GroupMemberInfoFactory().delGroupMemberInfo(userId);
     }
     public boolean changeGroupInfo(GroupInfoFactory gif){
-        gif.updateGroupInfo();
+     //   gif.updateGroupInfo();
         return true;
     }
 }
