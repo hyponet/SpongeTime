@@ -1,6 +1,7 @@
 package cn.updev.Events.Group;
 
 import cn.updev.Database.HibernateSessionFactory;
+import cn.updev.Events.Event.EventFactory;
 import cn.updev.Events.Static.EventGroupWeight;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Events.Static.ITeamEvents;
@@ -17,7 +18,6 @@ import java.util.List;
 public class EventGroupFactory {
 
     private Date groupExpect;
-    private Integer groupId;
     private String groupTitle;
     private List<IEvent> list;
     private Integer ownerId;
@@ -33,10 +33,6 @@ public class EventGroupFactory {
 
     private Date getGroupExpect() {
         return groupExpect;
-    }
-
-    private Integer getGroupId() {
-        return groupId;
     }
 
     private String getGroupTitle() {
@@ -58,41 +54,108 @@ public class EventGroupFactory {
         return weight;
     }
 
-    private void save(){
+    private List<IEvent> saveList(List<IEvent> list){
 
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
-
-        for(IEvent event : getList()){
-            EventsGroup eventsGroup = new EventsGroup(event.getEventId(), event.getGroupId(), event.getDoerId());
-            session.save(eventsGroup);
+        EventFactory factory = new EventFactory();
+        for(IEvent event : list){
+            event = factory.update(event);
         }
-
-        EventGroupInfo groupInfo = new EventGroupInfo(getGroupExpect(), getGroupTitle(), getOwnerId(), getWeight());
 
         transaction.commit();
         HibernateSessionFactory.closeSession();
 
-        this.groupId = groupInfo.getGroupId();
+        return list;
+    }
+
+    private EventGroupInfo save(){
+
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+
+        EventGroupInfo groupInfo = new EventGroupInfo(getGroupExpect(), getGroupTitle(), getOwnerId(), getWeight());
+        session.save(groupInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+
+        saveList(getList());
+
+        return groupInfo;
     }
 
     public IUserEvents getUserEvents(){
 
-        IUserEvents events = new UserEventGroup(getGroupExpect(), getGroupId(), getGroupTitle(),
-                getList(), getOwnerId(), getWeight());
-
-        save();
+        EventGroupInfo groupInfo = save();
+        IUserEvents events = new UserEventGroup(groupInfo, getList());
 
         return  events;
     }
 
     public ITeamEvents getTeamEvents(){
 
-        ITeamEvents events = new TeamEventGroup(getGroupExpect(), getGroupId(), getGroupTitle(),
-                getList(), getOwnerId(), getWeight());
-
-        save();
+        EventGroupInfo groupInfo = save();
+        ITeamEvents events = new TeamEventGroup(groupInfo, getList());
 
         return  events;
+    }
+
+    public AbstractEventGroup update(AbstractEventGroup eventGroup){
+
+        EventGroupInfo eventGroupInfo = eventGroup.getGroupInfo();
+
+        this.groupExpect = eventGroupInfo.getGroupExpect();
+        this.groupTitle = eventGroupInfo.getGroupTitle();
+        this.ownerId = eventGroupInfo.getOwnerId();
+        this.weight = eventGroupInfo.getWeight();
+        this.list = eventGroup.getList();
+
+        eventGroupInfo.setGroupExpect(getGroupExpect());
+        eventGroupInfo.setGroupTitle(getGroupTitle());
+        eventGroupInfo.setOwnerId(getOwnerId());
+        eventGroupInfo.setWeight(getWeight());
+
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.update(eventGroupInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+
+        saveList(getList());
+
+        return eventGroup;
+    }
+
+    public Boolean delete(AbstractEventGroup eventGroup){
+
+        EventGroupInfo eventGroupInfo = eventGroup.getGroupInfo();
+        this.list = eventGroup.getList();
+
+        Session session = null;
+        Transaction transaction = null;
+
+        try {
+            session = HibernateSessionFactory.currentSession();
+            transaction = session.beginTransaction();
+
+            for(IEvent event : list){
+
+                session.delete(event);
+            }
+
+            session.delete(eventGroupInfo);
+            transaction.commit();
+        }catch (Exception e){
+
+            System.err.println(e);
+            transaction.rollback();
+            return false;
+        }finally {
+
+            HibernateSessionFactory.closeSession();
+        }
+
+        return true;
     }
 }
