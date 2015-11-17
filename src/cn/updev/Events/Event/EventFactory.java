@@ -1,7 +1,10 @@
 package cn.updev.Events.Event;
 
+import cn.updev.Database.HibernateSessionFactory;
 import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.Date;
 
@@ -11,48 +14,38 @@ import java.util.Date;
 public class EventFactory {
 
     private String eventTitle;
-    private Date createTime;
     private Date expectTime;
     private EventWeight weight;
     private Integer ownerId;
     private Integer doerId;
-    private Integer enderId;
     private Integer groupId;
 
+    public EventFactory(){
+
+    }
+
     //个人事件添加
-    public EventFactory(String eventTitle, Date expectTime,int ownerId, EventWeight weight) {
+    public EventFactory(String eventTitle, Date expectTime, int ownerId, EventWeight weight) {
         this.eventTitle = eventTitle;
-        this.expectTime = new Date(expectTime.getTime());
+        this.expectTime = expectTime;
         this.groupId = null;
         this.ownerId = ownerId;
         this.weight = weight;
     }
 
     //团队事件添加
-    public EventFactory(String eventTitle, Date expectTime, int groupId, int ownerId, EventWeight weight) {
+    public EventFactory(String eventTitle, Date expectTime, int ownerId, EventWeight weight, int groupId) {
         this.eventTitle = eventTitle;
-        this.expectTime = new Date(expectTime.getTime());
+        this.expectTime = expectTime;
         this.groupId = groupId;
         this.ownerId = ownerId;
         this.weight = weight;
-    }
-
-    //立马生成创建事件
-    public Date getCreateTime() {
-        createTime = new Date(new Date().getTime());
-        return createTime;
     }
 
     //默认正在做这件事的人为创建者
     private Integer getDoerId() {
         doerId = ownerId;
         return doerId;
-    }
-
-    //事件没有完成，完成者为空
-    private Integer getEnderId() {
-        enderId = null;
-        return enderId;
     }
 
     private String getEventTitle() {
@@ -89,10 +82,73 @@ public class EventFactory {
     //创建一个事件，通过数据持久化获得ID，并返回这个事件对象
     public IEvent getEvent(){
 
-        IEvent event = new Event(getCreateTime(),getDoerId(),getEnderId(),
-                null,getEventTitle(),getExpectTime(),null,getGroupId(),getOwnerId(),getWeight());
+        if(doerId == null || eventTitle == null || expectTime == null || ownerId == null){
+            return null;
+        }
 
+        IEvent event = new Event(getDoerId(), getEventTitle(), getExpectTime(),
+                       getGroupId(),getOwnerId(),getWeight());
+
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.save(event);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
 
         return event;
+    }
+
+    public IEvent update(IEvent event){
+        this.eventTitle = event.getEventTitle();
+        this.expectTime = event.getExpectTime();
+        this.weight = event.getWeight();
+        this.ownerId = event.getOwnerId();
+        this.doerId = event.getDoerId();
+        this.groupId = event.getGroupId();
+
+        if(doerId == null || eventTitle == null || expectTime == null || ownerId == null){
+            return null;
+        }
+
+        event.setEventTitle(getEventTitle());
+        event.setExpectTime(getExpectTime());
+        event.setWeight(getWeight());
+        event.setOwnerId(getOwnerId());
+        event.setDoerId(getDoerId());
+        event.setGroupId(getGroupId());
+
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+
+        session.saveOrUpdate(event);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+
+        return event;
+    }
+
+    public Boolean delete(IEvent event){
+
+        Session session = null;
+        Transaction transaction = null;
+
+        try {
+
+            session = HibernateSessionFactory.currentSession();
+            transaction = session.beginTransaction();
+            session.delete(event);
+            transaction.commit();
+        }catch (Exception e){
+
+            System.err.println(e);
+            transaction.rollback();
+            return false;
+        }finally {
+
+            HibernateSessionFactory.closeSession();
+        }
+
+        return true;
     }
 }
