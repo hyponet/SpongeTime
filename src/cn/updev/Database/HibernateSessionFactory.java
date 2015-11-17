@@ -19,6 +19,7 @@ public class HibernateSessionFactory {
 
     /** The single instance of hibernate SessionFactory */
     private static org.hibernate.SessionFactory sessionFactory;
+
     /**
      * Returns the ThreadLocal Session instance. Lazy initialize
      * the SessionFactory if needed.
