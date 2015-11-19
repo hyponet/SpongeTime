@@ -94,6 +94,10 @@ public class Event implements IEvent{
         this.finishTime = finishTime;
     }
 
+    public Boolean isFinish(){
+        return (this.finishTime != null);
+    }
+
     public Integer getGroupId() {
         return groupId;
     }
