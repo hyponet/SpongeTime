@@ -19,6 +19,7 @@ public interface IEvent {
     void setExpectTime(Date expectTime);
     Date getFinishTime();
     void setFinishTime(Date finishTime);
+    Boolean isFinish();
     Integer getGroupId();
     void setGroupId(Integer groupId);
     Integer getOwnerId();
