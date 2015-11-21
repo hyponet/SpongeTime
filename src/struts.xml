@@ -4,5 +4,9 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-        <constant name="struts.action.excludePattern" value="/static.*"></constant>
+        <package name="struts2" namespace="/" extends="struts-default">
+                <action name="test" class="TestAction">
+                        <result>index.jsp</result>
+                </action>
+        </package>
 </struts>
