@@ -4,9 +4,21 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
-        <package name="struts2" namespace="/" extends="struts-default">
-                <action name="test" class="TestAction">
-                        <result>index.jsp</result>
+        <constant name="struts.action.excludePattern" value="/static.*"></constant>
+        <package name="Admin" namespace="/" extends="struts-default">
+                <global-results>
+                        <result name="error">WEB-INF/WEB-CONTENT/ERROR.jsp</result>
+                </global-results>
+                <action name="login" class="cn.updev.Action.Admin.AdminAction" method="login">
+                        <result name="success" type="redirect">admin</result>
+                        <result name="login">WEB-INF/WEB-CONTENT/login.jsp</result>
+                </action>
+                <action name="admin" class="cn.updev.Action.Admin.AdminAction">
+                        <result name="user">WEB-INF/WEB-CONTENT/admin/UserDashboard.jsp</result>
+                        <result name="login" type="redirect">login</result>
+                </action>
+                <action name="*">
+                        <result>WEB-INF/WEB-CONTENT/index.jsp</result>
                 </action>
         </package>
 </struts>
