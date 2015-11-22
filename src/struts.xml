@@ -7,11 +7,19 @@
         <constant name="struts.action.excludePattern" value="/static.*"></constant>
         <package name="Admin" namespace="/admin" extends="struts-default">
                 <global-results>
-                        <result name="error">/WEB-INF/WEB-CONTENT/ERROR.jsp</result>
+                        <result name="error">/WEB-INF/WEB-CONTENT/error.jsp</result>
                         <result name="login" type="redirect">/WEB-INF/WEB-CONTENT/login.jsp</result>
                 </global-results>
                 <action name="eventsmanage" class="cn.updev.Action.Event.EventManageAction">
                         <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/EventManage.jsp</result>
+                </action>
+                <action name="eventGroupEdit" class="cn.updev.Action.Event.EventGroupAction" method="getUserEventGroup">
+                        <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/EditEventGroup.jsp</result>
+                        <result name="input" type="redirect">/admin/eventsmanage</result>
+                </action>
+                <action name="saveEventGroup" class="cn.updev.Action.Event.EventGroupAction" method="updateUserEventGroup">
+                        <result name="success" type="redirect">/admin/eventsmanage</result>
+                        <result name="input">/WEB-INF/WEB-CONTENT/dashboard/events/EditEventGroup.jsp</result>
                 </action>
                 <action name="addevents" class="cn.updev.Action.Admin.UserDashboardAction" method="addEvents">
                         <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/AddEvent_index.jsp</result>
@@ -29,7 +37,7 @@
         </package>
         <package name="Login" namespace="/" extends="struts-default">
                 <global-results>
-                        <result name="error">/WEB-INF/WEB-CONTENT/ERROR.jsp</result>
+                        <result name="error">/WEB-INF/WEB-CONTENT/error.jsp</result>
                 </global-results>
                 <action name="login" class="cn.updev.Action.Admin.AdminAction" method="login">
                         <result name="success" type="redirectAction">admin</result>
