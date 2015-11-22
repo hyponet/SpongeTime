@@ -53,13 +53,6 @@
         <a href="/admin/addevents" class="btn btn-default">取消</a>
       </div><!--/.col-lg-4 col-lg-offset-1-->
       <div class="col-lg-5 col-lg-offset-1" style="padding-bottom: 45px;">
-        <div class="row">
-          <div class="col-md-6">
-            <button type="button" class="btn btn-default add_event"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-            <button type="button" class="btn btn-default del_event"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-          </div>
-        </div>
-        <hr/>
         <div class="row eventlist">
           <div class="form-group event" id="event_1">
             <label for="title">事件No. 1</label>
@@ -68,6 +61,13 @@
           <div class="form-group event" id="event_2">
             <label for="title">事件No. 2</label>
             <input type="text" class="form-control" name="eventTitle2" placeholder="任务2">
+          </div>
+        </div>
+        <hr/>
+        <div class="row">
+          <div class="col-md-3 col-md-offset-9">
+            <button type="button" class="btn btn-default add_event"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default del_event"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
           </div>
         </div>
       </div><!--/.col-lg-5 col-lg-offset-1-->
