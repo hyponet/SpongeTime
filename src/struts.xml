@@ -5,20 +5,42 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
         <constant name="struts.action.excludePattern" value="/static.*"></constant>
-        <package name="Admin" namespace="/" extends="struts-default">
+        <package name="Admin" namespace="/admin" extends="struts-default">
                 <global-results>
-                        <result name="error">WEB-INF/WEB-CONTENT/ERROR.jsp</result>
+                        <result name="error">/WEB-INF/WEB-CONTENT/ERROR.jsp</result>
+                        <result name="login" type="redirect">/WEB-INF/WEB-CONTENT/login.jsp</result>
+                </global-results>
+                <action name="eventsmanage">
+                        <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/EventManage.jsp</result>
+                </action>
+                <action name="addevents" class="cn.updev.Action.Admin.UserDashboardAction" method="addEvents">
+                        <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/AddEvent_index.jsp</result>
+                </action>
+                <action name="addEvent" class="cn.updev.Action.Event.EventAction">
+                        <result name="input">/WEB-INF/WEB-CONTENT/dashboard/events/AddEvent.jsp</result>
+                        <result name="success" type="redirect">/admin</result>
+                </action>
+                <action name="addEventGroup" class="cn.updev.Action.Event.EventGroupAction">
+                        <result name="input">/WEB-INF/WEB-CONTENT/dashboard/events/AddEventGroup.jsp</result>
+                        <result name="success" type="redirect">/admin</result>
+                        <result name="usertodo" type="redirect">/admin</result>
+                        <result name="teamtodo" type="redirect">/admin</result>
+                </action>
+        </package>
+        <package name="Login" namespace="/" extends="struts-default">
+                <global-results>
+                        <result name="error">/WEB-INF/WEB-CONTENT/ERROR.jsp</result>
                 </global-results>
                 <action name="login" class="cn.updev.Action.Admin.AdminAction" method="login">
-                        <result name="success" type="redirect">admin</result>
-                        <result name="login">WEB-INF/WEB-CONTENT/login.jsp</result>
+                        <result name="success" type="redirectAction">admin</result>
+                        <result name="login">/WEB-INF/WEB-CONTENT/login.jsp</result>
                 </action>
                 <action name="admin" class="cn.updev.Action.Admin.AdminAction">
-                        <result name="user">WEB-INF/WEB-CONTENT/admin/UserDashboard.jsp</result>
-                        <result name="login" type="redirect">login</result>
+                        <result name="user">/WEB-INF/WEB-CONTENT/dashboard/UserDashboard.jsp</result>
+                        <result name="login" type="redirectAction">login</result>
                 </action>
                 <action name="*">
-                        <result>WEB-INF/WEB-CONTENT/index.jsp</result>
+                        <result>/WEB-INF/WEB-CONTENT/index.jsp</result>
                 </action>
         </package>
 </struts>
