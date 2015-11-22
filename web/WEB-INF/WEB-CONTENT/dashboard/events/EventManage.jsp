@@ -73,7 +73,7 @@
           <h4>
             任务组管理
             <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+            <a href="/admin/eventGroupEdit?groupId=<%=groupId%>" type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
             <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
           </h4>
           <%
