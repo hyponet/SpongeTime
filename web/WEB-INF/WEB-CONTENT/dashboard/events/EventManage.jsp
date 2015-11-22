@@ -1,3 +1,10 @@
+<%@ page import="java.util.List" %>
+<%@ page import="cn.updev.Events.Group.UserEventGroup" %>
+<%@ page import="cn.updev.Events.Static.IEvent" %>
+<%@ page import="cn.updev.Events.Group.EventGroupInfo" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="cn.updev.Events.Static.EventWeight" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -6,6 +13,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  List<UserEventGroup> groups = (List<UserEventGroup>) request.getAttribute("groups");
+  Integer groupId = (Integer) request.getAttribute("groupId");
+  List<IEvent> events = (List<IEvent>)request.getAttribute("events");
+%>
 <%@include file="../static/head.jsp"%>
 <body>
 <%@include file="../static/nav.jsp"%>
@@ -22,31 +34,51 @@
   <div class="row">
     <div class="col-lg-12">
       <h3 class="page-header">管理任务</h3>
-      <p>您正在管理您所有的任务，不同的任务权重会有不同的颜色标记，而且团队任务会有团队标签： <span class="label label-warning">团队名</span></p>
+      <p>您正在管理您所有的任务，不同的任务权重会有不同的颜色标记。这里不会出现团队任务，团队任务请选择<span class="label label-warning">团队看板</span></p>
     </div>
   </div><!--/.row-->
   <div class="row" style="padding-top: 20px; padding-bottom: 50px;">
     <div class="col-lg-4">
       <h4>任务组列表</h4>
       <div class="list-group">
-        <a href="#" class="list-group-item active">
-          事件组1
+        <a href="/admin/eventsmanage?groupId=0" class="list-group-item<%=(groupId == 0 ? " active" : "")%>">
+          无任务组事件
         </a>
-        <a href="#" class="list-group-item">事件组2</a>
-        <a href="#" class="list-group-item">事件组3</a>
-        <a href="#" class="list-group-item">事件组4</a>
-        <a href="#" class="list-group-item">事件组5</a>
+        <%
+          if(groups != null){
+            for (UserEventGroup group : groups){
+              EventGroupInfo groupInfo = group.getGroupInfo();
+        %>
+        <a href="/admin/eventsmanage?groupId=<%=groupInfo.getGroupId()%>" class="list-group-item<%=(groupId == groupInfo.getGroupId() ? " active" : "")%>">
+          <%=groupInfo.getGroupTitle()%>
+        </a>
+        <%
+          }}
+        %>
       </div>
     </div><!--/.col-lg-4-->
     <div class="col-lg-8">
       <div class="row">
         <div class="col-lg-11">
+          <%
+            if(groupId == 0){
+          %>
+          <h4>
+            无任务组事件管理
+            <a type="button" href="/admin/addEvent" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+          </h4>
+          <%
+          }else {
+          %>
           <h4>
             任务组管理
             <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
             <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
             <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
           </h4>
+          <%
+            }
+          %>
           <table class="table table-bordered table-hover table-condensed">
             <thead>
             <tr>
@@ -59,20 +91,69 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>任务1名字很长23333</td>
-              <td>2015-11-11</td>
+            <%
+              if(events != null){
+                for(IEvent event : events){
+                  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                  String weight = "";
+                  if(event.getWeight() == EventWeight.RED){
+
+                    weight = "danger";
+                  }else if(event.getWeight() == EventWeight.YELLOW){
+
+                    weight = "warning";
+                  }else if(event.getWeight() == EventWeight.BLUE){
+
+                    weight = "info";
+                  }else if(event.getWeight() == EventWeight.GREEN){
+
+                    weight = "success";
+                  }
+            %>
+            <tr class="<%=weight%>">
+              <td><%=event.isFinish() ? "<del>" + event.getEventTitle() + "</del>" : event.getEventTitle()%></td>
+              <td><%=dateFormat.format(event.getCreateTime())%></td>
               <td>Admin</td>
-              <td>2016-01-01</td>
-              <td>进行中</td>
+              <td><%=dateFormat.format(event.getExpectTime())%></td>
+              <td>
+                <%
+                  if(event.isFinish()){
+                    out.print("已完成");
+                  }else {
+                    long time = event.getExpectTime().getTime() - new Date().getTime();
+                    if(time > 0){
+                      out.print("进行中");
+                    }else {
+                      if(time < -604800000){
+                        out.print("严重超期");
+                      }else {
+                        out.print("超期");
+                      }
+                    }
+                  }
+                %>
+              </td>
               <td>
                 <div class="btn-group btn-group-xs" role="group">
-                  <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+                  <button type="button" class="btn btn-success">
+                    <%
+                      if(event.isFinish()){
+                    %>
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <%
+                    }else {
+                    %>
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    <%}%>
+                  </button>
                   <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
                   <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                 </div>
               </td>
             </tr>
+            <%
+            }}
+            %>
             </tbody>
           </table>
         </div><!--/.col-lg-11-->
