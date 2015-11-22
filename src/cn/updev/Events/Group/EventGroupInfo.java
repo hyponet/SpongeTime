@@ -1,6 +1,6 @@
 package cn.updev.Events.Group;
 
-import cn.updev.Events.Static.EventGroupWeight;
+import cn.updev.Events.Static.EventWeight;
 
 import java.util.Date;
 
@@ -14,13 +14,13 @@ public class EventGroupInfo {
     private Date createTime;
     private Date groupExpect;
     private Date finishTime;
-    private EventGroupWeight weight;
+    private EventWeight weight;
     private Integer ownerId;
 
     public EventGroupInfo() {
     }
 
-    public EventGroupInfo(Date groupExpect, String groupTitle, Integer ownerId, EventGroupWeight weight) {
+    public EventGroupInfo(Date groupExpect, String groupTitle, Integer ownerId, EventWeight weight) {
         this.createTime = new Date();
         this.groupExpect = groupExpect;
         this.groupTitle = groupTitle;
@@ -76,11 +76,11 @@ public class EventGroupInfo {
         this.ownerId = ownerId;
     }
 
-    public EventGroupWeight getWeight() {
+    public EventWeight getWeight() {
         return weight;
     }
 
-    public void setWeight(EventGroupWeight weight) {
+    public void setWeight(EventWeight weight) {
         this.weight = weight;
     }
 }

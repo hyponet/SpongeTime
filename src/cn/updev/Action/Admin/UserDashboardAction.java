@@ -8,4 +8,8 @@ import com.opensymphony.xwork2.ActionSupport;
  * Created by hypo on 15-11-22.
  */
 public class UserDashboardAction extends ActionSupport {
+    public String addEvents(){
+        return SUCCESS;
+    }
+
 }

@@ -3,8 +3,8 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <typedef class="cn.updev.Events.Static.EventGroupWeight" name="GroupWeight"/>
-    <class name="cn.updev.Events.Group.EventGroupInfo" table="evnet_groups">
+    <typedef class="cn.updev.Events.Static.EventWeight" name="Weight"/>
+    <class name="cn.updev.Events.Group.EventGroupInfo" table="event_groups">
         <cache usage="read-write"/>
         <id name="groupId" column="group_id">
             <generator class="native"/>
@@ -13,7 +13,7 @@
         <property name="createTime" type="java.util.Date" column="group_create_time"/>
         <property name="groupExpect" type="java.util.Date" column="group_expect"/>
         <property name="finishTime" type="java.util.Date" column="group_finish_time"/>
-        <property name="weight" type="GroupWeight" column="group_weight"/>
+        <property name="weight" type="Weight" column="group_weight"/>
         <property name="ownerId" type="java.lang.Integer" column="group_owner_id"/>
     </class>
 </hibernate-mapping>

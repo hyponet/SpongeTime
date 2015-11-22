@@ -30,6 +30,7 @@ public class EventFactory {
         this.expectTime = expectTime;
         this.groupId = null;
         this.ownerId = ownerId;
+        this.doerId = ownerId;
         this.weight = weight;
     }
 
@@ -39,6 +40,7 @@ public class EventFactory {
         this.expectTime = expectTime;
         this.groupId = groupId;
         this.ownerId = ownerId;
+        this.doerId = ownerId;
         this.weight = weight;
     }
 

@@ -137,4 +137,20 @@ public class Event implements IEvent{
     public int hashCode() {
         return (int) (getEventId() ^ (getEventId() >>> 32));
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "createTime=" + createTime +
+                ", eventId=" + eventId +
+                ", eventTitle='" + eventTitle + '\'' +
+                ", expectTime=" + expectTime +
+                ", finishTime=" + finishTime +
+                ", weight=" + weight +
+                ", ownerId=" + ownerId +
+                ", doerId=" + doerId +
+                ", enderId=" + enderId +
+                ", groupId=" + groupId +
+                '}';
+    }
 }

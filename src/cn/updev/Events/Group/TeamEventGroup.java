@@ -1,6 +1,6 @@
 package cn.updev.Events.Group;
 
-import cn.updev.Events.Static.EventGroupWeight;
+import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Events.Static.ITeamEvents;
 
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class TeamEventGroup extends AbstractEventGroup implements ITeamEvents {
 
-    public TeamEventGroup(Date groupExpect, String groupTitle, List<IEvent> list, Integer ownerId, EventGroupWeight weight) {
+    public TeamEventGroup(Date groupExpect, String groupTitle, List<IEvent> list, Integer ownerId, EventWeight weight) {
         super(groupExpect, groupTitle, list, ownerId, weight);
     }
 

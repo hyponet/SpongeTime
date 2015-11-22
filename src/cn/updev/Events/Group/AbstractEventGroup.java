@@ -1,6 +1,6 @@
 package cn.updev.Events.Group;
 
-import cn.updev.Events.Static.EventGroupWeight;
+import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 
 import java.util.Date;
@@ -18,7 +18,7 @@ public abstract class AbstractEventGroup {
         this.list = list;
     }
 
-    public AbstractEventGroup(Date groupExpect, String groupTitle, List<IEvent> list, Integer ownerId, EventGroupWeight weight) {
+    public AbstractEventGroup(Date groupExpect, String groupTitle, List<IEvent> list, Integer ownerId, EventWeight weight) {
 
         this.groupInfo = new EventGroupInfo(groupExpect, groupTitle, ownerId, weight);
         this.list = list;

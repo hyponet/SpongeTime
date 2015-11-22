@@ -2,7 +2,7 @@ package cn.updev.Events.Group;
 
 import cn.updev.Database.HibernateSessionFactory;
 import cn.updev.Events.Event.EventFactory;
-import cn.updev.Events.Static.EventGroupWeight;
+import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Events.Static.ITeamEvents;
 import cn.updev.Events.Static.IUserEvents;
@@ -21,12 +21,13 @@ public class EventGroupFactory {
     private String groupTitle;
     private List<IEvent> list;
     private Integer ownerId;
-    private EventGroupWeight weight;
+    private EventWeight weight;
+    private EventGroupInfo groupInfo;
 
-    public EventGroupFactory(Date groupExpect, String groupTitle, List<IEvent> list, Integer ownerId, EventGroupWeight weight) {
+    public EventGroupFactory(Date groupExpect, String groupTitle, Integer ownerId, EventWeight weight) {
         this.groupExpect = groupExpect;
         this.groupTitle = groupTitle;
-        this.list = list;
+        this.list = null;
         this.ownerId = ownerId;
         this.weight = weight;
     }
@@ -46,11 +47,15 @@ public class EventGroupFactory {
         return list;
     }
 
+    public void setList(List<IEvent> list) {
+        this.list = list;
+    }
+
     private Integer getOwnerId() {
         return ownerId;
     }
 
-    private EventGroupWeight getWeight() {
+    private EventWeight getWeight() {
         return weight;
     }
 
@@ -79,14 +84,30 @@ public class EventGroupFactory {
         transaction.commit();
         HibernateSessionFactory.closeSession();
 
-        saveList(getList());
-
         return groupInfo;
+    }
+
+    public EventGroupInfo getGroupInfo(){
+
+        if(this.groupInfo != null){
+            return this.groupInfo;
+        }
+        EventGroupInfo groupInfo = save();
+        this.groupInfo = groupInfo;
+
+        return this.groupInfo;
     }
 
     public IUserEvents getUserEvents(){
 
-        EventGroupInfo groupInfo = save();
+        EventGroupInfo groupInfo = getGroupInfo();
+
+        if(groupInfo == null || getList() == null){
+            return null;
+        }
+
+        setList(getList());
+
         IUserEvents events = new UserEventGroup(groupInfo, getList());
 
         return  events;
@@ -94,7 +115,14 @@ public class EventGroupFactory {
 
     public ITeamEvents getTeamEvents(){
 
-        EventGroupInfo groupInfo = save();
+        EventGroupInfo groupInfo = getGroupInfo();
+
+        if(groupInfo == null || getList() == null){
+            return null;
+        }
+
+        setList(getList());
+
         ITeamEvents events = new TeamEventGroup(groupInfo, getList());
 
         return  events;
