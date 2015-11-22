@@ -22,7 +22,7 @@
   <div class="row">
     <div class="col-lg-12">
       <h3 class="page-header">添加任务</h3>
-      <p>在这里，您可以添加适合单项任务的 <span class="label label-success">事件</span> 或者适合多项任务集合的 <span class="label label-info">事件祖</span></p>
+      <p>在这里，您可以添加适合单项任务的 <span class="label label-success">事件</span> 或者适合多项任务集合的 <span class="label label-info">事件组</span></p>
     </div>
   </div><!--/.row-->
   <div class="row">

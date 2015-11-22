@@ -141,7 +141,7 @@
 				<p>本项目开源并受 <a href="https://github.com/Coderhypo/SpongeTime/blob/master/LICENSE" target="_blank"> MIT</a> 开源协议保护，
 					项目源码获取：<a href="https://github.com/Coderhypo/SpongeTime" target="_blank"> CoderHypo/SpongeTime</a>。</p>
 				<p>欢迎start，欢迎fork，欢迎<a href="#" target="_blank">反馈</a>！</p>
-				<p>&copy; SpongeTime v0.1 BETA</p>
+				<p>&copy; SpongeTime v0.1 DEMO</p>
 			</center>
 		</footer>
 	</div>

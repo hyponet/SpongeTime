@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  String STR = "/WEB-INF/WEB-CONTENT/admin/";
+  String STR = "/WEB-INF/WEB-CONTENT/dashboard/";
   StringBuffer url = request.getRequestURL();
 %>
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
@@ -20,8 +20,8 @@
     <li class="active"><a href="/admin"><span class="glyphicon glyphicon-dashboard"></span> 仪表盘</a></li>
     <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> TODO列表</a></li>
     <li><a href="/admin/addevents"><span class="glyphicon glyphicon-plus"></span> 添加任务</a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-pencil"></span> 管理任务</a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-briefcase"></span> 团队任务</a></li>
+    <li><a href="/admin/eventsmanage"><span class="glyphicon glyphicon-pencil"></span> 管理任务</a></li>
+    <li><a href="#"><span class="glyphicon glyphicon-briefcase"></span> 团队看板</a></li>
     <li><a href="#"><span class="glyphicon glyphicon-time"></span> 时间轴</a></li>
     <li class="parent ">
       <a href="#">
