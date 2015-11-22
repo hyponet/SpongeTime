@@ -8,6 +8,7 @@ import cn.updev.Events.Static.IUserEvents;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +21,27 @@ public class EventGroupDAO {
     public EventGroupDAO() {
 
         this.session = HibernateSessionFactory.currentSession();
+        this.session.clear();
+    }
+
+    public List<UserEventGroup> getAllUserEventGroup(Integer userId){
+
+        Query query = session.createQuery("from EventGroupInfo info where info.ownerId=" + userId);
+        List<EventGroupInfo> list = (List<EventGroupInfo>)query.list();
+
+        if(list.size() == 0){
+            return null;
+        }
+
+        List<UserEventGroup> rnt = new ArrayList<UserEventGroup>();
+        for(EventGroupInfo groupInfo : list){
+            List<IEvent> events = new EventDAO().getEventByEventGroupId(groupInfo.getGroupId());
+            if(events != null){
+
+                rnt.add(new UserEventGroup(groupInfo, events));
+            }
+        }
+        return rnt;
     }
 
     public ITeamEvents getTeamEventGroup(Integer groupId){

@@ -55,7 +55,7 @@
 			<div class="panel panel-teal panel-widget">
 				<div class="row no-padding">
 					<div class="col-sm-3 col-lg-5 widget-left">
-						<em class="glyphicon glyphicon-ok glyphicon-l"></em>
+						<em class="glyphicon glyphicon-check glyphicon-l"></em>
 					</div>
 					<div class="col-sm-9 col-lg-7 widget-right">
 						<div class="large">24</div>
@@ -71,7 +71,7 @@
 						<em class="glyphicon glyphicon-stats glyphicon-l"></em>
 					</div>
 					<div class="col-sm-9 col-lg-7 widget-right">
-						<div class="large">25.2k</div>
+						<div class="large">25.2%</div>
 						<div class="text-muted">及时完成率</div>
 					</div>
 				</div>

@@ -10,7 +10,7 @@
                         <result name="error">/WEB-INF/WEB-CONTENT/ERROR.jsp</result>
                         <result name="login" type="redirect">/WEB-INF/WEB-CONTENT/login.jsp</result>
                 </global-results>
-                <action name="eventsmanage">
+                <action name="eventsmanage" class="cn.updev.Action.Event.EventManageAction">
                         <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/EventManage.jsp</result>
                 </action>
                 <action name="addevents" class="cn.updev.Action.Admin.UserDashboardAction" method="addEvents">
