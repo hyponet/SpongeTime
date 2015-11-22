@@ -40,11 +40,17 @@ public class EventManageAction extends ActionSupport {
         }else if(groups != null){
 
             // 确保返回的事件组事件是该用户创建的
+            Boolean getEvents = false;
             for(UserEventGroup group : groups){
                 if(group.getGroupInfo().getGroupId() == groupId){
 
+                    getEvents = true;
                     events = eventDAO.getEventByEventGroupId(groupId);
                 }
+            }
+
+            if(!getEvents){
+                return ERROR;
             }
             request.setAttribute("groupId", groupId);
         }
