@@ -15,5 +15,6 @@
         <property name="finishTime" type="java.util.Date" column="group_finish_time"/>
         <property name="weight" type="Weight" column="group_weight"/>
         <property name="ownerId" type="java.lang.Integer" column="group_owner_id"/>
+        <property name="teamId" type="java.lang.Integer" column="group_team_id"/>
     </class>
 </hibernate-mapping>

@@ -14,8 +14,9 @@ public class EventGroupInfo {
     private Date createTime;
     private Date groupExpect;
     private Date finishTime;
-    private EventWeight weight;
     private Integer ownerId;
+    private Integer teamId;
+    private EventWeight weight;
 
     public EventGroupInfo() {
     }
@@ -26,6 +27,16 @@ public class EventGroupInfo {
         this.groupTitle = groupTitle;
         this.ownerId = ownerId;
         this.weight = weight;
+        this.teamId = null;
+    }
+
+    public EventGroupInfo(Date groupExpect, String groupTitle, Integer ownerId, EventWeight weight, Integer teamId) {
+        this.createTime = new Date();
+        this.groupExpect = groupExpect;
+        this.groupTitle = groupTitle;
+        this.ownerId = ownerId;
+        this.weight = weight;
+        this.teamId = teamId;
     }
 
     public Date getCreateTime() {
@@ -70,6 +81,14 @@ public class EventGroupInfo {
 
     public Integer getOwnerId() {
         return ownerId;
+    }
+
+    public Integer getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
     }
 
     public void setOwnerId(Integer ownerId) {

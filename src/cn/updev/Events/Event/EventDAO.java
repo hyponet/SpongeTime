@@ -18,6 +18,7 @@ public class EventDAO {
     public EventDAO() {
 
         this.session = HibernateSessionFactory.currentSession();
+        this.session.clear();
     }
 
     public IEvent getEventById(Long eventId){
@@ -28,6 +29,13 @@ public class EventDAO {
         }
         IEvent rnt = (IEvent) query.list().get(0);
         return rnt;
+    }
+
+    public List<IEvent> getSingleEventByUserId(Integer userId){
+
+        Query query =session.createQuery("from Event e where e.doerId=" + userId + " and e.groupId = NULL");
+
+        return (List<IEvent>) query.list();
     }
 
     public List<IEvent> getEventByUserId(Integer userId){
