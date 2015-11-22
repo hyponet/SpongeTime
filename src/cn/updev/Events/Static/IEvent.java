@@ -8,6 +8,7 @@ import java.util.Date;
 public interface IEvent {
 
     Date getCreateTime();
+    void setCreateTime(Date createTime);
     Integer getDoerId();
     void setDoerId(Integer doerId);
     Integer getEnderId();
