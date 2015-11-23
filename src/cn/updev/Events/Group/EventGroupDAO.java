@@ -16,16 +16,13 @@ import java.util.List;
  */
 public class EventGroupDAO {
 
-    private Session session;
-
     public EventGroupDAO() {
 
-        this.session = HibernateSessionFactory.currentSession();
-        this.session.clear();
     }
 
     public List<UserEventGroup> getAllUserEventGroup(Integer userId){
 
+        Session session = HibernateSessionFactory.currentSession();
         Query query = session.createQuery("from EventGroupInfo info where info.ownerId=" + userId);
         List<EventGroupInfo> list = (List<EventGroupInfo>)query.list();
 
@@ -35,41 +32,55 @@ public class EventGroupDAO {
 
         List<UserEventGroup> rnt = new ArrayList<UserEventGroup>();
         for(EventGroupInfo groupInfo : list){
-            List<IEvent> events = new EventDAO().getEventByEventGroupId(groupInfo.getGroupId());
-            if(events != null){
+
+            query =session.createQuery("from Event e where e.groupId=" + groupInfo.getGroupId());
+            List<IEvent> events = query.list();
+            if (events != null) {
 
                 rnt.add(new UserEventGroup(groupInfo, events));
             }
         }
+        session.clear();
+        session.flush();
+        HibernateSessionFactory.closeSession();
         return rnt;
     }
 
     public ITeamEvents getTeamEventGroup(Integer groupId){
+
+        Session session = HibernateSessionFactory.currentSession();
         Query query =session.createQuery("from EventGroupInfo info where info.groupId=" + groupId);
 
         if(query.list().size() == 0){
             return null;
         }
 
-        List<IEvent> events = new EventDAO().getEventByEventGroupId(groupId);
+        query =session.createQuery("from Event e where e.groupId=" + groupId);
+        List<IEvent> events = query.list();
+
         EventGroupInfo group = (EventGroupInfo)query.list().get(0);
+        session.clear();
+        session.flush();
+        HibernateSessionFactory.closeSession();
         return new TeamEventGroup(group, events);
     }
 
     public IUserEvents getUserEventGroup(Integer groupId){
+
+        Session session = HibernateSessionFactory.currentSession();
         Query query =session.createQuery("from EventGroupInfo info where info.groupId=" + groupId);
 
         if(query.list().size() == 0){
             return null;
         }
 
-        List<IEvent> events = new EventDAO().getEventByEventGroupId(groupId);
+        Query getEvents =session.createQuery("from Event e where e.groupId=" + groupId);
+        List<IEvent> events = getEvents.list();
+
         EventGroupInfo group = (EventGroupInfo)query.list().get(0);
+        session.clear();
+        session.flush();
+        HibernateSessionFactory.closeSession();
         return new UserEventGroup(group, events);
     }
-
-    protected void finalize(){
-        HibernateSessionFactory.closeSession();
-    }
-
 }
