@@ -42,10 +42,10 @@
         <div class="form-group">
           <label for="weight">事件组权重</label>
           <select class="form-control" id="weight" name="weight">
-            <option value="1" style="color:#5cb85c;">不紧急不重要</option>
+            <option value="3" style="color:#5cb85c;">不紧急不重要</option>
             <option value="2" style="color:#5bc0de;">不紧急但重要</option>
-            <option value="3" style="color:#f0ad4e;">紧急&nbsp;&nbsp;&nbsp;&nbsp;不重要</option>
-            <option value="4" style="color:#d9534f;">紧急&nbsp;&nbsp;且&nbsp;&nbsp;重要</option>
+            <option value="1" style="color:#f0ad4e;">紧急&nbsp;&nbsp;&nbsp;&nbsp;不重要</option>
+            <option value="0" style="color:#d9534f;">紧急&nbsp;&nbsp;且&nbsp;&nbsp;重要</option>
           </select>
           <small>* TODO列表排序依据。</small>
         </div>
@@ -66,8 +66,8 @@
         <hr/>
         <div class="row">
           <div class="col-md-3 col-md-offset-9">
-            <button type="button" class="btn btn-default add_event"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-            <button type="button" class="btn btn-default del_event"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default add_event" title="新增事件"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default del_event" title="删减事件"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
           </div>
         </div>
       </div><!--/.col-lg-5 col-lg-offset-1-->
