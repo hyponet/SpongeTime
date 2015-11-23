@@ -13,57 +13,84 @@ import java.util.List;
  */
 public class EventDAO {
 
-    private Session session;
-
     public EventDAO() {
 
-        this.session = HibernateSessionFactory.currentSession();
-        this.session.clear();
     }
 
     public IEvent getEventById(Long eventId){
+
+        Session session = HibernateSessionFactory.currentSession();
         Query query =session.createQuery("from Event e where e.eventId=" + eventId);
 
         if(query.list().size() == 0){
             return null;
         }
         IEvent rnt = (IEvent) query.list().get(0);
+        session.clear();
+        session.flush();
+        HibernateSessionFactory.closeSession();
         return rnt;
     }
 
     public List<IEvent> getSingleEventByUserId(Integer userId){
 
+        Session session = HibernateSessionFactory.currentSession();
         Query query =session.createQuery("from Event e where e.doerId=" + userId + " and e.groupId = NULL");
+        List<IEvent> list = query.list();
 
-        return (List<IEvent>) query.list();
+        session.clear();
+        session.flush();
+        HibernateSessionFactory.closeSession();
+
+        return list;
     }
 
     public List<IEvent> getEventByUserId(Integer userId){
 
+        Session session = HibernateSessionFactory.currentSession();
         Query query =session.createQuery("from Event e where e.doerId=" + userId);
+        List<IEvent> list = query.list();
 
-        return (List<IEvent>) query.list();
+        session.clear();
+        session.flush();
+        HibernateSessionFactory.closeSession();
+
+        return list;
     }
 
     public List<IEvent> getEventByEventGroupId(Integer eventGroupId){
 
+        Session session = HibernateSessionFactory.currentSession();
         Query query =session.createQuery("from Event e where e.groupId=" + eventGroupId);
+        List<IEvent> list = query.list();
+        session.clear();
+        session.flush();
+        HibernateSessionFactory.closeSession();
 
-        return (List<IEvent>) query.list();
+        return list;
     }
 
     public List<IEvent> getEventByUserGroupId(Integer userGroupId){
 
+        Session session = HibernateSessionFactory.currentSession();
+        session.clear();
+        session.flush();
+        HibernateSessionFactory.closeSession();
         return null;
     }
 
     public Boolean eventFinish(Long eventId){
 
+        Session session = HibernateSessionFactory.currentSession();
         IEvent event = getEventById(eventId);
         if(event.isFinish()){
             event.setFinishTime(new Date());
 
             session.update(event);
+
+            session.clear();
+            session.flush();
+            HibernateSessionFactory.closeSession();
 
             return true;
         }else {
@@ -71,11 +98,12 @@ public class EventDAO {
 
             session.update(event);
 
+            session.clear();
+            session.flush();
+            HibernateSessionFactory.closeSession();
+
             return false;
         }
-    }
 
-    protected void finalize(){
-        HibernateSessionFactory.closeSession();
     }
 }
