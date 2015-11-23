@@ -1,9 +1,14 @@
 package cn.updev.Users.User;
 
+import cn.updev.Database.HibernateSessionFactory;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 /**
  * Created by blf2 on 15-10-8.
  */
 public class GroupUser {
+    private Integer groupUserId;
     private Integer userId;
     private Integer groupId;
     private Integer groupMemberRule;
@@ -13,25 +18,43 @@ public class GroupUser {
         this.groupMemberRule = groupMemberRule;
     }
 
-    //getters
-    public Integer getUserId(){
+    //getters and setters
+
+
+    public Integer getGroupUserId() {
+        return groupUserId;
+    }
+
+    public void setGroupUserId(Integer groupUserId) {
+        this.groupUserId = groupUserId;
+    }
+
+    public Integer getUserId() {
         return userId;
     }
-    public Integer getGroupId(){
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getGroupId() {
         return groupId;
     }
-    public Integer getGroupMemberRule(){
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    public Integer getGroupMemberRule() {
         return groupMemberRule;
     }
 
-    //setters
-    public boolean setGroupMemberRule(Integer groupMemberRule){
-        //接口留给修改某个人在群组中的权限
-        //更新这个人的权限值
-        return true;
-    }
     public boolean saveGroupUser(){
-        //存储GroupUser
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(new GroupUser(this.userId,this.groupId,this.groupMemberRule));
+        transaction.commit();
+        session.close();
         return true;
     }
 }

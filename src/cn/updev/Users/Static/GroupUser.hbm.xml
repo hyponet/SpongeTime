@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.updev.Users.User.GroupUser" table="GroupUser">
+        <cache usage="read-write"/>
+        <id name="groupUserId" column="groupUserId">
+            <generator class="native"/>
+        </id>
+        <property name="userId" type="java.lang.Integer" column="userId"/>
+        <property name="groupId" type="java.lang.Integer" column="groupId"/>
+        <property name="groupMemberRule" type="java.lang.Integer" column="groupMemberRule"/>
+    </class>
+</hibernate-mapping>
