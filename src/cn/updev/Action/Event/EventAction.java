@@ -26,7 +26,7 @@ public class EventAction extends ActionSupport {
         int ownerId = 1;
 
         //权重
-        EventWeight eventWeight = EventWeight.values()[this.weight - 1];
+        EventWeight eventWeight = EventWeight.values()[this.weight];
 
         //创建事件
         EventFactory factory = new EventFactory(this.eventTitle, this.expectTime, ownerId, eventWeight);
