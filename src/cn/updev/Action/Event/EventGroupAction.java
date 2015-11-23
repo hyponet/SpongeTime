@@ -1,8 +1,10 @@
 package cn.updev.Action.Event;
 
 import cn.updev.Events.Event.EventFactory;
+import cn.updev.Events.Group.EventGroupDAO;
 import cn.updev.Events.Group.EventGroupFactory;
 import cn.updev.Events.Group.EventGroupInfo;
+import cn.updev.Events.Group.UserEventGroup;
 import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Events.Static.ITeamEvents;
@@ -11,6 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,10 +25,15 @@ public class EventGroupAction extends ActionSupport {
 
     private String groupTitle;
     private Date groupExpect;
+    private String groupExpectTime;
     private Integer weight;
+
+    /*
+     * 判断是用户事件组还是团队事件组
+     * 用户事件组是 1
+     * 团队事件组是 -1
+     */
     private Integer user;
-
-
 
     public String execute() throws Exception {
 
@@ -40,25 +48,33 @@ public class EventGroupAction extends ActionSupport {
         //小组权重
         EventWeight groupWeightl = EventWeight.values()[this.weight - 1];
 
-        //为事件组安装事件组信息并持久化
-        EventGroupFactory factory = new EventGroupFactory(this.groupExpect, this.groupTitle, ownerId, groupWeightl);
-        EventGroupInfo groupInfo = factory.getGroupInfo();
-
         //获得事件组事件
         List<IEvent> list = new ArrayList<IEvent>();
         HttpServletRequest request = ServletActionContext.getRequest();
+        List<String> eventTitles = new ArrayList<String>();
         for(int i = 1;i < 100;i++){
             String eventTitle = (String)request.getParameter("eventTitle" + i);
-
             if(eventTitle == null){
                 break;
             }else {
                 eventTitle = eventTitle.trim();
-            }
 
-            if(eventTitle.length() == 0){
-                continue;
+                if(eventTitle.length() > 0){
+                    eventTitles.add(eventTitle);
+                }
             }
+        }
+
+        if(eventTitles.size() < 2){
+            return ERROR;
+        }
+
+        //为事件组安装事件组信息并持久化
+        EventGroupFactory factory = new EventGroupFactory(this.groupExpect, this.groupTitle, ownerId, groupWeightl);
+        EventGroupInfo groupInfo = factory.getGroupInfo();
+
+        // 事件组事件持久化
+        for(String eventTitle : eventTitles){
 
             IEvent event = new EventFactory(eventTitle, groupExpect, ownerId, groupWeightl, groupInfo.getGroupId()).getEvent();
             if(event != null){
@@ -86,12 +102,159 @@ public class EventGroupAction extends ActionSupport {
         return ERROR;
     }
 
+    public String getUserEventGroup(){
+
+        HttpServletRequest request = ServletActionContext.getRequest();
+
+        String groupIdString = request.getParameter("groupId");
+        if(groupIdString == null){
+
+            return INPUT;
+        }
+
+        Integer groupId = Integer.parseInt(groupIdString);
+        if(groupId < 1){
+
+            return INPUT;
+        }
+
+        EventGroupDAO groupDAO = new EventGroupDAO();
+        IUserEvents eventGroup = groupDAO.getUserEventGroup(groupId);
+
+        if(eventGroup == null){
+
+            return ERROR;
+        }
+
+        request.setAttribute("groupId", groupId);
+        request.setAttribute("eventGroup", eventGroup);
+        // 重构事件组信息
+        this.groupTitle = eventGroup.getGroupInfo().getGroupTitle();
+        this.groupExpect = eventGroup.getGroupInfo().getGroupExpect();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        this.groupExpectTime = dateFormat.format(groupExpect);
+        this.weight = eventGroup.getGroupInfo().getWeight().ordinal() + 1;
+
+        List<IEvent> events = eventGroup.getList();
+        request.setAttribute("events", events);
+
+        return SUCCESS;
+    }
+
+    public String updateUserEventGroup(){
+
+        HttpServletRequest request = ServletActionContext.getRequest();
+
+        IUserEvents eventGroup = (IUserEvents) request.getAttribute("eventGroup");
+        if(eventGroup == null){
+            return ERROR;
+        }
+
+        // 更新事件组信息 EventGroupInfo
+        EventGroupInfo groupInfo = eventGroup.getGroupInfo();
+        groupInfo.setWeight(EventWeight.values()[this.weight - 1]);
+        groupInfo.setGroupExpect(this.groupExpect);
+
+        // 更新事件组中的事件信息
+        List<String> eventTitles = new ArrayList<String>();
+        for(int i = 1;i < 100;i++){
+            String eventTitle = (String)request.getParameter("eventTitle" + i);
+            if(eventTitle == null){
+                break;
+            }else {
+                eventTitle = eventTitle.trim();
+
+                if(eventTitle.length() > 0){
+                    eventTitles.add(eventTitle);
+                }
+            }
+        }
+
+        Integer newLen = eventTitles.size();
+        if(newLen < 2){
+            return ERROR;
+        }
+
+        List<IEvent> events = eventGroup.getList();
+        Integer oldLen = events.size();
+
+        EventFactory factory = new EventFactory();
+
+        if(oldLen >= newLen){
+
+            // 如果对事件组进行了删减操作
+            for(int i = 0;i < oldLen;i++){
+
+                IEvent event = events.get(i);
+                if(i >= newLen){
+                    factory.delete(event);
+                    continue;
+                }
+
+                String newEventTitle = eventTitles.get(i);
+
+                if(!newEventTitle.equals(event.getEventTitle())){
+                    event.setEventTitle(newEventTitle);
+                    event.setCreateTime(new Date());
+                }
+                event.setExpectTime(this.groupExpect);
+                event.setWeight(EventWeight.values()[this.weight - 1]);
+
+                factory.update(event);
+            }
+        }else {
+
+            //如果对事件组进行的新增操作
+            for(int i = 0;i < newLen;i++){
+
+                String newEventTitle = eventTitles.get(i);
+                if(i >= oldLen){
+
+                    // 获取当前用户ID
+                    Integer ownerId = 1;
+                    IEvent event = new EventFactory(newEventTitle, this.groupExpect, ownerId,
+                            EventWeight.values()[this.weight - 1], groupInfo.getGroupId()).getEvent();
+                    if(event != null){
+                        events.add(event);
+                    }
+                    continue;
+                }
+
+                IEvent event = events.get(i);
+
+                if(!newEventTitle.equals(event.getEventTitle())){
+                    event.setEventTitle(newEventTitle);
+                    event.setCreateTime(new Date());
+                }
+                event.setExpectTime(this.groupExpect);
+                event.setWeight(EventWeight.values()[this.weight - 1]);
+
+                factory.update(event);
+            }
+        }
+
+        UserEventGroup newGroup = new UserEventGroup(groupInfo, events);
+        EventGroupFactory groupFactory = new EventGroupFactory();
+
+        groupFactory.update(newGroup);
+
+        return SUCCESS;
+    }
+
     public Date getGroupExpect() {
         return groupExpect;
     }
 
     public void setGroupExpect(Date groupExpect) {
         this.groupExpect = groupExpect;
+    }
+
+    public String getGroupExpectTime() {
+        return groupExpectTime;
+    }
+
+    public void setGroupExpectTime(String groupExpectTime) {
+        this.groupExpectTime = groupExpectTime;
     }
 
     public String getGroupTitle() {

@@ -1,11 +1,17 @@
+<%@ page import="java.util.List" %>
+<%@ page import="cn.updev.Events.Static.IEvent" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
   Date: 15-11-22
-  Time: 上午5:37
+  Time: 下午11:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  List<IEvent> events = (List<IEvent>) request.getAttribute("events");
+  Integer groupId = (Integer) request.getAttribute("groupId");
+%>
 <%@include file="../static/head.jsp"%>
 <body>
 <%@include file="../static/nav.jsp"%>
@@ -15,33 +21,33 @@
     <ol class="breadcrumb">
       <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
       <li>Dashboard</li>
-      <li>添加任务</li>
-      <li class="active">添加事件组</li>
+      <li>管理任务</li>
+      <li class="active">编辑事件组</li>
     </ol>
   </div><!--/.row-->
 
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header">添加事件组</h3>
-      <p>您正在添加适合多项任务集合的 <span class="label label-info">事件组</span></p>
+      <h3 class="page-header">编辑事件组</h3>
+      <p>您正在编辑事件组 <span class="label label-info">${groupTitle}</span>，请注意，保存操作需谨慎</p>
     </div>
   </div><!--/.row-->
   <div class="row">
-    <form action="/admin/addEventGroup" method="POST">
+    <form action="/admin/saveEventGroup" method="POST">
       <input type="hidden" name="user" value="1">
       <div class="col-lg-4 col-lg-offset-1" style="padding-top: 25px;">
         <div class="form-group">
           <label for="title">事件组名</label>
-          <input type="text" class="form-control" id="title" name="groupTitle" placeholder="标题">
+          <input type="text" class="form-control" id="title" name="groupTitle" placeholder="标题" value="${groupTitle}">
         </div>
         <div class="form-group">
           <label for="expectTime">理想完成时间</label>
-          <input type="date" class="form-control" id="expectTime" name="groupExpect" placeholder="时间">
+          <input type="date" class="form-control" id="expectTime" name="groupExpect" placeholder="时间" value="${groupExpectTime}">
           <small>* 事件通知时间，进度预期计算参考。</small>
         </div>
         <div class="form-group">
           <label for="weight">事件组权重</label>
-          <select class="form-control" id="weight" name="weight">
+          <select class="form-control" id="weight" name="weight" value="${weight}">
             <option value="1" style="color:#5cb85c;">不紧急不重要</option>
             <option value="2" style="color:#5bc0de;">不紧急但重要</option>
             <option value="3" style="color:#f0ad4e;">紧急&nbsp;&nbsp;&nbsp;&nbsp;不重要</option>
@@ -49,19 +55,24 @@
           </select>
           <small>* TODO列表排序依据。</small>
         </div>
-        <button type="submit" class="btn btn-info">添加</button>
-        <a href="/admin/addevents" class="btn btn-default">取消</a>
+        <button type="submit" class="btn btn-info">保存</button>
+        <a href="/admin/eventsmanage?groupId=<%=groupId%>" class="btn btn-default">取消</a>
       </div><!--/.col-lg-4 col-lg-offset-1-->
       <div class="col-lg-5 col-lg-offset-1" style="padding-bottom: 45px;">
         <div class="row eventlist">
-          <div class="form-group event" id="event_1">
-            <label for="title">事件No. 1</label>
-            <input type="text" class="form-control" name="eventTitle1" placeholder="任务1">
+          <%
+            if(events != null){
+              Integer no = 0;
+              for(IEvent event : events){
+                no++;
+          %>
+          <div class="form-group event" id="event_<%=no%>">
+            <label for="title">事件No. <%=no%></label>
+            <input type="text" class="form-control" name="eventTitle<%=no%>" placeholder="任务<%=no%>" value="<%=event.getEventTitle()%>">
           </div>
-          <div class="form-group event" id="event_2">
-            <label for="title">事件No. 2</label>
-            <input type="text" class="form-control" name="eventTitle2" placeholder="任务2">
-          </div>
+          <%
+            }}
+          %>
         </div>
         <hr/>
         <div class="row">

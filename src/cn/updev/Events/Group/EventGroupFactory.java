@@ -24,6 +24,10 @@ public class EventGroupFactory {
     private EventWeight weight;
     private EventGroupInfo groupInfo;
 
+    public EventGroupFactory(){
+
+    }
+
     public EventGroupFactory(Date groupExpect, String groupTitle, Integer ownerId, EventWeight weight) {
         this.groupExpect = groupExpect;
         this.groupTitle = groupTitle;
