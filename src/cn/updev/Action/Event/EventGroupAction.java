@@ -1,10 +1,7 @@
 package cn.updev.Action.Event;
 
 import cn.updev.Events.Event.EventFactory;
-import cn.updev.Events.Group.EventGroupDAO;
-import cn.updev.Events.Group.EventGroupFactory;
-import cn.updev.Events.Group.EventGroupInfo;
-import cn.updev.Events.Group.UserEventGroup;
+import cn.updev.Events.Group.*;
 import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Events.Static.ITeamEvents;
@@ -24,6 +21,7 @@ import java.util.List;
  */
 public class EventGroupAction extends ActionSupport {
 
+    private Integer groupId;
     private String groupTitle;
     private Date groupExpect;
     private String groupExpectTime;
@@ -134,7 +132,8 @@ public class EventGroupAction extends ActionSupport {
         this.groupExpect = eventGroup.getGroupInfo().getGroupExpect();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         this.groupExpectTime = dateFormat.format(groupExpect);
-        this.weight = eventGroup.getGroupInfo().getWeight().ordinal() + 1;
+        this.weight = eventGroup.getGroupInfo().getWeight().ordinal();
+        request.setAttribute("weight", this.weight);
 
         List<IEvent> events = eventGroup.getList();
         request.setAttribute("events", events);
@@ -252,6 +251,39 @@ public class EventGroupAction extends ActionSupport {
         groupFactory.update(newGroup);
 
         return SUCCESS;
+    }
+
+    public String delEventGroup(){
+
+        if(this.groupId == null || this.groupId < 1 || this.user == null){
+            return INPUT;
+        }
+
+        EventGroupFactory factory = new EventGroupFactory();
+        EventGroupDAO groupDAO = new EventGroupDAO();
+        AbstractEventGroup group = null;
+
+        if(this.user == 1){
+            group = (AbstractEventGroup) groupDAO.getUserEventGroup(groupId);
+        }else if(this.user == -1){
+            group = (AbstractEventGroup) groupDAO.getTeamEventGroup(groupId);
+        }
+
+        if(group == null){
+            return ERROR;
+        }
+
+        factory.delete(group);
+
+        return SUCCESS;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
     public Date getGroupExpect() {
