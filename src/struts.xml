@@ -13,6 +13,12 @@
                 <action name="eventsmanage" class="cn.updev.Action.Event.EventManageAction">
                         <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/EventManage.jsp</result>
                 </action>
+                <action name="addEventGroup" class="cn.updev.Action.Event.EventGroupAction">
+                        <result name="input">/WEB-INF/WEB-CONTENT/dashboard/events/AddEventGroup.jsp</result>
+                        <result name="success" type="redirect">/admin</result>
+                        <result name="usertodo" type="redirect">/admin</result>
+                        <result name="teamtodo" type="redirect">/admin</result>
+                </action>
                 <action name="eventGroupEdit" class="cn.updev.Action.Event.EventGroupAction" method="getUserEventGroup">
                         <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/EditEventGroup.jsp</result>
                         <result name="input" type="redirect">/admin/eventsmanage</result>
@@ -21,6 +27,10 @@
                         <result name="success" type="redirect">/admin/eventsmanage</result>
                         <result name="input">/WEB-INF/WEB-CONTENT/dashboard/events/EditEventGroup.jsp</result>
                 </action>
+                <action name="delEventGroup" class="cn.updev.Action.Event.EventGroupAction" method="delEventGroup">
+                        <result name="success" type="redirect">/admin/eventsmanage</result>
+                        <result name="input" type="redirect">/admin/eventsmanage?groupId=${groupId}</result>
+                </action>
                 <action name="addevents" class="cn.updev.Action.Admin.UserDashboardAction" method="addEvents">
                         <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/AddEvent_index.jsp</result>
                 </action>
@@ -28,11 +38,17 @@
                         <result name="input">/WEB-INF/WEB-CONTENT/dashboard/events/AddEvent.jsp</result>
                         <result name="success" type="redirect">/admin</result>
                 </action>
-                <action name="addEventGroup" class="cn.updev.Action.Event.EventGroupAction">
-                        <result name="input">/WEB-INF/WEB-CONTENT/dashboard/events/AddEventGroup.jsp</result>
-                        <result name="success" type="redirect">/admin</result>
-                        <result name="usertodo" type="redirect">/admin</result>
-                        <result name="teamtodo" type="redirect">/admin</result>
+                <action name="eventFinish" class="cn.updev.Action.Event.EventAction" method="eventFinish">
+                        <result name="success" type="redirect">/admin/eventsmanage?groupId=${groupId}</result>
+                </action>
+                <action name="updateEvent" class="cn.updev.Action.Event.EventAction" method="updateEvent">
+                        <result name="success" type="redirect">/admin/eventsmanage?groupId=${groupId}</result>
+                </action>
+                <action name="delEvent" class="cn.updev.Action.Event.EventAction" method="delEvent">
+                        <result name="success" type="redirect">/admin/eventsmanage?groupId=${groupId}</result>
+                </action>
+                <action name="addEventToGroup" class="cn.updev.Action.Event.EventAction" method="addEventToGroup">
+                        <result name="success" type="redirect">/admin/eventsmanage?groupId=${groupId}</result>
                 </action>
         </package>
         <package name="Login" namespace="/" extends="struts-default">
