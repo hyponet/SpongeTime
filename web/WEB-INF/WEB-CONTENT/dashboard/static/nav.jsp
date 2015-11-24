@@ -15,7 +15,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><span>SPONGE</span>TIME</a>
+      <a class="navbar-brand" href="/admin"><span>SPONGE</span>TIME</a>
       <ul class="user-menu">
         <li class="dropdown pull-right">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 用户名 <span class="caret"></span></a>

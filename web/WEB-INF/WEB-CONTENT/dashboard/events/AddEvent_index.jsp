@@ -13,7 +13,7 @@
 <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
   <div class="row">
     <ol class="breadcrumb">
-      <li><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+      <li><a href="/admin"><span class="glyphicon glyphicon-home"></span></a></li>
       <li>Dashboard</li>
       <li class="active">添加任务</li>
     </ol>
@@ -29,7 +29,7 @@
     <div class="col-lg-6 col-lg-offset-2">
       <div class="col-lg-5" style="padding-top: 70px;">
         <a href="addEvent" style="text-decoration: none">
-          <div style="padding: 20%; background-color:#5cb85c; border-radius:15px 5px;">
+          <div style="padding: 15%; background-color:#5cb85c; border-radius:15px 5px;">
             <center><p style="font-size: 22px;color: #ffffff;"><b>添加事件</b> </p></center>
           </div>
         </a>
@@ -37,7 +37,7 @@
       </div>
       <div class="col-lg-5 col-lg-offset-2" style="padding-top: 70px;">
         <a href="addEventGroup" style="text-decoration: none">
-          <div style="padding: 20%; background-color:#5bc0de; border-radius:15px 5px;">
+          <div style="padding: 15%; background-color:#5bc0de; border-radius:15px 5px;">
             <center><p style="font-size: 22px; color: #ffffff"><b>添加事件组</b> </p></center>
           </div>
         </a>
