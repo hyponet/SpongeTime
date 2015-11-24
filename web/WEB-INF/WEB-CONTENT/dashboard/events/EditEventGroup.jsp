@@ -47,11 +47,12 @@
         </div>
         <div class="form-group">
           <label for="weight">事件组权重</label>
-          <select class="form-control" id="weight" name="weight" value="${weight}">
-            <option value="3" style="color:#5cb85c;">不紧急不重要</option>
-            <option value="2" style="color:#5bc0de;">不紧急但重要</option>
-            <option value="1" style="color:#f0ad4e;">紧急&nbsp;&nbsp;&nbsp;&nbsp;不重要</option>
-            <option value="0" style="color:#d9534f;">紧急&nbsp;&nbsp;且&nbsp;&nbsp;重要</option>
+          <% Integer weight = (Integer) request.getAttribute("weight");%>
+          <select class="form-control" id="weight" name="weight">
+            <option value="3" <%=weight == 3 ? "selected ":""%>style="color:#5cb85c;">不紧急不重要</option>
+            <option value="2" <%=weight == 2 ? "selected ":""%>style="color:#5bc0de;">不紧急但重要</option>
+            <option value="1" <%=weight == 1 ? "selected ":""%>style="color:#f0ad4e;">紧急&nbsp;&nbsp;&nbsp;&nbsp;不重要</option>
+            <option value="0" <%=weight == 0 ? "selected ":""%>style="color:#d9534f;">紧急&nbsp;&nbsp;且&nbsp;&nbsp;重要</option>
           </select>
           <small>* TODO列表排序依据。</small>
         </div>
