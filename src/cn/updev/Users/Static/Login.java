@@ -1,20 +1,28 @@
 package cn.updev.Users.Static;
 
-import cn.updev.Users.Static.IUser;
+import org.apache.struts2.ServletActionContext;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
+ * 登录判断
+ * 获得登录用户
  * Created by hypo on 15-9-29.
  */
 public class Login {
     private IUser user;
     private String passWord;
 
-    public Login(String loginName, String passWord) {
+    public Login(){
 
-        //loginName 可能是邮箱或者用户名， 分别尝试获得user对象
+    }
+
+    public Login(String email, String passWord) {
+
+        // email是用户注册邮箱
         user = null;
 
         this.passWord = passWord;
@@ -36,9 +44,29 @@ public class Login {
         }
 
         if(passWord.equals(user.getPassWord())){
+            setSession();
             return true;
         }
 
         return false;
+    }
+
+    private void setSession(){
+
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
+
+        session.setAttribute("user", user);
+
+    }
+
+    public IUser getLoginedUser(){
+
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
+
+        IUser rnt = (IUser) session.getAttribute("user");
+
+        return rnt;
     }
 }
