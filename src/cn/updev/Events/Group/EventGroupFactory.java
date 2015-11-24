@@ -65,15 +65,10 @@ public class EventGroupFactory {
 
     private List<IEvent> saveList(List<IEvent> list){
 
-        Session session = HibernateSessionFactory.currentSession();
-        Transaction transaction = session.beginTransaction();
         EventFactory factory = new EventFactory();
         for(IEvent event : list){
             event = factory.update(event);
         }
-
-        transaction.commit();
-        HibernateSessionFactory.closeSession();
 
         return list;
     }
@@ -153,8 +148,6 @@ public class EventGroupFactory {
         session.update(eventGroupInfo);
         transaction.commit();
         HibernateSessionFactory.closeSession();
-
-        saveList(getList());
 
         return eventGroup;
     }

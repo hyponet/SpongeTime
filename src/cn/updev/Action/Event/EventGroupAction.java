@@ -13,6 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +47,7 @@ public class EventGroupAction extends ActionSupport {
         Integer ownerId = 1;
 
         //小组权重
-        EventWeight groupWeightl = EventWeight.values()[this.weight - 1];
+        EventWeight groupWeightl = EventWeight.values()[this.weight];
 
         //获得事件组事件
         List<IEvent> list = new ArrayList<IEvent>();
@@ -127,7 +128,7 @@ public class EventGroupAction extends ActionSupport {
         }
 
         request.setAttribute("groupId", groupId);
-        request.setAttribute("eventGroup", eventGroup);
+        request.getSession().setAttribute("eventGroup", eventGroup);
         // 重构事件组信息
         this.groupTitle = eventGroup.getGroupInfo().getGroupTitle();
         this.groupExpect = eventGroup.getGroupInfo().getGroupExpect();
@@ -144,15 +145,17 @@ public class EventGroupAction extends ActionSupport {
     public String updateUserEventGroup(){
 
         HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
 
-        IUserEvents eventGroup = (IUserEvents) request.getAttribute("eventGroup");
+        IUserEvents eventGroup = (IUserEvents) session.getAttribute("eventGroup");
         if(eventGroup == null){
             return ERROR;
         }
 
         // 更新事件组信息 EventGroupInfo
         EventGroupInfo groupInfo = eventGroup.getGroupInfo();
-        groupInfo.setWeight(EventWeight.values()[this.weight - 1]);
+        groupInfo.setGroupTitle(groupTitle);
+        groupInfo.setWeight(EventWeight.values()[this.weight]);
         groupInfo.setGroupExpect(this.groupExpect);
 
         // 更新事件组中的事件信息
@@ -194,11 +197,16 @@ public class EventGroupAction extends ActionSupport {
                 String newEventTitle = eventTitles.get(i);
 
                 if(!newEventTitle.equals(event.getEventTitle())){
+                    // 获得目前用户ID
+                    Integer ownerId = 1;
+
                     event.setEventTitle(newEventTitle);
+                    event.setOwnerId(ownerId);
+                    event.setDoerId(ownerId);
                     event.setCreateTime(new Date());
                 }
                 event.setExpectTime(this.groupExpect);
-                event.setWeight(EventWeight.values()[this.weight - 1]);
+                event.setWeight(EventWeight.values()[this.weight]);
 
                 factory.update(event);
             }
@@ -213,7 +221,7 @@ public class EventGroupAction extends ActionSupport {
                     // 获取当前用户ID
                     Integer ownerId = 1;
                     IEvent event = new EventFactory(newEventTitle, this.groupExpect, ownerId,
-                            EventWeight.values()[this.weight - 1], groupInfo.getGroupId()).getEvent();
+                            EventWeight.values()[this.weight], groupInfo.getGroupId()).getEvent();
                     if(event != null){
                         events.add(event);
                     }
@@ -223,11 +231,16 @@ public class EventGroupAction extends ActionSupport {
                 IEvent event = events.get(i);
 
                 if(!newEventTitle.equals(event.getEventTitle())){
+                    // 获取当前用户ID
+                    Integer ownerId = 1;
+
                     event.setEventTitle(newEventTitle);
+                    event.setOwnerId(ownerId);
+                    event.setDoerId(ownerId);
                     event.setCreateTime(new Date());
                 }
                 event.setExpectTime(this.groupExpect);
-                event.setWeight(EventWeight.values()[this.weight - 1]);
+                event.setWeight(EventWeight.values()[this.weight]);
 
                 factory.update(event);
             }
