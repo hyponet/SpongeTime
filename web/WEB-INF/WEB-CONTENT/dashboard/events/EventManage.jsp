@@ -65,16 +65,16 @@
           %>
           <h4>
             无任务组事件管理
-            <a type="button" href="/admin/addEvent" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+            <a type="button" href="/admin/addEvent" class="btn btn-default" title="添加无任务组事件"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
           </h4>
           <%
           }else {
           %>
           <h4>
             任务组管理
-            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-            <a href="/admin/eventGroupEdit?groupId=<%=groupId%>" type="button" class="btn btn-default"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true" title="添加新事件到该事件组"></span></button>
+            <a href="/admin/eventGroupEdit?groupId=<%=groupId%>" type="button" class="btn btn-default" title="编辑该事件组信息"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-trash" title="删除该事件组" aria-hidden="true"></span></button>
           </h4>
           <%
             }
@@ -135,7 +135,7 @@
               </td>
               <td>
                 <div class="btn-group btn-group-xs" role="group">
-                  <button type="button" class="btn btn-success">
+                  <button type="button" class="btn btn-success" title="<%=event.isFinish()?"取消完成":"确认完成"%>">
                     <%
                       if(event.isFinish()){
                     %>
@@ -146,8 +146,8 @@
                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                     <%}%>
                   </button>
-                  <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                  <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                  <button type="button" class="btn btn-primary" title="编辑该事件信息"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                  <button type="button" class="btn btn-danger" title="删除该事件"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
                 </div>
               </td>
             </tr>
