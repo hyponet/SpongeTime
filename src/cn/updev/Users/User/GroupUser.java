@@ -1,18 +1,20 @@
 package cn.updev.Users.User;
 
 import cn.updev.Database.HibernateSessionFactory;
+import cn.updev.Users.Static.GroupRule;
+import cn.updev.Users.Static.IGroupUser;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
  * Created by blf2 on 15-10-8.
  */
-public class GroupUser {
-    private Integer groupUserId;
+public class GroupUser implements IGroupUser{
+    private Integer groupUserId;//为数据库而生，是数据库的主键
     private Integer userId;
     private Integer groupId;
-    private Integer groupMemberRule;
-    GroupUser(Integer userId,Integer groupId,Integer groupMemberRule){
+    private GroupRule groupMemberRule;
+    GroupUser(Integer userId,Integer groupId,GroupRule groupMemberRule){
         this.userId = userId;
         this.groupId = groupId;
         this.groupMemberRule = groupMemberRule;
@@ -45,16 +47,36 @@ public class GroupUser {
         this.groupId = groupId;
     }
 
-    public Integer getGroupMemberRule() {
+    public GroupRule getGroupMemberRule() {
         return groupMemberRule;
     }
 
-    public boolean saveGroupUser(){
+    public boolean setGroupMemberRule(GroupRule groupMemberRule){
+        if(groupMemberRule.isCreater() || groupMemberRule.isAdmin() || groupMemberRule.isUser()) {
+            this.groupMemberRule = groupMemberRule;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isCreater(){
+        return groupMemberRule.isCreater();
+    }
+
+    public boolean isAdmin(){
+        return groupMemberRule.isAdmin();
+    }
+
+    public boolean isUser(){
+        return groupMemberRule.isUser();
+    }
+
+    public GroupUser saveGroupUser(){
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.save(this);
         transaction.commit();
         session.close();
-        return true;
+        return this;
     }
 }
