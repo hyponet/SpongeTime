@@ -12,4 +12,11 @@ public enum UserRule {
         }
         return false;
     }
+
+    public boolean isUser(){
+        if(this == User){
+            return true;
+        }
+        return  false;
+    }
 }

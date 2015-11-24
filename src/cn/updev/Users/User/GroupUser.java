@@ -52,7 +52,7 @@ public class GroupUser {
     public boolean saveGroupUser(){
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
-        session.save(new GroupUser(this.userId,this.groupId,this.groupMemberRule));
+        session.save(this);
         transaction.commit();
         session.close();
         return true;
