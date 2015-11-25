@@ -10,7 +10,7 @@
                         <result name="error">/WEB-INF/WEB-CONTENT/error.jsp</result>
                         <result name="login" type="redirect">/WEB-INF/WEB-CONTENT/login.jsp</result>
                 </global-results>
-                <action name="todolist">
+                <action name="todolist" class="cn.updev.Action.Todo.TodoListAction">
                         <result>/WEB-INF/WEB-CONTENT/dashboard/todo/todoList.jsp</result>
                 </action>
                 <action name="eventsmanage" class="cn.updev.Action.Event.EventManageAction">
