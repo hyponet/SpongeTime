@@ -1,10 +1,13 @@
 package cn.updev.Users.Static.FuctionClass;
 
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import org.apache.struts2.ServletActionContext;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
@@ -32,23 +35,33 @@ public class Login {
         if(matcher.matches()){
 
             // email是用户注册邮箱
-            user = null;
+            UserOrGroupQuery query = new UserOrGroupQuery();
+            user = query.queryUserByEMail(email);
         }else{
 
             // 邮箱非法，不用再去尝试获取用户
             user = null;
         }
 
-        this.passWord = passWord;
+        passWord = passWord + email;
 
+        //确定计算方法
+        MessageDigest md5= null;
         try {
-            //密码MD5加密 把注册邮箱作为盐
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update((passWord + user.geteMail()).getBytes());
-            passWord = new String(md.digest());
+            md5 = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+
+        //加密后的字符串
+        BASE64Encoder base64en = new BASE64Encoder();
+        try {
+            passWord = base64en.encode(md5.digest(passWord.getBytes("utf-8")));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        this.passWord = passWord;
     }
 
     public Boolean judge(){
@@ -82,5 +95,23 @@ public class Login {
         IUser rnt = (IUser) session.getAttribute("LoingedUser");
 
         return rnt;
+    }
+
+    public void logout(){
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession();
+
+        session.setAttribute("LoingedUser", null);
+    }
+
+    public Boolean isNotLogined(){
+
+        IUser user = getLoginedUser();
+
+        if(user == null){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
