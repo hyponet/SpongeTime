@@ -1,7 +1,10 @@
 package cn.updev.Users.User;
 
+import cn.updev.Database.HibernateSessionFactory;
 import cn.updev.Users.Static.IUser;
 import cn.updev.Users.Static.UserRule;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  * Created by hypo on 15-9-28.
@@ -19,15 +22,14 @@ public class User implements IUser{
 
     }
 
-    public User(String eMail, String nickName, String passWord, UserRule rule, String url, Integer userId, String userName) {
-        this.eMail = eMail;
-        this.nickName = nickName;
-        this.passWord = passWord;
-        this.rule = rule;
-        this.url = url;
-        this.userId = userId;
-        this.userName = userName;
-    }
+   public User(String userName,String nickName,String eMail,String passWord,String url,UserRule rule){
+       this.userName = userName;
+       this.nickName = nickName;
+       this.eMail = eMail;
+       this.passWord = passWord;
+       this.url = url;
+       this.rule = rule;
+   }
 
     public String geteMail() {
         return eMail;
@@ -89,6 +91,8 @@ public class User implements IUser{
         return rule.isAdmin();
     }
 
+    public boolean isUser(){return rule.isUser();}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,8 +108,12 @@ public class User implements IUser{
     public int hashCode() {
         return getUserId();
     }
-    public boolean saveUser(){
-        //存储User信息
-        return true;
+    public User saveUser(){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(this);
+        transaction.commit();
+        session.close();
+        return this;
     }
 }

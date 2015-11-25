@@ -1,6 +1,8 @@
 package cn.updev.Users.User;
 
 import cn.updev.Users.Group.GroupInfo.GroupInfoFactory;
+import cn.updev.Users.Static.GroupRule;
+import cn.updev.Users.Static.IGroupUser;
 
 /**
  * Created by blf2 on 15-10-8.
@@ -8,9 +10,9 @@ import cn.updev.Users.Group.GroupInfo.GroupInfoFactory;
 public class GroupUserFactory {
     private Integer userId;
     private Integer groupId;
-    private Integer groupMemberRule;
+    private GroupRule groupMemberRule;
 
-    public GroupUserFactory(Integer userId,Integer groupId,Integer groupMemberRule){
+    public GroupUserFactory(Integer userId,Integer groupId,GroupRule groupMemberRule){
         this.setUserId(userId);
         this.setGroupId(groupId);
         this.setGroupMemberRule(groupMemberRule);
@@ -23,12 +25,18 @@ public class GroupUserFactory {
             this.groupId = groupId;
 
     }
-    private void setGroupMemberRule(Integer groupMemberRule){
-        this.groupMemberRule = groupMemberRule;
+    private void setGroupMemberRule(GroupRule groupMemberRule){
+        if(groupMemberRule.isCreater() || groupMemberRule.isAdmin() || groupMemberRule.isUser())
+            this.groupMemberRule = groupMemberRule;
+        else
+            this.groupMemberRule = null;
     }
 
-    public GroupUser getGroupUser(){
-        return new GroupUser(userId,groupId,groupMemberRule);
+    public IGroupUser getGroupUser(){
+        if(userId == null || groupId == null || groupMemberRule == null)
+            return null;
+        IGroupUser groupUser = new GroupUser(userId,groupId,groupMemberRule);
+        return groupUser;
     }
 
 }

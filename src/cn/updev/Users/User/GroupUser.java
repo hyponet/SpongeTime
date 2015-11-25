@@ -1,37 +1,82 @@
 package cn.updev.Users.User;
 
+import cn.updev.Database.HibernateSessionFactory;
+import cn.updev.Users.Static.GroupRule;
+import cn.updev.Users.Static.IGroupUser;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 /**
  * Created by blf2 on 15-10-8.
  */
-public class GroupUser {
+public class GroupUser implements IGroupUser{
+    private Integer groupUserId;//为数据库而生，是数据库的主键
     private Integer userId;
     private Integer groupId;
-    private Integer groupMemberRule;
-    GroupUser(Integer userId,Integer groupId,Integer groupMemberRule){
+    private GroupRule groupMemberRule;
+    GroupUser(Integer userId,Integer groupId,GroupRule groupMemberRule){
         this.userId = userId;
         this.groupId = groupId;
         this.groupMemberRule = groupMemberRule;
     }
 
-    //getters
-    public Integer getUserId(){
+    //getters and setters
+
+
+    public Integer getGroupUserId() {
+        return groupUserId;
+    }
+
+    public void setGroupUserId(Integer groupUserId) {
+        this.groupUserId = groupUserId;
+    }
+
+    public Integer getUserId() {
         return userId;
     }
-    public Integer getGroupId(){
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getGroupId() {
         return groupId;
     }
-    public Integer getGroupMemberRule(){
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
+    public GroupRule getGroupMemberRule() {
         return groupMemberRule;
     }
 
-    //setters
-    public boolean setGroupMemberRule(Integer groupMemberRule){
-        //接口留给修改某个人在群组中的权限
-        //更新这个人的权限值
-        return true;
+    public boolean setGroupMemberRule(GroupRule groupMemberRule){
+        if(groupMemberRule.isCreater() || groupMemberRule.isAdmin() || groupMemberRule.isUser()) {
+            this.groupMemberRule = groupMemberRule;
+            return true;
+        }
+        return false;
     }
-    public boolean saveGroupUser(){
-        //存储GroupUser
-        return true;
+
+    public boolean isCreater(){
+        return groupMemberRule.isCreater();
+    }
+
+    public boolean isAdmin(){
+        return groupMemberRule.isAdmin();
+    }
+
+    public boolean isUser(){
+        return groupMemberRule.isUser();
+    }
+
+    public GroupUser saveGroupUser(){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(this);
+        transaction.commit();
+        session.close();
+        return this;
     }
 }
