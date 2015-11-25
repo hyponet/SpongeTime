@@ -26,7 +26,7 @@
         <!-- 数据库密码-->
         <property name="hibernate.connection.password">password</property>
         <!-- SQL方言，这边设定的是MySQL -->
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name="show_sql">false</property>
         <property name="hbm2ddl.auto">update</property>
         <property name="format_sql">true</property>
@@ -34,8 +34,7 @@
         <!--映射文件 -->
         <mapping resource="cn/updev/Events/Static/Event.hbm.xml"/>
         <mapping resource="cn/updev/Events/Static/EventGroupInfo.hbm.xml"/>
-        <mapping resource="cn/updev/Users/Static/HibernateXML/User.hbm.xml"/>
         <mapping resource="cn/updev/EventWeight/Weight/EventWeight.hbm.xml"/>
-        <mapping resource="cn/updev/Users/Static/User.hbm.xml"/>
+        <mapping resource="cn/updev/Users/Static/HibernateXML/User.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
