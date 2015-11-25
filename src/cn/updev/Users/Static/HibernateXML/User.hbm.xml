@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <typedef class="cn.updev.Users.Static.UserRule" name="Rule"/>
+    <typedef class="cn.updev.Users.Static.EnumeRule.UserRule" name="Rule"/>
     <class name="cn.updev.Users.User.User" table="users">
         <cache usage="read-write"/>
         <id name="userId" column="user_id">

@@ -1,6 +1,6 @@
-package cn.updev.Users.Static;
+package cn.updev.Users.Static.UserOrGroupInterface;
 
-import cn.updev.Users.Static.UserRule;
+import cn.updev.Users.Static.EnumeRule.GroupRule;
 
 /**
  * Created by blf2 on 15-11-24.

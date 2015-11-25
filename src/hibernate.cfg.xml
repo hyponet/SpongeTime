@@ -34,6 +34,6 @@
         <!--映射文件 -->
         <mapping resource="cn/updev/Events/Static/Event.hbm.xml"/>
         <mapping resource="cn/updev/Events/Static/EventGroupInfo.hbm.xml"/>
-        <mapping resource="cn/updev/Users/Static/User.hbm.xml"/>
+        <mapping resource="cn/updev/Users/Static/HibernateXML/User.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

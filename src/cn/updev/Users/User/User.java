@@ -1,8 +1,8 @@
 package cn.updev.Users.User;
 
 import cn.updev.Database.HibernateSessionFactory;
-import cn.updev.Users.Static.IUser;
-import cn.updev.Users.Static.UserRule;
+import cn.updev.Users.Static.UserOrGroupInterface.IUser;
+import cn.updev.Users.Static.EnumeRule.UserRule;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -107,13 +107,5 @@ public class User implements IUser{
     @Override
     public int hashCode() {
         return getUserId();
-    }
-    public User saveUser(){
-        Session session = HibernateSessionFactory.currentSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(this);
-        transaction.commit();
-        session.close();
-        return this;
     }
 }

@@ -1,4 +1,4 @@
-package cn.updev.Users.Static;
+package cn.updev.Users.Static.EnumeRule;
 
 /**
  * Created by hypo on 15-9-28.

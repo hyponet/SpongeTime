@@ -1,6 +1,6 @@
-package cn.updev.Users.Static;
+package cn.updev.Users.Static.FuctionClass;
 
-import cn.updev.Users.Static.IUser;
+import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

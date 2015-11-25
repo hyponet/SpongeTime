@@ -1,8 +1,8 @@
 package cn.updev.Users.User;
 
 import cn.updev.Database.HibernateSessionFactory;
-import cn.updev.Users.Static.GroupRule;
-import cn.updev.Users.Static.IGroupUser;
+import cn.updev.Users.Static.EnumeRule.GroupRule;
+import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
