@@ -39,7 +39,7 @@
         <br/>
         <p>如果您发现了什么问题，欢迎及时反馈给我们。</p>
         <div class="panel-footer text-right">
-          <a class="btn btn-primary" href="#">反馈</a>
+          <a class="btn btn-primary" href="http://form.mikecrm.com/f.php?t=6mg20r" target="_blank">反馈</a>
           <a class="btn btn-default" href="/admin">返回</a>
         </div>
       </div>

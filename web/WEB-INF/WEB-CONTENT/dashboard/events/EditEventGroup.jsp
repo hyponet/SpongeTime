@@ -59,8 +59,8 @@
         <button type="submit" class="btn btn-info" title="请确保事件列表为您所期望状态后保存">保存</button>
         <a href="/admin/eventsmanage?groupId=<%=groupId%>" class="btn btn-default" title="取消后本页所有修改将不会被保存">取消</a>
       </div><!--/.col-lg-4 col-lg-offset-1-->
-      <div class="col-lg-5 col-lg-offset-1" style="padding-bottom: 45px;">
-        <div class="row eventlist">
+      <div class="col-lg-5 col-lg-offset-1" style="padding-bottom: 45px; padding-top: 24px;">
+        <div class="eventlist">
           <%
             if(events != null){
               Integer no = 0;

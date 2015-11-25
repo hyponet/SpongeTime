@@ -44,7 +44,7 @@
 								</label>
 							</div>
 							<button type="submit" class="btn btn-primary">登录</button>
-							<a href="#" class="btn btn-default">注册</a>
+							<a href="#" class="btn btn-default disabled">注册</a> <small> 暂时不提供注册</small>
 						</fieldset>
 					</form>
 				</div>

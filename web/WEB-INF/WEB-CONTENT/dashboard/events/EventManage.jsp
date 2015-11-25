@@ -5,6 +5,7 @@
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="cn.updev.Events.Static.EventWeight" %>
+<%@ page import="cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -98,6 +99,7 @@
             <%
               if(events != null){
                 for(IEvent event : events){
+                  String ownerName = new UserOrGroupQuery().queryUserById(event.getOwnerId()).getNickName();
                   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                   String weight = "";
                   if(event.getWeight() == EventWeight.RED){
@@ -117,7 +119,7 @@
             <tr class="<%=weight%>">
               <td><%=event.isFinish() ? "<del>" + event.getEventTitle() + "</del>" : event.getEventTitle()%></td>
               <td><%=dateFormat.format(event.getCreateTime())%></td>
-              <td>Admin</td>
+              <td><%=ownerName%></td>
               <td><%=dateFormat.format(event.getExpectTime())%></td>
               <td>
                 <%

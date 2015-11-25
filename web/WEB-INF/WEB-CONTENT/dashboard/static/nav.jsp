@@ -1,3 +1,4 @@
+<%@ page import="cn.updev.Users.Static.FuctionClass.Login" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -18,13 +19,13 @@
       <a class="navbar-brand" href="/admin"><span>SPONGE</span>TIME</a>
       <ul class="user-menu">
         <li class="dropdown pull-right">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 用户名 <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">你好， <span class="glyphicon glyphicon-user"></span> <%=new Login().getLoginedUser().getNickName()%> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#"><span class="glyphicon glyphicon-home"></span> 个人主页</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-bell"></span> 消息通知</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> 其他设置</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-zoom-in"></span> 了解更多</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> 退出登录</a></li>
+            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-home"></span> 个人主页</a></li>
+            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-bell"></span> 消息通知</a></li>
+            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-cog"></span> 其他设置</a></li>
+            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-zoom-in"></span> 了解更多</a></li>
+            <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> 退出登录</a></li>
           </ul>
         </li>
       </ul>

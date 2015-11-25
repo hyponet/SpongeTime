@@ -35,7 +35,7 @@
 	</div><!--/.row-->
         
 	<div class="row">
-		<div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="col-xs-6 col-md-6 col-lg-3">
 			<div class="panel panel-blue panel-widget ">
 				<div class="row no-padding">
 					<div class="col-sm-3 col-lg-5 widget-left">
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="col-xs-6 col-md-6 col-lg-3">
 			<div class="panel panel-orange panel-widget">
 				<div class="row no-padding">
 					<div class="col-sm-3 col-lg-5 widget-left">
@@ -61,7 +61,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="col-xs-6 col-md-6 col-lg-3">
 			<div class="panel panel-teal panel-widget">
 				<div class="row no-padding">
 					<div class="col-sm-3 col-lg-5 widget-left">
@@ -74,7 +74,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-md-6 col-lg-3">
+		<div class="col-xs-6 col-md-6 col-lg-3">
 			<div class="panel panel-red panel-widget">
 				<div class="row no-padding">
 					<div class="col-sm-3 col-lg-5 widget-left">
@@ -212,13 +212,15 @@
 		<div class="col-xs-12 col-md-12" style="border-top:1px solid #cfcfcf;margin-top: 30px;">
 			<footer style="padding-top: 15px;">
 				<center>
-					<p>SpongeTime designed and built with all the love in the world by
+					<p>
+						SpongeTime designed and built with all the love in the world by
 						<a href="http://www.ihypo.net" target="_blank"> @hhHypo</a> and
-						<a href="https://github.com/blf2" target="_blank"> @BLF2</a>.</p>
+						<a href="https://github.com/blf2" target="_blank"> @BLF2</a>.
+					</p>
 					<p>本项目开源并受 <a href="https://github.com/Coderhypo/SpongeTime/blob/master/LICENSE" target="_blank"> MIT</a> 开源协议保护，
 						项目源码获取：<a href="https://github.com/Coderhypo/SpongeTime" target="_blank"> CoderHypo/SpongeTime</a>。</p>
-					<p>欢迎start，欢迎fork，欢迎<a href="#" target="_blank">反馈</a>！</p>
-					<p>&copy; SpongeTime v0.1 DEMO</p>
+					<p>欢迎start，欢迎fork，欢迎<a href="http://form.mikecrm.com/f.php?t=6mg20r" target="_blank">反馈</a>！</p>
+					<p>&copy; SpongeTime v0.3 DEMO</p>
 				</center>
 			</footer>
 		</div>

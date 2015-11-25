@@ -52,8 +52,8 @@
         <button type="submit" class="btn btn-info">添加</button>
         <a href="/admin/addevents" class="btn btn-default">取消</a>
       </div><!--/.col-lg-4 col-lg-offset-1-->
-      <div class="col-lg-5 col-lg-offset-1" style="padding-bottom: 45px;">
-        <div class="row eventlist">
+      <div class="col-lg-5 col-lg-offset-1" style="padding-bottom: 45px; padding-top: 24px;">
+        <div class="eventlist">
           <div class="form-group event" id="event_1">
             <label for="title">事件No. 1</label>
             <input type="text" class="form-control" name="eventTitle1" placeholder="任务1">

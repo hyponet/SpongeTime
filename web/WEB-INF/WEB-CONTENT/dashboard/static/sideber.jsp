@@ -29,9 +29,9 @@
     <li<%=order==1?" class=\"active\"":""%>><a href="/admin/todolist"><span class="glyphicon glyphicon-list-alt"></span> TODO列表</a></li>
     <li<%=order==2?" class=\"active\"":""%>><a href="/admin/addevents"><span class="glyphicon glyphicon-plus"></span> 添加任务</a></li>
     <li<%=order==3?" class=\"active\"":""%>><a href="/admin/eventsmanage"><span class="glyphicon glyphicon-pencil"></span> 管理任务</a></li>
-    <li<%=order==4?" class=\"active\"":""%>><a href="#"><span class="glyphicon glyphicon-briefcase"></span> 团队看板</a></li>
-    <li<%=order==5?" class=\"active\"":""%>><a href="#"><span class="glyphicon glyphicon-calendar"></span> 时间轴</a></li>
-    <li class="parent ">
+    <li<%=order==4?" class=\"active\"":""%> class="disabled"><a href="#"><span class="glyphicon glyphicon-briefcase"></span> 团队看板</a></li>
+    <li<%=order==5?" class=\"active\"":""%> class="disabled"><a href="#"><span class="glyphicon glyphicon-calendar"></span> 时间轴</a></li>
+    <li class="parent disabled">
       <a href="#">
         <span class="glyphicon glyphicon-list"></span> 团队 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span>
       </a>
@@ -54,6 +54,6 @@
       </ul>
     </li>
     <li role="presentation" class="divider"></li>
-    <li><a href="#"><span class="glyphicon glyphicon-envelope"></span> 意见反馈</a></li>
+    <li><a href="http://form.mikecrm.com/f.php?t=6mg20r" target="_blank"><span class="glyphicon glyphicon-envelope"></span> 意见反馈</a></li>
   </ul>
 </div><!--/.sidebar-->

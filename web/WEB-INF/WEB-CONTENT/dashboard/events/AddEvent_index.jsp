@@ -25,9 +25,9 @@
       <p>在这里，您可以添加适合单项任务的 <span class="label label-success">事件</span> 或者适合多项任务集合的 <span class="label label-info">事件组</span></p>
     </div>
   </div><!--/.row-->
-  <div class="row">
+  <div class="row" style="padding-bottom: 20px;">
     <div class="col-lg-6 col-lg-offset-2">
-      <div class="col-lg-5" style="padding-top: 70px;">
+      <div class="col-lg-5 col-md-5" style="padding-top: 70px;">
         <a href="addEvent" style="text-decoration: none">
           <div style="padding: 15%; background-color:#5cb85c; border-radius:15px 5px;">
             <center><p style="font-size: 22px;color: #ffffff;"><b>添加事件</b> </p></center>
@@ -35,7 +35,7 @@
         </a>
         <small> * 添加独立性事件，事件拥有时间提醒等功能</small>
       </div>
-      <div class="col-lg-5 col-lg-offset-2" style="padding-top: 70px;">
+      <div class="col-lg-5 col-lg-offset-2 col-md-5 col-md-offset-2" style="padding-top: 70px;">
         <a href="addEventGroup" style="text-decoration: none">
           <div style="padding: 15%; background-color:#5bc0de; border-radius:15px 5px;">
             <center><p style="font-size: 22px; color: #ffffff"><b>添加事件组</b> </p></center>

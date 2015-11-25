@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="cn.updev.Events.Static.IEvent" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -6,6 +8,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  List<IEvent> weightEventList = (List<IEvent>) request.getAttribute("weightEventList");
+  List<IEvent> expectEventList = (List<IEvent>) request.getAttribute("expectEventList");
+  List<IEvent> reckonEventList = (List<IEvent>) request.getAttribute("reckonEventList");
+%>
 <%@include file="../static/head.jsp"%>
 <body>
 <%@include file="../static/nav.jsp"%>
@@ -36,10 +43,12 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="list-group">
-            <a href="#" class="list-group-item">事件1</a>
-            <a href="#" class="list-group-item">事件2</a>
-            <a href="#" class="list-group-item">事件3</a>
-            <a href="#" class="list-group-item">事件4</a>
+            <%
+              if(weightEventList != null){
+                for(IEvent event : weightEventList){
+            %>
+            <a href="#" class="list-group-item"><%=event.getEventTitle()%></a>
+            <%}}%>
           </div>
         </div>
       </div>
@@ -54,10 +63,14 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="list-group">
-            <a href="#" class="list-group-item">事件1</a>
-            <a href="#" class="list-group-item">事件2</a>
-            <a href="#" class="list-group-item">事件3</a>
-            <a href="#" class="list-group-item">事件4</a>
+            <div class="list-group">
+              <%
+                if(expectEventList != null){
+                  for(IEvent event : expectEventList){
+              %>
+              <a href="#" class="list-group-item"><%=event.getEventTitle()%></a>
+              <%}}%>
+            </div>
           </div>
         </div>
       </div>
@@ -72,10 +85,14 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="list-group">
-            <a href="#" class="list-group-item">事件1</a>
-            <a href="#" class="list-group-item">事件2</a>
-            <a href="#" class="list-group-item">事件3</a>
-            <a href="#" class="list-group-item">事件4</a>
+            <div class="list-group">
+              <%
+                if(reckonEventList != null){
+                  for(IEvent event : reckonEventList){
+              %>
+              <a href="#" class="list-group-item"><%=event.getEventTitle()%></a>
+              <%}}%>
+            </div>
           </div>
         </div>
       </div>
