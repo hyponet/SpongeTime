@@ -4,6 +4,7 @@ import cn.updev.Events.Event.EventDAO;
 import cn.updev.Events.Group.EventGroupDAO;
 import cn.updev.Events.Group.UserEventGroup;
 import cn.updev.Events.Static.IEvent;
+import cn.updev.Users.Static.FuctionClass.Login;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
@@ -19,9 +20,14 @@ public class EventManageAction extends ActionSupport {
     private Integer groupId;
 
     public String execute() throws Exception {
-        System.out.println(new Date());
+
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
         //获得当前用户
-        Integer userId = 1;
+        Integer userId = new Login().getLoginedUser().getUserId();
 
         EventGroupDAO groupDAO = new EventGroupDAO();
         List<UserEventGroup> groups = groupDAO.getAllUserEventGroup(userId);
