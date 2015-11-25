@@ -1,7 +1,9 @@
 package cn.updev.Users.User;
 
-import cn.updev.Users.Static.IUser;
-import cn.updev.Users.Static.UserRule;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupSave;
+import cn.updev.Users.Static.UserOrGroupInterface.IUser;
+import cn.updev.Users.Static.EnumeRule.UserRule;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -96,7 +98,8 @@ public class UserFactory {
         if(this.eMail == null || this.rule == null){
             return null;
         }
-        IUser user = new User(this.userName,this.nickName,this.eMail,this.passWord,this.url,this.rule).saveUser();
-        return user;
+        User user = new User(this.userName,this.nickName,this.eMail,this.passWord,this.url,this.rule);
+        IUser iUser = new UserOrGroupSave().saveUser(user);
+        return iUser;
     }
 }

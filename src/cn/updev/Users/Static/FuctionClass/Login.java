@@ -1,5 +1,6 @@
-package cn.updev.Users.Static;
+package cn.updev.Users.Static.FuctionClass;
 
+import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpServletRequest;

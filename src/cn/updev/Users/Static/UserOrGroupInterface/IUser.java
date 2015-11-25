@@ -1,4 +1,6 @@
-package cn.updev.Users.Static;
+package cn.updev.Users.Static.UserOrGroupInterface;
+
+import cn.updev.Users.Static.EnumeRule.UserRule;
 
 /**
  * 用户接口，约束用户对象的操作

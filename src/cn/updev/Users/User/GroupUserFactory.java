@@ -1,8 +1,7 @@
 package cn.updev.Users.User;
 
-import cn.updev.Users.Group.GroupInfo.GroupInfoFactory;
-import cn.updev.Users.Static.GroupRule;
-import cn.updev.Users.Static.IGroupUser;
+import cn.updev.Users.Static.EnumeRule.GroupRule;
+import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
 
 /**
  * Created by blf2 on 15-10-8.

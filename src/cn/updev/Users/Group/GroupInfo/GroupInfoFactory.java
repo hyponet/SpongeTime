@@ -1,9 +1,7 @@
 package cn.updev.Users.Group.GroupInfo;
 
 import cn.updev.Users.User.GroupUserFactory;
-
-import java.net.Inet4Address;
-import java.util.Iterator;
+import cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo;
 
 /**
  * Created by blf2 on 15-9-29.
@@ -12,13 +10,11 @@ public class GroupInfoFactory {
     private Integer groupId;
     private String groupName;
     private String groupIntro;
-    private Integer userId;//userId为创建者Id
 
     public GroupInfoFactory(Integer groupId,String groupName,String groupIntro,Integer userId){
         this.setGroupId(groupId);
         this.setGroupName(groupName);
         this.setGroupIntro(groupIntro);
-        this.setUserId(userId);
     }
 
     private void setGroupId(Integer groupId){
@@ -34,9 +30,6 @@ public class GroupInfoFactory {
             groupIntro = groupIntro.substring(100);
         this.groupIntro = groupIntro;
     }
-    private void setUserId(int userId){
-        this.userId = userId;
-    }
 
     public Integer getGroupId() {
         return groupId;
@@ -50,16 +43,10 @@ public class GroupInfoFactory {
         return groupIntro;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
 
-    public Integer createGroup(){
-        //把数据存入数据库
-        groupId = 0;//获得groupId
-        GroupUserFactory guf = new GroupUserFactory(userId,groupId,1);
-        //把创建者信息更新到数据库
-        return groupId;
+    public IGroupInfo createGroup(){
+       IGroupInfo iGroupInfo = new GroupInfo(this.groupName,this.groupIntro).saveGroupInfo();
+        return iGroupInfo;
     }
     public boolean updateGroup(){
         //数据库持久化更新用户组信息
