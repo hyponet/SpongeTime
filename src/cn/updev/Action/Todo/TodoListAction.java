@@ -4,8 +4,12 @@ import cn.updev.EventWeight.Weight.EventWeight;
 import cn.updev.EventWeight.Weight.EventWeightManage;
 import cn.updev.Events.Event.EventDAO;
 import cn.updev.Events.Static.IEvent;
+import cn.updev.Users.Static.FuctionClass.Login;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.ServletActionContext;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -17,12 +21,16 @@ public class TodoListAction extends ActionSupport {
 
     public String execute() throws Exception {
 
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
         EventDAO eventDAO = new EventDAO();
 
         // 获得登录用户
-        Integer userId = 1;
+        Integer userId = new Login().getLoginedUser().getUserId();
         List<IEvent> events = eventDAO.getUnfinishEventByUserId(userId);
-
 
         Collections.sort(events, new Comparator<IEvent>() {
             @Override
@@ -33,6 +41,11 @@ public class TodoListAction extends ActionSupport {
                 return (int)(weight1.getEventWeight() - weight2.getEventWeight());
             }
         });
+
+        List<IEvent> weightEventList = new ArrayList<IEvent>();
+        for(IEvent event : events){
+            weightEventList.add(event);
+        }
 
         Collections.sort(events, new Comparator<IEvent>() {
             @Override
@@ -46,6 +59,11 @@ public class TodoListAction extends ActionSupport {
             }
         });
 
+        List<IEvent> expectEventList = new ArrayList<IEvent>();
+        for(IEvent event : events){
+            expectEventList.add(event);
+        }
+
         Collections.sort(events, new Comparator<IEvent>() {
             @Override
             public int compare(IEvent o1, IEvent o2) {
@@ -58,11 +76,15 @@ public class TodoListAction extends ActionSupport {
             }
         });
 
+        List<IEvent> reckonEventList = new ArrayList<IEvent>();
         for(IEvent event : events){
-            EventWeightManage eventWeight = new EventWeightManage();
-            EventWeight weight = eventWeight.getEventWeight(event.getEventId());
-            System.out.println(event.getEventTitle() + " " + weight.getEventReckon());
+            reckonEventList.add(event);
         }
+
+        HttpServletRequest request = ServletActionContext.getRequest();
+        request.setAttribute("weightEventList", weightEventList);
+        request.setAttribute("expectEventList", expectEventList);
+        request.setAttribute("reckonEventList", reckonEventList);
 
         return SUCCESS;
     }
