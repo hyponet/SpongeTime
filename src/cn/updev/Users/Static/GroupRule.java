@@ -1,10 +1,16 @@
 package cn.updev.Users.Static;
 
 /**
- * Created by hypo on 15-9-28.
+ * Created by blf2 on 15-11-24.
  */
-public enum UserRule {
-    Admin,User;
+public enum GroupRule {
+    Creater,Admin,User;
+    public boolean isCreater(){
+        if(this == Creater){
+            return true;
+        }
+        return false;
+    }
 
     public boolean isAdmin(){
         if(this == Admin){
@@ -17,6 +23,6 @@ public enum UserRule {
         if(this == User){
             return true;
         }
-        return  false;
+        return false;
     }
 }

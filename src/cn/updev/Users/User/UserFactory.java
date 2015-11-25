@@ -17,12 +17,16 @@ public class UserFactory {
     private String nickName;
     private String eMail;
     private String passWord;
+    private String url;
+    private UserRule rule;
 
-    public UserFactory(String eMail, String nickName, String userName, String passWord) {
+    public UserFactory(String userName, String nickName, String eMail, String passWord,String url,UserRule rule) {
         this.seteMail(eMail);//this.eMail = eMail;
-        this.nickName = nickName;
-        this.userName = userName;
-        this.passWord = passWord;
+        this.setNickName(nickName);
+        this.setUserName(userName);
+        this.setPassWord(passWord);
+        this.setRule(rule);
+        this.setUrl(url);
     }
 
     private void seteMail(String eMail) {
@@ -71,15 +75,28 @@ public class UserFactory {
         this.passWord = passWord;
     }
 
+    private void setUrl(String url){
+        //限制长度
+        if(url.length() > 50){
+            url = url.substring(0,50);
+            this.url = url;
+        }
+    }
+
+    private void setRule(UserRule rule){
+        if(rule.isAdmin() || rule.isUser()){
+            this.rule = rule;
+        }else{
+            this.rule = null;
+        }
+    }
+
     public IUser getUser(){
 
-        if(this.eMail == null){
+        if(this.eMail == null || this.rule == null){
             return null;
         }
-
-        IUser user = new User(this.eMail,this.nickName,this.passWord,UserRule.User,null,null,this.userName);
-        //数据持久化并获得ID
-
+        IUser user = new User(this.userName,this.nickName,this.eMail,this.passWord,this.url,this.rule).saveUser();
         return user;
     }
 }
