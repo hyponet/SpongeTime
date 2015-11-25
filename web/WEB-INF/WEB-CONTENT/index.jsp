@@ -47,8 +47,10 @@
 </pre>
   <div>
     <center>
-      <a href="/admin" class="btn btn-primary" style="padding: 10px;">测试后台</a>
-      <a href="/login" class="btn btn-success" style="padding: 10px;">测试登录</a>
+        <a href="/admin" class="btn btn-primary" style="padding: 10px;">测试后台</a>
+        <a href="/login" class="btn btn-success" style="padding: 10px;">测试登录</a>
+        <hr/>
+        <small>&copy;SpongeTime v0.1 DEMO</small>
     </center>
   </div>
 </div>

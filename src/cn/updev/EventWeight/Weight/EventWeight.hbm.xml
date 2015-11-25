@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cn.updev.EventWeight.Weight.EventWeight" table="event_weight">
+        <cache usage="read-write"/>
+        <id name="id" column="id">
+            <generator class="native"/>
+        </id>
+        <property name="eventId" type="java.lang.Long" column="event_id"/>
+        <property name="groupId" type="java.lang.Integer" column="group_id"/>
+        <property name="eventWeight" type="java.lang.Double" column="event_weight"/>
+        <property name="eventExpect" type="java.util.Date" column="event_expect"/>
+        <property name="eventReckon" type="java.util.Date" column="event_reckon"/>
+        <property name="updateTime" type="java.util.Date" column="update_time"/>
+    </class>
+</hibernate-mapping>

@@ -7,8 +7,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  String STR = "/WEB-INF/WEB-CONTENT/dashboard/";
-  StringBuffer url = request.getRequestURL();
+  String uri = String.valueOf(request.getRequestURI());
+  Integer order = 0;
+
+  if(uri.endsWith("todoList.jsp")){
+    order = 1;
+  }else if(uri.endsWith("AddEvent_index.jsp") || uri.endsWith("AddEvent.jsp") || uri.endsWith("AddEventGroup.jsp")){
+    order = 2;
+  }else if(uri.endsWith("EventManage.jsp") || uri.endsWith("EditEventGroup.jsp")){
+    order = 3;
+  }
 %>
 <div id="sidebar-collapse" class="col-sm-3 col-lg-2 sidebar">
   <form role="search">
@@ -17,12 +25,12 @@
     </div>
   </form>
   <ul class="nav menu">
-    <li class="active"><a href="/admin"><span class="glyphicon glyphicon-dashboard"></span> 仪表盘</a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-list-alt"></span> TODO列表</a></li>
-    <li><a href="/admin/addevents"><span class="glyphicon glyphicon-plus"></span> 添加任务</a></li>
-    <li><a href="/admin/eventsmanage"><span class="glyphicon glyphicon-pencil"></span> 管理任务</a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-briefcase"></span> 团队看板</a></li>
-    <li><a href="#"><span class="glyphicon glyphicon-time"></span> 时间轴</a></li>
+    <li<%=order==0?" class=\"active\"":""%>><a href="/admin"><span class="glyphicon glyphicon-dashboard"></span> 仪表盘</a></li>
+    <li<%=order==1?" class=\"active\"":""%>><a href="/admin/todolist"><span class="glyphicon glyphicon-list-alt"></span> TODO列表</a></li>
+    <li<%=order==2?" class=\"active\"":""%>><a href="/admin/addevents"><span class="glyphicon glyphicon-plus"></span> 添加任务</a></li>
+    <li<%=order==3?" class=\"active\"":""%>><a href="/admin/eventsmanage"><span class="glyphicon glyphicon-pencil"></span> 管理任务</a></li>
+    <li<%=order==4?" class=\"active\"":""%>><a href="#"><span class="glyphicon glyphicon-briefcase"></span> 团队看板</a></li>
+    <li<%=order==5?" class=\"active\"":""%>><a href="#"><span class="glyphicon glyphicon-calendar"></span> 时间轴</a></li>
     <li class="parent ">
       <a href="#">
         <span class="glyphicon glyphicon-list"></span> 团队 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span>

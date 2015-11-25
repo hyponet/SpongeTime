@@ -26,10 +26,19 @@ public class EventDAO {
             return null;
         }
         IEvent rnt = (IEvent) query.list().get(0);
-        session.clear();
-        session.flush();
         HibernateSessionFactory.closeSession();
         return rnt;
+    }
+
+    public List<IEvent> getUnfinishEventByUserId(Integer userId){
+
+        Session session = HibernateSessionFactory.currentSession();
+        Query query =session.createQuery("from Event e where e.doerId=" + userId + " and e.finishTime = NULL");
+        List<IEvent> list = query.list();
+
+        HibernateSessionFactory.closeSession();
+
+        return list;
     }
 
     public List<IEvent> getSingleEventByUserId(Integer userId){
@@ -38,8 +47,6 @@ public class EventDAO {
         Query query =session.createQuery("from Event e where e.doerId=" + userId + " and e.groupId = NULL");
         List<IEvent> list = query.list();
 
-        session.clear();
-        session.flush();
         HibernateSessionFactory.closeSession();
 
         return list;
@@ -51,8 +58,6 @@ public class EventDAO {
         Query query =session.createQuery("from Event e where e.doerId=" + userId);
         List<IEvent> list = query.list();
 
-        session.clear();
-        session.flush();
         HibernateSessionFactory.closeSession();
 
         return list;
@@ -63,8 +68,6 @@ public class EventDAO {
         Session session = HibernateSessionFactory.currentSession();
         Query query =session.createQuery("from Event e where e.groupId=" + eventGroupId);
         List<IEvent> list = query.list();
-        session.clear();
-        session.flush();
         HibernateSessionFactory.closeSession();
 
         return list;
@@ -73,10 +76,36 @@ public class EventDAO {
     public List<IEvent> getEventByUserGroupId(Integer userGroupId){
 
         Session session = HibernateSessionFactory.currentSession();
-        session.clear();
-        session.flush();
         HibernateSessionFactory.closeSession();
         return null;
+    }
+
+    public Integer getAllUserEventNum(Integer userId){
+        Session session = HibernateSessionFactory.currentSession();
+        String hql = "select count(*) from Event e where e.ownerId=" + userId;
+        Query query =session.createQuery(hql);
+        Integer rnt = ((Number)query.uniqueResult()).intValue();
+
+        HibernateSessionFactory.closeSession();
+        return rnt;
+    }
+    public Integer getUnFinishUserEventNum(Integer userId){
+
+        Session session = HibernateSessionFactory.currentSession();
+        String hql = "select count(*) from Event e where e.ownerId=" + userId +" and e.finishTime=null";
+        Query query =session.createQuery(hql);
+        Integer rnt = ((Number)query.uniqueResult()).intValue();
+
+        HibernateSessionFactory.closeSession();
+        return rnt;
+    }
+    public Integer getAllTeamEventNum(Integer userId){
+
+        return 0;
+    }
+    public Integer getUnFinishteamEventNum(Integer userId){
+
+        return 0;
     }
 
     public Boolean eventFinish(Long eventId){

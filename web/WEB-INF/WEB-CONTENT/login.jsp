@@ -25,19 +25,18 @@
 </head>
 
 <body>
-	
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">登录到SpongeTime</div>
 				<div class="panel-body">
-					<form role="form">
+					<form action="/login" method="POST">
 						<fieldset>
 							<div class="form-group">
-								<input class="form-control" placeholder="注册邮箱" name="email" type="email" autofocus="">
+								<input class="form-control" placeholder="邮箱" name="email" type="email" autofocus="">
 							</div>
 							<div class="form-group">
-								<input class="form-control" placeholder="登录密码" name="password" type="password" value="">
+								<input class="form-control" placeholder="密码" name="password" type="password" value="">
 							</div>
 							<div class="checkbox">
 								<label>
@@ -52,9 +51,6 @@
 			</div>
 		</div><!-- /.col-->
 	</div><!-- /.row -->	
-	
-		
-
 	<script src="/static/js/jquery-1.11.1.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
 	<script src="/static/js/chart.min.js"></script>

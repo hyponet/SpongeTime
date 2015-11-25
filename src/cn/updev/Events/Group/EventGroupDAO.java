@@ -40,8 +40,21 @@ public class EventGroupDAO {
                 rnt.add(new UserEventGroup(groupInfo, events));
             }
         }
-        session.clear();
-        session.flush();
+        HibernateSessionFactory.closeSession();
+        return rnt;
+    }
+
+    public EventGroupInfo getEventGroupInfo(Integer groupId){
+
+        Session session = HibernateSessionFactory.currentSession();
+        Query query =session.createQuery("from EventGroupInfo info where info.groupId=" + groupId);
+
+        if(query.list().size() == 0){
+            return null;
+        }
+
+        EventGroupInfo rnt = (EventGroupInfo) query.list().get(0);
+
         HibernateSessionFactory.closeSession();
         return rnt;
     }
@@ -59,8 +72,6 @@ public class EventGroupDAO {
         List<IEvent> events = query.list();
 
         EventGroupInfo group = (EventGroupInfo)query.list().get(0);
-        session.clear();
-        session.flush();
         HibernateSessionFactory.closeSession();
         return new TeamEventGroup(group, events);
     }
@@ -78,9 +89,28 @@ public class EventGroupDAO {
         List<IEvent> events = getEvents.list();
 
         EventGroupInfo group = (EventGroupInfo)query.list().get(0);
-        session.clear();
-        session.flush();
         HibernateSessionFactory.closeSession();
         return new UserEventGroup(group, events);
+    }
+
+    public List<Integer> getUserEventGroupId(Integer userId){
+
+        Session session = HibernateSessionFactory.currentSession();
+        Query query =session.createQuery("select groupId from EventGroupInfo info where info.ownerId=" + userId);
+
+        List<Integer> rnt = query.list();
+
+        HibernateSessionFactory.closeSession();
+        return rnt;
+    }
+
+    public Integer getUnFinishEventNum(Integer groupId){
+        Session session = HibernateSessionFactory.currentSession();
+        String hql = "select count(*) from Event e where e.groupId=" + groupId +" and e.finishTime=null";
+        Query query =session.createQuery(hql);
+        Integer rnt = ((Number)query.uniqueResult()).intValue();
+
+        HibernateSessionFactory.closeSession();
+        return rnt;
     }
 }
