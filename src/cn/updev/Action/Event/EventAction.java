@@ -4,6 +4,7 @@ import cn.updev.Events.Event.EventDAO;
 import cn.updev.Events.Event.EventFactory;
 import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
+import cn.updev.Users.Static.FuctionClass.Login;
 import com.opensymphony.xwork2.ActionSupport;
 
 import java.util.Date;
@@ -21,12 +22,17 @@ public class EventAction extends ActionSupport {
 
     public String execute() throws Exception {
 
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
         if(this.eventTitle == null || this.eventTitle.trim().length() == 0){
             return INPUT;
         }
 
         // 获得Session下的已经登录用户的ID
-        int ownerId = 1;
+        int ownerId = new Login().getLoginedUser().getUserId();
 
         //权重
         EventWeight eventWeight = EventWeight.values()[this.weight];
@@ -43,6 +49,11 @@ public class EventAction extends ActionSupport {
     }
 
     public String eventFinish(){
+
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
 
         if(this.eventId == null || this.eventId < 1){
             return ERROR;
@@ -69,6 +80,11 @@ public class EventAction extends ActionSupport {
 
     public String addEventToGroup(){
 
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
         if(this.groupId == null || this.groupId < 1){
             return ERROR;
         }
@@ -78,7 +94,7 @@ public class EventAction extends ActionSupport {
         }
 
         // 获得Session下的已经登录用户的ID
-        int ownerId = 1;
+        int ownerId = new Login().getLoginedUser().getUserId();
 
         //权重
         EventWeight eventWeight = EventWeight.values()[this.weight];
@@ -95,6 +111,11 @@ public class EventAction extends ActionSupport {
     }
 
     public String updateEvent(){
+
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
 
         if(this.eventId == null || this.eventId < 1){
             return ERROR;
@@ -123,6 +144,11 @@ public class EventAction extends ActionSupport {
     }
 
     public String delEvent(){
+
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
 
         if(this.eventId == null || this.eventId < 1){
             return ERROR;
