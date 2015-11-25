@@ -30,6 +30,17 @@ public class EventDAO {
         return rnt;
     }
 
+    public List<IEvent> getUnfinishEventByUserId(Integer userId){
+
+        Session session = HibernateSessionFactory.currentSession();
+        Query query =session.createQuery("from Event e where e.doerId=" + userId + " and e.finishTime = NULL");
+        List<IEvent> list = query.list();
+
+        HibernateSessionFactory.closeSession();
+
+        return list;
+    }
+
     public List<IEvent> getSingleEventByUserId(Integer userId){
 
         Session session = HibernateSessionFactory.currentSession();

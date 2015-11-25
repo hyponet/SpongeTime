@@ -102,6 +102,15 @@ public class EventGroupDAO {
 
         HibernateSessionFactory.closeSession();
         return rnt;
+    }
 
+    public Integer getUnFinishEventNum(Integer groupId){
+        Session session = HibernateSessionFactory.currentSession();
+        String hql = "select count(*) from Event e where e.groupId=" + groupId +" and e.finishTime=null";
+        Query query =session.createQuery(hql);
+        Integer rnt = ((Number)query.uniqueResult()).intValue();
+
+        HibernateSessionFactory.closeSession();
+        return rnt;
     }
 }
