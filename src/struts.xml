@@ -8,7 +8,7 @@
         <package name="Admin" namespace="/admin" extends="struts-default">
                 <global-results>
                         <result name="error">/WEB-INF/WEB-CONTENT/error.jsp</result>
-                        <result name="login" type="redirect">/WEB-INF/WEB-CONTENT/login.jsp</result>
+                        <result name="login">/WEB-INF/WEB-CONTENT/login.jsp</result>
                 </global-results>
                 <action name="todolist" class="cn.updev.Action.Todo.TodoListAction">
                         <result>/WEB-INF/WEB-CONTENT/dashboard/todo/todoList.jsp</result>
@@ -53,6 +53,9 @@
                 <action name="addEventToGroup" class="cn.updev.Action.Event.EventAction" method="addEventToGroup">
                         <result name="success" type="redirect">/admin/eventsmanage?groupId=${groupId}</result>
                 </action>
+                <action name="*">
+                        <result type="redirect">/login</result>
+                </action>
         </package>
         <package name="Login" namespace="/" extends="struts-default">
                 <global-results>
@@ -65,6 +68,9 @@
                 <action name="admin" class="cn.updev.Action.Admin.AdminAction">
                         <result name="user">/WEB-INF/WEB-CONTENT/dashboard/UserDashboard.jsp</result>
                         <result name="login" type="redirectAction">login</result>
+                </action>
+                <action name="logout" class="cn.updev.Action.Admin.AdminAction" method="logout">
+                        <result name="success">/WEB-INF/WEB-CONTENT/login.jsp</result>
                 </action>
                 <action name="*">
                         <result>/WEB-INF/WEB-CONTENT/index.jsp</result>
