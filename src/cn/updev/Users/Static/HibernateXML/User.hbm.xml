@@ -10,7 +10,7 @@
             <generator class="native"/>
         </id>
         <property name="userName" type="java.lang.String" column="user_name"/>
-        <property name="nickName" type="java.lang.String" column="user_nickname"/>
+        <property name="nickName" type="java.lang.String" column="user_nickname" unique="true"/>
         <property name="eMail" type="java.lang.String" column="user_email"/>
         <property name="passWord" type="java.lang.String" column="user_pass"/>
         <property name="url" type="java.lang.String" column="user_url"/>
