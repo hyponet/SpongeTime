@@ -1,6 +1,7 @@
 package cn.updev.Users.Static.UserOrGroupDAO;
 
 import cn.updev.Database.HibernateSessionFactory;
+import cn.updev.Users.Group.GroupInfo.GroupInfo;
 import cn.updev.Users.User.GroupUser;
 import cn.updev.Users.User.User;
 import org.hibernate.Session;
@@ -27,5 +28,14 @@ public class UserOrGroupSave {
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return groupUser;
+    }
+
+    public GroupInfo saveGroupInfo(GroupInfo groupInfo){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(groupInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return groupInfo;
     }
 }
