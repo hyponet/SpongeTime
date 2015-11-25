@@ -1,5 +1,6 @@
 package cn.updev.Action.Admin;
 
+import cn.updev.Users.Static.FuctionClass.Login;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -9,6 +10,12 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class UserDashboardAction extends ActionSupport {
     public String addEvents(){
+
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
         return SUCCESS;
     }
 
