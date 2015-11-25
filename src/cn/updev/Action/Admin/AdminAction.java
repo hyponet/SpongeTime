@@ -3,10 +3,11 @@ package cn.updev.Action.Admin;
 import cn.updev.EventWeight.Rate.EventGroupRateManage;
 import cn.updev.Events.Event.EventDAO;
 import cn.updev.Events.Group.EventGroupDAO;
-import cn.updev.Users.Static.Login;
+import cn.updev.Users.Static.FuctionClass.Login;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -20,14 +21,31 @@ public class AdminAction extends ActionSupport {
 
     private String email;
     private String password;
+    private Boolean remember;
 
     public String login(){
+
+        HttpServletRequest request = ServletActionContext.getRequest();
+        Cookie[] cookies = request.getCookies();
+
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("ID")){
+                this.email = cookie.getValue();
+            }else if(cookie.getName().equals("KEY")){
+                this.email = cookie.getValue();
+            }
+        }
+
+        Login login = new Login();
+        if(!login.isNotLogined()){
+            return SUCCESS;
+        }
 
         if(this.email == null || this.password == null){
             return LOGIN;
         }
 
-        Login login = new Login(this.email, this.password);
+        login = new Login(this.email, this.password);
 
         if(login.judge()){
 
@@ -37,10 +55,28 @@ public class AdminAction extends ActionSupport {
         }
     }
 
+    public String logout(){
+
+        Login login = new Login();
+
+        if(login.getLoginedUser() == null){
+            return LOGIN;
+        }
+
+        login.logout();
+
+        return SUCCESS;
+    }
+
     public String execute() throws Exception {
 
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
         // 获得用户ID并进行权限判断权限判断
-        Integer userId = 1;
+        Integer userId = login.getLoginedUser().getUserId();
 
         //如果是普通用户
         HttpServletRequest request = ServletActionContext.getRequest();
@@ -90,5 +126,13 @@ public class AdminAction extends ActionSupport {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getRemember() {
+        return remember;
+    }
+
+    public void setRemember(Boolean remember) {
+        this.remember = remember;
     }
 }
