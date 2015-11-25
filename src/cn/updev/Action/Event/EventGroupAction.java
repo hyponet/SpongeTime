@@ -6,6 +6,7 @@ import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Events.Static.ITeamEvents;
 import cn.updev.Events.Static.IUserEvents;
+import cn.updev.Users.Static.FuctionClass.Login;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
@@ -36,13 +37,18 @@ public class EventGroupAction extends ActionSupport {
 
     public String execute() throws Exception {
 
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
         if(this.groupTitle == null){
 
             return INPUT;
         }
 
         // 获得Session下的登录用户的ID
-        Integer ownerId = 1;
+        Integer ownerId = new Login().getLoginedUser().getUserId();
 
         //小组权重
         EventWeight groupWeightl = EventWeight.values()[this.weight];
@@ -103,6 +109,11 @@ public class EventGroupAction extends ActionSupport {
 
     public String getUserEventGroup(){
 
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
         HttpServletRequest request = ServletActionContext.getRequest();
 
         String groupIdString = request.getParameter("groupId");
@@ -142,6 +153,11 @@ public class EventGroupAction extends ActionSupport {
     }
 
     public String updateUserEventGroup(){
+
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
 
         HttpServletRequest request = ServletActionContext.getRequest();
         HttpSession session = request.getSession();
@@ -197,7 +213,7 @@ public class EventGroupAction extends ActionSupport {
 
                 if(!newEventTitle.equals(event.getEventTitle())){
                     // 获得目前用户ID
-                    Integer ownerId = 1;
+                    Integer ownerId = new Login().getLoginedUser().getUserId();
 
                     event.setEventTitle(newEventTitle);
                     event.setOwnerId(ownerId);
@@ -218,7 +234,7 @@ public class EventGroupAction extends ActionSupport {
                 if(i >= oldLen){
 
                     // 获取当前用户ID
-                    Integer ownerId = 1;
+                    Integer ownerId = new Login().getLoginedUser().getUserId();
                     IEvent event = new EventFactory(newEventTitle, this.groupExpect, ownerId,
                             EventWeight.values()[this.weight], groupInfo.getGroupId()).getEvent();
                     if(event != null){
@@ -231,7 +247,7 @@ public class EventGroupAction extends ActionSupport {
 
                 if(!newEventTitle.equals(event.getEventTitle())){
                     // 获取当前用户ID
-                    Integer ownerId = 1;
+                    Integer ownerId = new Login().getLoginedUser().getUserId();
 
                     event.setEventTitle(newEventTitle);
                     event.setOwnerId(ownerId);
@@ -254,6 +270,11 @@ public class EventGroupAction extends ActionSupport {
     }
 
     public String delEventGroup(){
+
+        Login login = new Login();
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
 
         if(this.groupId == null || this.groupId < 1 || this.user == null){
             return INPUT;
