@@ -3,17 +3,16 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <typedef class="cn.updev.Users.Static.UserRule" name="Rule"/>
-    <class name="cn.updev.Users.User.User" table="users">
+    <class name="cn.updev.EventWeight.Weight.EventWeight" table="event_weight">
         <cache usage="read-write"/>
-        <id name="userId" column="user_id">
+        <id name="id" column="id">
             <generator class="native"/>
         </id>
-        <property name="userName" type="java.lang.String" column="user_name"/>
-        <property name="nickName" type="java.lang.String" column="user_nickname"/>
-        <property name="eMail" type="java.lang.String" column="user_email"/>
-        <property name="passWord" type="java.lang.String" column="user_pass"/>
-        <property name="url" type="java.lang.String" column="user_url"/>
-        <property name="rule" type="Rule" column="user_rule"/>
+        <property name="eventId" type="java.lang.Long" column="event_id"/>
+        <property name="groupId" type="java.lang.Integer" column="group_id"/>
+        <property name="eventWeight" type="java.lang.Double" column="event_weight"/>
+        <property name="eventExpect" type="java.util.Date" column="event_expect"/>
+        <property name="eventReckon" type="java.util.Date" column="event_reckon"/>
+        <property name="updateTime" type="java.util.Date" column="update_time"/>
     </class>
 </hibernate-mapping>
