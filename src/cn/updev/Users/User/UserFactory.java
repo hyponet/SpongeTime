@@ -4,7 +4,9 @@ import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupSave;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import cn.updev.Users.Static.EnumeRule.UserRule;
+import sun.misc.BASE64Encoder;
 
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
@@ -66,13 +68,22 @@ public class UserFactory {
     private void setPassWord(String passWord) {
 
         //密码MD5加密 把注册邮箱作为盐
+        //确定计算方法
+        passWord = passWord + this.eMail;
+        MessageDigest md5= null;
         try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update((passWord + this.eMail).getBytes());
-            passWord = new String(md.digest());
+            md5 = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
+        BASE64Encoder base64en = new BASE64Encoder();
+        //加密后的字符串
+        try {
+            passWord=base64en.encode(md5.digest(passWord.getBytes("utf-8")));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
 
         this.passWord = passWord;
     }
@@ -81,8 +92,8 @@ public class UserFactory {
         //限制长度
         if(url.length() > 50){
             url = url.substring(0,50);
-            this.url = url;
         }
+        this.url = url;
     }
 
     private void setRule(UserRule rule){
