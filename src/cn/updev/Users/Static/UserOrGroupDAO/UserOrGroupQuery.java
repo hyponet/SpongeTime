@@ -45,6 +45,20 @@ public class UserOrGroupQuery {
         HibernateSessionFactory.closeSession();
         return user;
     }
+    public IUser queryUserByName(String userName){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from User user where user.userName='" + userName+"'");
+        if(query.list().size() == 0){
+            return null;
+        }
+        User user = (User)query.list().get(0);
+        session.clear();
+        session.flush();
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return user;
+    }
     public IGroupInfo queryGroupInfoByName(String groupName){
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();

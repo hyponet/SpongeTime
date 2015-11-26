@@ -9,11 +9,13 @@ import java.util.List;
  * Created by blf2 on 15-10-8.
  */
 public class GroupMemberInfoFactory {
-    private List <GroupUserFactory> list;
+    //private List <GroupUserFactory> list = null;
   //  public GroupMemberFactory(GroupUserFactory guf){
   //      list = new LinkedList<GroupUserFactory>();
   //      list.add(guf);
   //  }
+
+/*
     public boolean addGroupMemberInfo(GroupUser gu){
         return new GroupMemberInfo().addGroupMemberInfo(gu);
     }
@@ -36,4 +38,5 @@ public class GroupMemberInfoFactory {
     public boolean delGroupMemberInfoAll(Integer groupId){
         return new GroupMemberInfo().delGroupMemberInfoAll(groupId);
     }
+    */
 }
