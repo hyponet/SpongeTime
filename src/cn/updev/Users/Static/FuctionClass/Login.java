@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 public class Login {
     private IUser user;
     private String passWord;
+    private String key;
 
     public Login(){
 
@@ -43,7 +44,24 @@ public class Login {
             user = null;
         }
 
-        passWord = passWord + email;
+        this.passWord = passWord;
+    }
+
+    public Boolean judge(){
+
+        if(user == null){
+            return false;
+        }
+
+        System.out.println(key + " " + user.getPassWord());
+        if(key != null){
+            if(key.equals(user.getPassWord())){
+                setSession();
+                return true;
+            }
+        }
+
+        passWord = passWord + user.geteMail();
 
         //确定计算方法
         MessageDigest md5= null;
@@ -59,15 +77,6 @@ public class Login {
             passWord = base64en.encode(md5.digest(passWord.getBytes("utf-8")));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
-
-        this.passWord = passWord;
-    }
-
-    public Boolean judge(){
-
-        if(user == null){
-            return false;
         }
 
         if(passWord.equals(user.getPassWord())){
@@ -113,5 +122,9 @@ public class Login {
         }else {
             return false;
         }
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }
