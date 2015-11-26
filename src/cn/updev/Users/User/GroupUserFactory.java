@@ -31,6 +31,18 @@ public class GroupUserFactory {
             this.groupMemberRule = null;
     }
 
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public GroupRule getGroupMemberRule() {
+        return groupMemberRule;
+    }
+
     public IGroupUser getGroupUser(){
         if(userId == null || groupId == null || groupMemberRule == null)
             return null;
