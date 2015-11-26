@@ -4,6 +4,7 @@ import cn.updev.EventWeight.Rate.EventGroupRateManage;
 import cn.updev.Events.Event.EventDAO;
 import cn.updev.Events.Group.EventGroupDAO;
 import cn.updev.Users.Static.FuctionClass.Login;
+import cn.updev.Users.Static.FuctionClass.Register;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
@@ -23,6 +24,12 @@ public class AdminAction extends ActionSupport {
     private String email;
     private String password;
     private String remember;
+    private String userName;
+    private String nickName;
+    private String rePassword;
+    private String url;
+
+    private String code;
 
     public String login(){
 
@@ -62,8 +69,8 @@ public class AdminAction extends ActionSupport {
                 IUser user = login.getLoginedUser();
                 Cookie cookieID = new Cookie("ID", user.geteMail());
                 Cookie cookieKEY = new Cookie("KEY", user.getPassWord());
-                cookieID.setMaxAge(60*60*24*365);
-                cookieKEY.setMaxAge(60*60*24*365);
+                cookieID.setMaxAge(60*60*24*7);
+                cookieKEY.setMaxAge(60*60*24*7);
                 ServletActionContext.getResponse().addCookie(cookieID);
                 ServletActionContext.getResponse().addCookie(cookieKEY);
             }
@@ -130,6 +137,40 @@ public class AdminAction extends ActionSupport {
         return "user";
     }
 
+    public String Register(){
+
+        Login login = new Login();
+        if(!login.isNotLogined()){
+            return SUCCESS;
+        }
+
+        HttpServletRequest request = ServletActionContext.getRequest();
+        String error;
+
+        if(this.userName == null || this.nickName == null || this.email == null || this.password == null){
+            return INPUT;
+        }
+
+        if(!this.password.equals(this.rePassword)){
+            error = "您两次填写的密码不一致！";
+            request.setAttribute("error", error);
+            return INPUT;
+        }
+
+        if(this.code == null || !this.code.equals("ayanami")){
+            error = "内测码错误！请联系hhHypo：i@ihypo.net。";
+            request.setAttribute("error", error);
+            return INPUT;
+        }
+
+        Register register = new Register(this.userName, this.nickName, this.email, this.password ,this.url);
+
+        IUser user = register.saveUserInfo();
+        login.setUser(user);
+
+        return SUCCESS;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -152,5 +193,45 @@ public class AdminAction extends ActionSupport {
 
     public void setRemember(String remember) {
         this.remember = remember;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getRePassword() {
+        return rePassword;
+    }
+
+    public void setRePassword(String rePassword) {
+        this.rePassword = rePassword;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
