@@ -1,6 +1,7 @@
 package cn.updev.Users.User;
 
 import cn.updev.Users.Static.EnumeRule.GroupRule;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupSave;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
 
 /**
@@ -46,8 +47,12 @@ public class GroupUserFactory {
     public IGroupUser getGroupUser(){
         if(userId == null || groupId == null || groupMemberRule == null)
             return null;
-        IGroupUser groupUser = new GroupUser(userId,groupId,groupMemberRule);
-        return groupUser;
+        GroupUser groupUser = new GroupUser(this.userId,this.groupId,this.groupMemberRule);
+        return new UserOrGroupSave().saveGroupUser(groupUser);
+    }
+
+    public boolean updateGroupUser(){
+        return true;
     }
 
 }
