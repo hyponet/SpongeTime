@@ -72,6 +72,10 @@
                 <action name="logout" class="cn.updev.Action.Admin.AdminAction" method="logout">
                         <result name="success">/WEB-INF/WEB-CONTENT/login.jsp</result>
                 </action>
+                <action name="register" class="cn.updev.Action.Admin.AdminAction" method="Register">
+                        <result name="success" type="redirect">/admin</result>
+                        <result name="input">/WEB-INF/WEB-CONTENT/register.jsp</result>
+                </action>
                 <action name="*">
                         <result>/WEB-INF/WEB-CONTENT/index.jsp</result>
                 </action>
