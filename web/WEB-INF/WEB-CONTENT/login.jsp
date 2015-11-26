@@ -44,7 +44,7 @@
 								</label>
 							</div>
 							<button type="submit" class="btn btn-primary">登录</button>
-							<a href="#" class="btn btn-default disabled">注册</a> <small> 暂时不提供注册</small>
+							<a href="/register" class="btn btn-default">注册</a>
 						</fieldset>
 					</form>
 				</div>
@@ -58,21 +58,5 @@
 	<script src="/static/js/easypiechart.js"></script>
 	<script src="/static/js/easypiechart-data.js"></script>
 	<script src="/static/js/bootstrap-datepicker.js"></script>
-	<script>
-		!function ($) {
-			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
-				$(this).find('em:first').toggleClass("glyphicon-minus");	  
-			}); 
-			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-		}(window.jQuery);
-
-		$(window).on('resize', function () {
-		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-		})
-		$(window).on('resize', function () {
-		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-		})
-	</script>	
 </body>
-
 </html>
