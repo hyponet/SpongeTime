@@ -5,6 +5,7 @@ package cn.updev.Users.Static.FuctionClass;
  */
 
 import cn.updev.Users.Static.EnumeRule.UserRule;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import cn.updev.Users.User.UserFactory;
 
@@ -16,7 +17,8 @@ public class Register {
     }
 
     public IUser saveUserInfo(){
-        if(userFactory != null){
+        if(userFactory != null && new UserOrGroupQuery().queryUserByEMail(userFactory.geteMail()) == null){
+            //如果注册数据合法并且不存在重复用户名就保存到数据库
             return userFactory.getUser();
         }
         return null;

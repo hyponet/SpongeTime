@@ -104,6 +104,30 @@ public class UserFactory {
         }
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public String geteMail() {
+        return eMail;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public UserRule getRule() {
+        return rule;
+    }
+
     public IUser getUser(){
 
         if(this.eMail == null || this.rule == null){
