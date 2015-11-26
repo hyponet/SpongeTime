@@ -4,7 +4,7 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="cn.updev.Users.Group.GroupInfo.GroupInfo" table="GroupUser">
+    <class name="cn.updev.Users.Group.GroupInfo.GroupInfo" table="GroupInfo">
         <cache usage="read-write"/>
         <id name="groupId" column="groupId">
             <generator class="native"/>

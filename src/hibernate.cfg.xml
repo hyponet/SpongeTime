@@ -31,10 +31,13 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="format_sql">true</property>
         <property name="hibernate.cache.use_second_level_cache">false</property>
-        <!--映射文件 -->
+        <!--事件和事件组映射文件 -->
         <mapping resource="cn/updev/Events/Static/Event.hbm.xml"/>
         <mapping resource="cn/updev/Events/Static/EventGroupInfo.hbm.xml"/>
         <mapping resource="cn/updev/EventWeight/Weight/EventWeight.hbm.xml"/>
+        <!--用户和用户组映射文件-->
         <mapping resource="cn/updev/Users/Static/HibernateXML/User.hbm.xml"/>
+        <mapping resource="cn/updev/Users/Static/HibernateXML/GroupUser.hbm.xml"/>
+        <mapping resource="cn/updev/Users/Static/HibernateXML/GroupInfo.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
