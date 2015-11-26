@@ -4,6 +4,7 @@ import cn.updev.EventWeight.Rate.EventGroupRateManage;
 import cn.updev.Events.Event.EventDAO;
 import cn.updev.Events.Group.EventGroupDAO;
 import cn.updev.Users.Static.FuctionClass.Login;
+import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
@@ -21,34 +22,51 @@ public class AdminAction extends ActionSupport {
 
     private String email;
     private String password;
-    private Boolean remember;
+    private String remember;
 
     public String login(){
-
-        HttpServletRequest request = ServletActionContext.getRequest();
-        Cookie[] cookies = request.getCookies();
-
-        for(Cookie cookie : cookies){
-            if(cookie.getName().equals("ID")){
-                this.email = cookie.getValue();
-            }else if(cookie.getName().equals("KEY")){
-                this.email = cookie.getValue();
-            }
-        }
 
         Login login = new Login();
         if(!login.isNotLogined()){
             return SUCCESS;
         }
 
-        if(this.email == null || this.password == null){
+        HttpServletRequest request = ServletActionContext.getRequest();
+        Cookie[] cookies = request.getCookies();
+
+        String key = null;
+        for(Cookie cookie : cookies){
+            if(cookie.getName().equals("ID")){
+                this.email = cookie.getValue();
+            }else if(cookie.getName().equals("KEY")){
+                key = cookie.getValue();
+            }
+        }
+
+        if(this.email == null || (this.password == null && key == null)){
             return LOGIN;
         }
 
         login = new Login(this.email, this.password);
 
+        if(key != null){
+            // 从Cookie获得了值
+            login.setKey(key);
+        }
+
         if(login.judge()){
 
+            if(this.remember != null && this.remember.equals("Remember Me")){
+
+                //把用户邮箱和密码存入Cookie
+                IUser user = login.getLoginedUser();
+                Cookie cookieID = new Cookie("ID", user.geteMail());
+                Cookie cookieKEY = new Cookie("KEY", user.getPassWord());
+                cookieID.setMaxAge(60*60*24*365);
+                cookieKEY.setMaxAge(60*60*24*365);
+                ServletActionContext.getResponse().addCookie(cookieID);
+                ServletActionContext.getResponse().addCookie(cookieKEY);
+            }
             return SUCCESS;
         }else {
             return LOGIN;
@@ -128,11 +146,11 @@ public class AdminAction extends ActionSupport {
         this.password = password;
     }
 
-    public Boolean getRemember() {
+    public String getRemember() {
         return remember;
     }
 
-    public void setRemember(Boolean remember) {
+    public void setRemember(String remember) {
         this.remember = remember;
     }
 }
