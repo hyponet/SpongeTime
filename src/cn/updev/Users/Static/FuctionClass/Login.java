@@ -53,7 +53,6 @@ public class Login {
             return false;
         }
 
-        System.out.println(key + " " + user.getPassWord());
         if(key != null){
             if(key.equals(user.getPassWord())){
                 setSession();
@@ -122,6 +121,11 @@ public class Login {
         }else {
             return false;
         }
+    }
+
+    public void setUser(IUser user) {
+        this.user = user;
+        setSession();
     }
 
     public void setKey(String key) {
