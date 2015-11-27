@@ -1,7 +1,10 @@
 package cn.updev.Users.Group.GroupInfo;
 
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupDelete;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupUpdate;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo;
+import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 
 /**
  * Created by blf2 on 15-9-29.
@@ -40,19 +43,16 @@ public class GroupInfoFactory {
     }
 
 
-    public IGroupInfo saveGroup(){
+    public IGroupInfo saveGroupInfo(){
         IGroupInfo iGroupInfo = null;
         if(new UserOrGroupQuery().queryGroupInfoByName(this.groupName) == null)
             iGroupInfo = new GroupInfo(this.groupName,this.groupIntro).saveGroupInfo();
         return iGroupInfo;
     }
-    public boolean updateGroup(){
-        //数据库持久化更新用户组信息
-        return true;
+    public boolean updateGroupInfo(IGroupInfo iGroupInfo){
+        return new UserOrGroupUpdate().updateGroupInfo((GroupInfo)iGroupInfo);
     }
-    public boolean dismissGroup(){
-        //删除groupId群组信息
-        //删除groupId群组成员
-        return true;
+    public boolean deleteGroupInfo(IGroupInfo iGroupInfo){
+        return new UserOrGroupDelete().deleteGroupInfoById(iGroupInfo.getGroupId());
     }
 }
