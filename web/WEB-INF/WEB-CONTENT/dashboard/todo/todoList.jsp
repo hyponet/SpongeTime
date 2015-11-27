@@ -33,6 +33,28 @@
     </div>
   </div><!--/.row-->
   <div class="row">
+    <!--/.侧重预计完成时间 -->
+    <div class="col-lg-4">
+      <div class="row">
+        <div class="col-lg-12">
+          <h4>预计完成时间优先</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="list-group">
+            <div class="list-group">
+              <%
+                if(reckonEventList != null){
+                  for(IEvent event : reckonEventList){
+              %>
+              <a href="#" class="list-group-item"><%=event.getEventTitle()%></a>
+              <%}}%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.col-lg-4 -->
     <!--/.侧重权重 -->
     <div class="col-lg-4">
       <div class="row">
@@ -67,28 +89,6 @@
               <%
                 if(expectEventList != null){
                   for(IEvent event : expectEventList){
-              %>
-              <a href="#" class="list-group-item"><%=event.getEventTitle()%></a>
-              <%}}%>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div><!--/.col-lg-4 -->
-    <!--/.侧重预计完成时间 -->
-    <div class="col-lg-4">
-      <div class="row">
-        <div class="col-lg-12">
-          <h4>预计完成时间优先</h4>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <div class="list-group">
-            <div class="list-group">
-              <%
-                if(reckonEventList != null){
-                  for(IEvent event : reckonEventList){
               %>
               <a href="#" class="list-group-item"><%=event.getEventTitle()%></a>
               <%}}%>

@@ -25,6 +25,7 @@ public class GroupUserFactory {
             this.groupId = groupId;
 
     }
+
     private void setGroupMemberRule(GroupRule groupMemberRule){
         if(groupMemberRule.isCreater() || groupMemberRule.isAdmin() || groupMemberRule.isUser())
             this.groupMemberRule = groupMemberRule;
