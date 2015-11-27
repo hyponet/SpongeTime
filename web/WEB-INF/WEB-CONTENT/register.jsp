@@ -48,27 +48,43 @@
         <form action="/register" method="POST">
           <fieldset>
             <div class="form-group">
+              <label>用户名</label>
               <input class="form-control" placeholder="用户名" name="userName" type="text" value="${userName}">
-              <small>* 必填 只能由字母、数字、特殊符号组成</small>
+              <small>
+                <p id="userNameError" style="color:#d9534f; padding-left: 10px;"></p>
+                * 必填 只能由字母、数字、特殊符号组成
+              </small>
             </div>
             <div class="form-group">
+              <label>昵称</label>
               <input class="form-control" placeholder="昵称" name="nickName" type="text" value="${nickName}">
               <small>* 必填</small>
             </div>
             <div class="form-group">
+              <label>邮箱</label>
               <input class="form-control" placeholder="邮箱" name="email" type="email" value="${email}">
-              <small>* 必填 作为登录账户，建议选择常用邮箱</small>
+              <small>
+                <p id="EmailError" style="color:#d9534f; padding-left: 10px;"></p>
+                * 必填 作为登录账户，建议选择常用邮箱
+              </small>
             </div>
             <div class="form-group">
+              <label>密码</label>
               <input class="form-control" placeholder="密码" name="password" type="password" value="">
             </div>
             <div class="form-group">
+              <label>重复密码</label>
               <input class="form-control" placeholder="重复密码" name="rePassword" type="password" value="">
+              <small>
+                <p id="rePasswordError" style="color:#d9534f; padding-left: 10px;"></p>
+              </small>
             </div>
             <div class="form-group">
+              <label>个人主页<small>（可选）</small></label>
               <input class="form-control" placeholder="个人主页（可选）" name="url" type="text" value="${url}">
             </div>
             <div class="form-group">
+              <label>内测码</label>
               <input class="form-control" placeholder="内测码" name="code" type="text" value="${code}">
               <small>* 必填 测试期间使用内测码注册</small>
             </div>
