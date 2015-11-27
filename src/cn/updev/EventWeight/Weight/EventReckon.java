@@ -68,6 +68,8 @@ public class EventReckon {
             if(event.getExpectTime().getTime() == groupExpectTime){
                 expectTime.put(event.getEventId(), new Date(startTime + aveTime * order));
                 order++;
+            }else {
+                expectTime.put(event.getEventId(), event.getExpectTime());
             }
         }
     }
