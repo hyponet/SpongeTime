@@ -91,7 +91,17 @@ public class User implements IUser{
         return rule.isAdmin();
     }
 
-    public boolean isUser(){return rule.isUser();}
+    public boolean isUser(){
+        return rule.isUser();
+    }
+
+    public boolean isNonactivated(){
+        return rule.isNonactivated();
+    }
+
+    public boolean isDisabled(){
+        return rule.isDisabled();
+    }
 
     @Override
     public boolean equals(Object o) {

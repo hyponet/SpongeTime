@@ -14,10 +14,13 @@ public class GroupUser implements IGroupUser{
     private Integer userId;
     private Integer groupId;
     private GroupRule groupMemberRule;
-    GroupUser(Integer userId,Integer groupId,GroupRule groupMemberRule){
+    public GroupUser(Integer userId,Integer groupId,GroupRule groupMemberRule){
         this.userId = userId;
         this.groupId = groupId;
         this.groupMemberRule = groupMemberRule;
+    }
+
+    public GroupUser() {
     }
 
     //getters and setters
@@ -48,7 +51,7 @@ public class GroupUser implements IGroupUser{
     }
 
     public GroupRule getGroupMemberRule() {
-        return groupMemberRule;
+       return groupMemberRule;
     }
 
     public boolean setGroupMemberRule(GroupRule groupMemberRule){
@@ -71,12 +74,4 @@ public class GroupUser implements IGroupUser{
         return groupMemberRule.isUser();
     }
 
-    public GroupUser saveGroupUser(){
-        Session session = HibernateSessionFactory.currentSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(this);
-        transaction.commit();
-        session.close();
-        return this;
-    }
 }

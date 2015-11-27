@@ -1,7 +1,10 @@
 package cn.updev.Users.Group.GroupInfo;
 
-import cn.updev.Users.User.GroupUserFactory;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupDelete;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupUpdate;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo;
+import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 
 /**
  * Created by blf2 on 15-9-29.
@@ -11,15 +14,11 @@ public class GroupInfoFactory {
     private String groupName;
     private String groupIntro;
 
-    public GroupInfoFactory(Integer groupId,String groupName,String groupIntro,Integer userId){
-        this.setGroupId(groupId);
+    public GroupInfoFactory(String groupName,String groupIntro){
         this.setGroupName(groupName);
         this.setGroupIntro(groupIntro);
     }
 
-    private void setGroupId(Integer groupId){
-        this.groupId = groupId;
-    }
     private void setGroupName(String groupName){
         if(groupName.length() > 20)
             groupName = groupName.substring(20);
@@ -44,17 +43,16 @@ public class GroupInfoFactory {
     }
 
 
-    public IGroupInfo createGroup(){
-       IGroupInfo iGroupInfo = new GroupInfo(this.groupName,this.groupIntro).saveGroupInfo();
+    public IGroupInfo saveGroupInfo(){
+        IGroupInfo iGroupInfo = null;
+        if(new UserOrGroupQuery().queryGroupInfoByName(this.groupName) == null)
+            iGroupInfo = new GroupInfo(this.groupName,this.groupIntro).saveGroupInfo();
         return iGroupInfo;
     }
-    public boolean updateGroup(){
-        //数据库持久化更新用户组信息
-        return true;
+    public boolean updateGroupInfo(IGroupInfo iGroupInfo){
+        return new UserOrGroupUpdate().updateGroupInfo((GroupInfo)iGroupInfo);
     }
-    public boolean dismissGroup(){
-        //删除groupId群组信息
-        //删除groupId群组成员
-        return true;
+    public boolean deleteGroupInfo(IGroupInfo iGroupInfo){
+        return new UserOrGroupDelete().deleteGroupInfoById(iGroupInfo.getGroupId());
     }
 }

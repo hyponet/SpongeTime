@@ -1,7 +1,9 @@
 package cn.updev.Users.User;
 
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupDelete;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupSave;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupUpdate;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import cn.updev.Users.Static.EnumeRule.UserRule;
 import sun.misc.BASE64Encoder;
@@ -136,5 +138,13 @@ public class UserFactory {
         User user = new User(this.userName,this.nickName,this.eMail,this.passWord,this.url,this.rule);
         IUser iUser = new UserOrGroupSave().saveUser(user);
         return iUser;
+    }
+    
+
+    public boolean updateUser(IUser iUser){
+        return new UserOrGroupUpdate().updateUser((User)iUser);
+    }
+    public boolean deleteUser(IUser iUser){
+        return new UserOrGroupDelete().deleteUserByEMail(iUser.geteMail());
     }
 }

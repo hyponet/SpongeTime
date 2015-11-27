@@ -22,4 +22,6 @@ public interface IUser {
     boolean isUser();
     void setPassWord(String passWord);
     String getPassWord();
+    boolean isDisabled();
+    boolean isNonactivated();
 }
