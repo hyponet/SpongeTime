@@ -3,16 +3,14 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-
-    <typedef class="cn.updev.Users.Static.EnumeRule.GroupRule" name="GRule"/>
-
-    <class name="cn.updev.Users.User.GroupUser" table="GroupUser">
+    <typedef class="cn.updev.Users.Static.EnumeRule.GroupRule" name="GroupRule"/>
+    <class name="cn.updev.Users.User.GroupUser" table="group_user">
         <cache usage="read-write"/>
-        <id name="groupUserId" column="groupUserId">
+        <id name="groupUserId" column="group_user_id">
             <generator class="native"/>
         </id>
-        <property name="userId" type="java.lang.Integer" column="userId"/>
-        <property name="groupId" type="java.lang.Integer" column="groupId"/>
-        <property name="groupMemberRule" type="GRule" column="groupMemberRule"/>
+        <property name="userId" type="java.lang.Integer" column="user_id"/>
+        <property name="groupId" type="java.lang.Integer" column="group_id"/>
+        <property name="groupMemberRule" type="GroupRule" column="group_rule"/>
     </class>
 </hibernate-mapping>
