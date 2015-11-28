@@ -3,6 +3,8 @@ package cn.updev.Message.Email;
 /**
  * Created by hypo on 15-11-26.
  */
+import javax.mail.internet.MimeUtility;
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 public class MailSenderInfo {
     // 发送邮件的服务器的IP和端口
@@ -82,6 +84,11 @@ public class MailSenderInfo {
         this.userName = userName;
     }
     public String getSubject() {
+        try {
+            subject = MimeUtility.encodeText(subject, "UTF-8", "B");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return subject;
     }
     public void setSubject(String subject) {
