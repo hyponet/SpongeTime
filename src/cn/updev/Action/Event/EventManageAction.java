@@ -3,12 +3,14 @@ package cn.updev.Action.Event;
 import cn.updev.Events.Event.EventDAO;
 import cn.updev.Events.Group.EventGroupDAO;
 import cn.updev.Events.Group.UserEventGroup;
+import cn.updev.Events.Static.EventInfo;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Users.Static.FuctionClass.Login;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,10 +40,11 @@ public class EventManageAction extends ActionSupport {
         request.setAttribute("groups", groups);
 
         EventDAO eventDAO = new EventDAO();
-        List<IEvent> events = null;
+        List<IEvent> ievents = null;
+        List<EventInfo> events = new ArrayList<EventInfo>();
         if(this.groupId == null || this.groupId < 1){
 
-            events = eventDAO.getSingleEventByUserId(userId);
+            ievents = eventDAO.getSingleEventByUserId(userId);
             request.setAttribute("groupId", 0);
         }else if(groups != null){
 
@@ -51,7 +54,7 @@ public class EventManageAction extends ActionSupport {
                 if(group.getGroupInfo().getGroupId() == groupId){
 
                     getEvents = true;
-                    events = eventDAO.getEventByEventGroupId(groupId);
+                    ievents = eventDAO.getEventByEventGroupId(groupId);
                 }
             }
 
@@ -59,6 +62,13 @@ public class EventManageAction extends ActionSupport {
                 return ERROR;
             }
             request.setAttribute("groupId", groupId);
+        }
+
+        if(ievents != null){
+
+            for(IEvent event : ievents){
+                events.add(new EventInfo(event));
+            }
         }
 
         request.setAttribute("events", events);
