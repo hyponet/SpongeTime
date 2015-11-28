@@ -50,7 +50,7 @@
                     <nav>
                         <ul class="nav masthead-nav">
                             <li class="active"><a href="#">首页</a></li>
-                            <li><a href="#">了解更多</a></li>
+                            <li><a href="https://github.com/Coderhypo/SpongeTime" target="_blank">GitHub</a></li>
                             <li><a href="http://form.mikecrm.com/f.php?t=6mg20r" target="_blank">反馈</a></li>
                         </ul>
                     </nav>

@@ -6,7 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../static/head.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <%@include file="../static/head.jsp"%>
+  <title>添加独立事件 - SpongeTime仪表盘</title>
+</head>
 <body>
 <%@include file="../static/nav.jsp"%>
 <%@include file="../static/sideber.jsp"%>

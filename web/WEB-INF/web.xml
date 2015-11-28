@@ -5,9 +5,7 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1"
          metadata-complete="true">
-    <description>
-        A hard time assistant.
-    </description>
+
     <display-name>SpongeTime</display-name>
     <filter>
         <filter-name>struts2</filter-name>
@@ -17,4 +15,7 @@
         <filter-name>struts2</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <listener>
+        <listener-class>cn.updev.Message.Task.EventCheckMaster</listener-class>
+    </listener>
 </web-app>

@@ -49,9 +49,9 @@
           <fieldset>
             <div class="form-group">
               <label>用户名</label>
-              <input class="form-control" placeholder="用户名" name="userName" type="text" value="${userName}">
+              <input class="form-control" placeholder="用户名" id="username" name="userName" type="text" value="${userName}">
               <small>
-                <p id="userNameError" style="color:#d9534f; padding-left: 10px;"></p>
+                <p id="userNameError" style="padding-left: 10px;"></p>
                 * 必填 只能由字母、数字、特殊符号组成
               </small>
             </div>
@@ -62,19 +62,19 @@
             </div>
             <div class="form-group">
               <label>邮箱</label>
-              <input class="form-control" placeholder="邮箱" name="email" type="email" value="${email}">
+              <input class="form-control" placeholder="邮箱" id="email" name="email" type="email" value="${email}">
               <small>
-                <p id="EmailError" style="color:#d9534f; padding-left: 10px;"></p>
+                <p id="EmailError" style="padding-left: 10px;"></p>
                 * 必填 作为登录账户，建议选择常用邮箱
               </small>
             </div>
             <div class="form-group">
               <label>密码</label>
-              <input class="form-control" placeholder="密码" name="password" type="password" value="">
+              <input class="form-control" placeholder="密码" id="password" name="password" type="password" value="">
             </div>
             <div class="form-group">
               <label>重复密码</label>
-              <input class="form-control" placeholder="重复密码" name="rePassword" type="password" value="">
+              <input class="form-control" placeholder="重复密码" id="rePassword" name="rePassword" type="password" value="">
               <small>
                 <p id="rePasswordError" style="color:#d9534f; padding-left: 10px;"></p>
               </small>
@@ -103,5 +103,91 @@
 <script src="/static/js/easypiechart.js"></script>
 <script src="/static/js/easypiechart-data.js"></script>
 <script src="/static/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+  document.getElementById("username").onblur=function(){  // 输入框失去焦点
+    var thisNode=this;
+    var span=document.getElementById("userNameError");
+    var xmlhttp;
+    try{
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }catch(e){
+      // code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function(){
+      if(xmlhttp.readyState<4){  // 正在交互
+        span.style.color="#5bc0de";
+        span.innerHTML="正在判断";
+      }
+      if (xmlhttp.readyState==4 && (xmlhttp.status==200 || xmlhttp.status==0)){  // 请求成功
+        var result = xmlhttp.responseText;
+        var json = eval("(" + result + ")");
+        if(json.userName){
+          span.style.color="#5cb85c";
+          span.innerHTML="用户名可用！";
+        }else{
+          span.style.color="#d9534f";
+          span.innerHTML="用户名已经存在！";
+        }
+      }
+    }
+    xmlhttp.open("POST","/api/judgeusername",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("userName="+thisNode.value);
+  }
+  document.getElementById("email").onblur=function(){  // 输入框失去焦点
+    var thisNode=this;
+    var span=document.getElementById("EmailError");
+    var xmlhttp;
+    try{
+      // code for IE7+, Firefox, Chrome, Opera, Safari
+      xmlhttp=new XMLHttpRequest();
+    }catch(e){
+      // code for IE6, IE5
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function(){
+      if(xmlhttp.readyState<4){  // 正在交互
+        span.style.color="#5bc0de";
+        span.innerHTML="正在判断邮箱是否可用";
+      }
+      if (xmlhttp.readyState==4 && (xmlhttp.status==200 || xmlhttp.status==0)){  // 请求成功
+        var result = xmlhttp.responseText;
+        var json = eval("(" + result + ")");
+        if(json.email){
+          span.style.color="#5cb85c";
+          span.innerHTML="邮箱可用！";
+        }else{
+          span.style.color="#d9534f";
+          span.innerHTML=json.message;
+        }
+      }
+    }
+    xmlhttp.open("POST","/api/judgeusername",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("email="+thisNode.value);
+  }
+  document.getElementById("rePassword").onblur=function(){
+    var pass = document.getElementById('password').value;
+    var rePass = this.value;
+    if(pass != rePass){
+      document.getElementById('rePasswordError').innerHTML = '两次输入的密码不一致！';
+    }else{
+      document.getElementById('rePasswordError').innerHTML = '';
+
+    }
+  }
+  document.getElementById("password").onblur=function(){
+    var pass = document.getElementById('rePassword').value;
+    var rePass = this.value;
+    if(pass != rePass){
+      document.getElementById('rePasswordError').innerHTML = '两次输入的密码不一致！';
+    }else{
+      document.getElementById('rePasswordError').innerHTML = '';
+
+    }
+  }
+</script>
 </body>
 </html>
