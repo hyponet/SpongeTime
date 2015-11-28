@@ -116,23 +116,27 @@ public class EventWeightManage {
         Long subTime = event.getExpectTime().getTime() - new Date().getTime();
         subTime /= 3600000 * 24;
 
-        Double power;
+        Double addPower;
 
-        if(subTime > 0){
-            if(subTime > 15){
-                power = -0.2;
+        if(subTime >= 0){
+            // 可能提前完成
+            if(subTime > 7){
+                // 如果有可能提前一周
+                addPower = -subTime * 4.5;
             }else {
-                power = -0.1;
+                addPower = -subTime * 3.5;
             }
         }else {
-            if(subTime < -15){
-                power = 0.3;
-            }else {
-                power = 0.1;
-            }
             subTime = -subTime;
+            // 可能延期完成
+            if(subTime > 7){
+                // 如果延期超过一周
+                addPower = subTime * 4.5;
+            }else {
+                addPower = subTime * 3.5;
+            }
         }
 
-        return baseWeight + (event.getWeight().ordinal() + 1) * subTime * power;
+        return baseWeight + addPower;
     }
 }
