@@ -3,6 +3,11 @@ package cn.updev.Message.Task;
 import org.apache.commons.lang.time.DateUtils;
 
 import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 
 /**
@@ -13,10 +18,6 @@ public class EventCheckMaster implements ServletContextListener {
      * 每天的毫秒数
      */
     public static final long PERIOD_DAY = DateUtils.MILLIS_IN_DAY;
-    /**
-     * 一周内的毫秒数
-     */
-    public static final long PERIOD_WEEK = PERIOD_DAY * 7;
     /**
      * 无延迟
      */
@@ -30,9 +31,22 @@ public class EventCheckMaster implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent event) {
         //定义定时器
-        timer = new Timer("数据库表备份",true);
-        //启动备份任务,每月(4个星期)执行一次
-        timer.schedule(new BackUpTableTask(),NO_DELAY, PERIOD_WEEK * 4);
+        timer = new Timer("EventNeedToDoCheck",true);
+
+        Date now = new Date();
+        DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String ft = dateFormat1.format(now);
+        Date firstTime = null;
+        try {
+            firstTime = dateFormat2.parse(ft + " " + "06:00:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+            firstTime = now;
+        }
+        System.out.println("首次执行任务时间为：" + firstTime);
+        //启动事件检查任务，每天6点开始执行
+        timer.schedule(new EventCheck(),firstTime, PERIOD_DAY);
     }
     /**
      * 在Web应用结束时停止任务
