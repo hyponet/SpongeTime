@@ -67,7 +67,7 @@ public class EventReckon {
 
             Long touchDate = event.getCreateTime().getTime();
             Long groupDate = groupInfo.getCreateTime().getTime();
-            if(touchDate == groupDate){
+            if(touchDate/(1000 * 60) == groupDate/(1000 * 60)){
 
                 expectTime.put(event.getEventId(), new Date(startTime + aveTime * order));
             }else {
@@ -156,9 +156,9 @@ public class EventReckon {
                 // 可能延期完成
                 if(subTime > 7){
                     // 如果延期超过一周
-                    addPower = subTime * 4.0;
+                    addPower = subTime * 3.0 + 50;
                 }else {
-                    addPower = subTime * 3.0;
+                    addPower = subTime * 8.0;
                 }
             }
 

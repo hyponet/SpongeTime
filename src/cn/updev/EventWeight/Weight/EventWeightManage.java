@@ -131,9 +131,9 @@ public class EventWeightManage {
             // 可能延期完成
             if(subTime > 7){
                 // 如果延期超过一周
-                addPower = subTime * 4.5;
+                addPower = subTime * 3.5 + 50;
             }else {
-                addPower = subTime * 3.5;
+                addPower = subTime * 8.5;
             }
         }
 
