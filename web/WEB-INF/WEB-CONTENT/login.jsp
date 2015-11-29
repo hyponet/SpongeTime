@@ -23,8 +23,23 @@
 <![endif]-->
 
 </head>
-
 <body>
+<div class="container">
+	<%
+		String error = (String) request.getAttribute("error");
+		if(error != null){
+	%>
+	<div style="padding-left: 20px; padding-right: 20px; padding-top: 15px;">
+		<div class="alert alert-info" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+			<p><%=error%></p>
+		</div>
+	</div>
+	<%
+		}
+	%>
 	<div class="row">
 		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
 			<div class="login-panel panel panel-default">
@@ -33,7 +48,7 @@
 					<form action="/login" method="POST">
 						<fieldset>
 							<div class="form-group">
-								<input class="form-control" placeholder="邮箱" name="email" type="email" autofocus="">
+								<input class="form-control" placeholder="邮箱" name="email" type="email" value="${email}" autofocus="">
 							</div>
 							<div class="form-group">
 								<input class="form-control" placeholder="密码" name="password" type="password" value="">
@@ -50,7 +65,8 @@
 				</div>
 			</div>
 		</div><!-- /.col-->
-	</div><!-- /.row -->	
+	</div><!-- /.row -->
+</div>
 	<script src="/static/js/jquery-1.11.1.min.js"></script>
 	<script src="/static/js/bootstrap.min.js"></script>
 	<script src="/static/js/chart.min.js"></script>

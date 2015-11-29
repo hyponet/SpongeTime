@@ -25,77 +25,79 @@
 </head>
 
 <body>
-<div class="row">
-  <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-    <div class="login-panel panel panel-default">
-      <div class="panel-heading">欢迎使用SpongeTime <small><span class="label label-warning">试运行</span></small></div>
-      <%
-        String error = (String) request.getAttribute("error");
-        if(error != null){
-      %>
-      <div style="padding-left: 20px; padding-right: 20px; padding-top: 15px;">
-        <div class="alert alert-danger" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <p><%=error%></p>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+      <div class="login-panel panel panel-default">
+        <div class="panel-heading">欢迎使用SpongeTime <small><span class="label label-warning">试运行</span></small></div>
+        <%
+          String error = (String) request.getAttribute("error");
+          if(error != null){
+        %>
+        <div style="padding-left: 20px; padding-right: 20px; padding-top: 15px;">
+          <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <p><%=error%></p>
+          </div>
+        </div>
+        <%
+          }
+        %>
+        <div class="panel-body">
+          <form action="/register" method="POST">
+            <fieldset>
+              <div class="form-group">
+                <label>用户名</label>
+                <input class="form-control" placeholder="用户名" id="username" name="userName" type="text" value="${userName}">
+                <small>
+                  <p id="userNameError" style="padding-left: 10px;"></p>
+                  * 必填 只能由 字母、数字、_ 、- 组成
+                </small>
+              </div>
+              <div class="form-group">
+                <label>昵称</label>
+                <input class="form-control" placeholder="昵称" name="nickName" type="text" value="${nickName}">
+                <small>* 必填</small>
+              </div>
+              <div class="form-group">
+                <label>邮箱</label>
+                <input class="form-control" placeholder="邮箱" id="email" name="email" type="email" value="${email}">
+                <small>
+                  <p id="EmailError" style="padding-left: 10px;"></p>
+                  * 必填 作为登录账户，建议选择常用邮箱
+                </small>
+              </div>
+              <div class="form-group">
+                <label>密码</label>
+                <input class="form-control" placeholder="密码" id="password" name="password" type="password" value="">
+              </div>
+              <div class="form-group">
+                <label>重复密码</label>
+                <input class="form-control" placeholder="重复密码" id="rePassword" name="rePassword" type="password" value="">
+                <small>
+                  <p id="rePasswordError" style="color:#d9534f; padding-left: 10px;"></p>
+                </small>
+              </div>
+              <div class="form-group">
+                <label>个人主页<small>（可选）</small></label>
+                <input class="form-control" placeholder="个人主页（可选）" name="url" type="text" value="${url}">
+              </div>
+              <div class="form-group">
+                <label>内测码</label>
+                <input class="form-control" placeholder="内测码" name="code" type="text" value="${code}">
+                <small>* 必填 测试期间使用内测码注册</small>
+              </div>
+              <button type="submit" class="btn btn-primary">注册</button>
+              <a href="/login" class="btn btn-link">已有账户？</a>
+            </fieldset>
+          </form>
         </div>
       </div>
-      <%
-        }
-      %>
-      <div class="panel-body">
-        <form action="/register" method="POST">
-          <fieldset>
-            <div class="form-group">
-              <label>用户名</label>
-              <input class="form-control" placeholder="用户名" id="username" name="userName" type="text" value="${userName}">
-              <small>
-                <p id="userNameError" style="padding-left: 10px;"></p>
-                * 必填 只能由字母、数字、特殊符号组成
-              </small>
-            </div>
-            <div class="form-group">
-              <label>昵称</label>
-              <input class="form-control" placeholder="昵称" name="nickName" type="text" value="${nickName}">
-              <small>* 必填</small>
-            </div>
-            <div class="form-group">
-              <label>邮箱</label>
-              <input class="form-control" placeholder="邮箱" id="email" name="email" type="email" value="${email}">
-              <small>
-                <p id="EmailError" style="padding-left: 10px;"></p>
-                * 必填 作为登录账户，建议选择常用邮箱
-              </small>
-            </div>
-            <div class="form-group">
-              <label>密码</label>
-              <input class="form-control" placeholder="密码" id="password" name="password" type="password" value="">
-            </div>
-            <div class="form-group">
-              <label>重复密码</label>
-              <input class="form-control" placeholder="重复密码" id="rePassword" name="rePassword" type="password" value="">
-              <small>
-                <p id="rePasswordError" style="color:#d9534f; padding-left: 10px;"></p>
-              </small>
-            </div>
-            <div class="form-group">
-              <label>个人主页<small>（可选）</small></label>
-              <input class="form-control" placeholder="个人主页（可选）" name="url" type="text" value="${url}">
-            </div>
-            <div class="form-group">
-              <label>内测码</label>
-              <input class="form-control" placeholder="内测码" name="code" type="text" value="${code}">
-              <small>* 必填 测试期间使用内测码注册</small>
-            </div>
-            <button type="submit" class="btn btn-primary">注册</button>
-            <a href="/login" class="btn btn-link">已有账户？</a>
-          </fieldset>
-        </form>
-      </div>
-    </div>
-  </div><!-- /.col-->
-</div><!-- /.row -->
+    </div><!-- /.col-->
+  </div><!-- /.row -->
+</div>
 <script src="/static/js/jquery-1.11.1.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/chart.min.js"></script>
@@ -128,7 +130,7 @@
           span.innerHTML="用户名可用！";
         }else{
           span.style.color="#d9534f";
-          span.innerHTML="用户名已经存在！";
+          span.innerHTML=json.message;
         }
       }
     }
