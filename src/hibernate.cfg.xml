@@ -39,5 +39,6 @@
         <mapping resource="cn/updev/Users/Static/HibernateXML/User.hbm.xml"/>
         <mapping resource="cn/updev/Users/Static/HibernateXML/GroupUser.hbm.xml"/>
         <mapping resource="cn/updev/Users/Static/HibernateXML/GroupInfo.hbm.xml"/>
+        <mapping resource="cn/updev/Users/Static/HibernateXML/GroupMemberInviteInfo.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
