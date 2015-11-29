@@ -3,6 +3,7 @@ package cn.updev.Action.Todo;
 import cn.updev.EventWeight.Weight.EventWeight;
 import cn.updev.EventWeight.Weight.EventWeightManage;
 import cn.updev.Events.Event.EventDAO;
+import cn.updev.Events.Static.EventInfo;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Users.Static.FuctionClass.Login;
 import com.opensymphony.xwork2.ActionSupport;
@@ -38,13 +39,13 @@ public class TodoListAction extends ActionSupport {
                 EventWeightManage eventWeight = new EventWeightManage();
                 EventWeight weight1 = eventWeight.getEventWeight(o1.getEventId());
                 EventWeight weight2 = eventWeight.getEventWeight(o2.getEventId());
-                return (int)(weight1.getEventWeight() - weight2.getEventWeight());
+                return (int)(weight2.getEventWeight() - weight1.getEventWeight());
             }
         });
 
-        List<IEvent> weightEventList = new ArrayList<IEvent>();
+        List<EventInfo> weightEventList = new ArrayList<EventInfo>();
         for(IEvent event : events){
-            weightEventList.add(event);
+            weightEventList.add(new EventInfo(event));
         }
 
         Collections.sort(events, new Comparator<IEvent>() {
@@ -55,13 +56,13 @@ public class TodoListAction extends ActionSupport {
                 EventWeight weight2 = eventWeight.getEventWeight(o2.getEventId());
                 Long time1 = weight1.getEventExpect().getTime() / 1000;
                 Long time2 = weight2.getEventExpect().getTime() / 1000;
-                return (int)(time2 - time1);
+                return (int)(time1 - time2);
             }
         });
 
-        List<IEvent> expectEventList = new ArrayList<IEvent>();
+        List<EventInfo> expectEventList = new ArrayList<EventInfo>();
         for(IEvent event : events){
-            expectEventList.add(event);
+            expectEventList.add(new EventInfo(event));
         }
 
         Collections.sort(events, new Comparator<IEvent>() {
@@ -76,9 +77,9 @@ public class TodoListAction extends ActionSupport {
             }
         });
 
-        List<IEvent> reckonEventList = new ArrayList<IEvent>();
+        List<EventInfo> reckonEventList = new ArrayList<EventInfo>();
         for(IEvent event : events){
-            reckonEventList.add(event);
+            reckonEventList.add(new EventInfo(event));
         }
 
         HttpServletRequest request = ServletActionContext.getRequest();

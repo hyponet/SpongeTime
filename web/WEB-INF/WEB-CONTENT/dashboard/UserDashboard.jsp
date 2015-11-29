@@ -16,7 +16,12 @@
 	Integer eventFinishRate = (Integer) session.getAttribute("eventFinishRate");
 	List<EventGroupRate> groupRates = (List<EventGroupRate>) session.getAttribute("eventGroupRate");
 %>
-<%@include file="static/head.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<%@include file="static/head.jsp"%>
+	<title>仪表盘 - SpongeTime</title>
+</head>
 <body>
 <%@include file="static/nav.jsp"%>
 <%@include file="static/sideber.jsp"%>
@@ -30,7 +35,11 @@
 		
 	<div class="row">
 		<div class="col-lg-12">
-			<h3 class="page-header">个人仪表盘</h3>
+			<h3 class="page-header">
+				个人仪表盘
+				<a type="button" href="/admin/addevents" class="btn btn-default" title="添加事件"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+				<a type="button" href="/admin/todolist" class="btn btn-default" title="查看TODO列表"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
+			</h3>
 		</div>
 	</div><!--/.row-->
         
@@ -168,7 +177,7 @@
 		<div class="col-xs-12 col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
-					<h4><span class="label label-<%=weight%>"><%=groupRate.getEventGroupTitle()%></span> <small>实时进度</small></h4>
+					<h4><a style="text-decoration: none;" href="http://localhost:8080/admin/eventsmanage?groupId=<%=groupRate.getEventGroupId()%>"><span class="label label-<%=weight%>"><%=groupRate.getEventGroupTitle()%></span></a> <small>实时进度</small></h4>
 					<div style="padding-left: 8%;">
 						<div class="progress" style="width: 90%; padding: 3px;">
 							<div class="progress-bar progress-bar-<%=weight%> progress-bar-striped active" role="progressbar" aria-valuenow="<%=groupRate.getGroupRate()%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=groupRate.getGroupRate()%>%">

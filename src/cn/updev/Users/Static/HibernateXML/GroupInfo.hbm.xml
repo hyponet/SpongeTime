@@ -4,12 +4,12 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
 
-    <class name="cn.updev.Users.Group.GroupInfo.GroupInfo" table="GroupInfo">
+    <class name="cn.updev.Users.Group.GroupInfo.GroupInfo" table="group_info">
         <cache usage="read-write"/>
-        <id name="groupId" column="groupId">
+        <id name="groupId" column="group_id">
             <generator class="native"/>
         </id>
-        <property name="groupName" type="java.lang.String" column="groupName"/>
-        <property name="groupIntro" type="java.lang.String" column="groupIntro"/>
+        <property name="groupName" type="java.lang.String" column="group_name"/>
+        <property name="groupIntro" type="java.lang.String" column="group_intro"/>
     </class>
 </hibernate-mapping>

@@ -65,10 +65,16 @@ public class EventReckon {
         Integer order = 1;
         for(IEvent event : events){
 
-            if(event.getExpectTime().getTime() == groupExpectTime){
+            Long touchDate = event.getCreateTime().getTime();
+            Long groupDate = groupInfo.getCreateTime().getTime();
+            if(touchDate == groupDate){
+
                 expectTime.put(event.getEventId(), new Date(startTime + aveTime * order));
-                order++;
+            }else {
+
+                expectTime.put(event.getEventId(), event.getExpectTime());
             }
+            order++;
         }
     }
 
@@ -132,27 +138,31 @@ public class EventReckon {
         this.weight = new HashMap<Long, Double>();
 
         for(IEvent event : events){
-            Double baseWeight = (event.getWeight().ordinal() + 1) * 2.5 + groupInfo.getWeight().ordinal();
+            Double baseWeight = (event.getWeight().ordinal() + 1) * 2.5 + (groupInfo.getWeight().ordinal() + 1) * 25;
             Long subTime = expectTime.get(event.getEventId()).getTime() - reckonTime.get(event.getEventId()).getTime();
             subTime /= 3600000 * 24;
-            Double power;
+            Double addPower;
 
-            if(subTime > 0){
-                if(subTime > 15){
-                    power = -0.2;
+            if(subTime >= 0){
+                // 可能提前完成
+                if(subTime > 7){
+                    // 如果有可能提前一周
+                    addPower = -subTime * 4.0;
                 }else {
-                    power = -0.1;
+                    addPower = -subTime * 3.0;
                 }
             }else {
-                if(subTime < -15){
-                    power = 0.3;
-                }else {
-                    power = 0.2;
-                }
                 subTime = -subTime;
+                // 可能延期完成
+                if(subTime > 7){
+                    // 如果延期超过一周
+                    addPower = subTime * 4.0;
+                }else {
+                    addPower = subTime * 3.0;
+                }
             }
 
-            Double eventWeight = baseWeight + (event.getWeight().ordinal() + 1) * 25.0 * subTime * power;
+            Double eventWeight = baseWeight + addPower;
             weight.put(event.getEventId(), eventWeight);
         }
     }

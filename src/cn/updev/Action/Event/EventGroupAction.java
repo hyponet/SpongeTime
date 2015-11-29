@@ -79,9 +79,13 @@ public class EventGroupAction extends ActionSupport {
         EventGroupInfo groupInfo = factory.getGroupInfo();
 
         // 事件组事件持久化
+        Integer order = 1;
+        Date now = new Date();
+        Long sub = (groupExpect.getTime() - now.getTime()) / (eventTitles.size());
         for(String eventTitle : eventTitles){
 
-            IEvent event = new EventFactory(eventTitle, groupExpect, ownerId, groupWeightl, groupInfo.getGroupId()).getEvent();
+            IEvent event = new EventFactory(eventTitle, new Date(now.getTime() + sub * order), ownerId, groupWeightl, groupInfo.getGroupId()).getEvent();
+            order++;
             if(event != null){
                 list.add(event);
             }
@@ -197,7 +201,9 @@ public class EventGroupAction extends ActionSupport {
         Integer oldLen = events.size();
 
         EventFactory factory = new EventFactory();
-
+        Integer order = 1;
+        Date now = new Date();
+        Long sub = (groupExpect.getTime() - now.getTime()) / (eventTitles.size());
         if(oldLen >= newLen){
 
             // 如果对事件组进行了删减操作
@@ -220,7 +226,8 @@ public class EventGroupAction extends ActionSupport {
                     event.setDoerId(ownerId);
                     event.setCreateTime(new Date());
                 }
-                event.setExpectTime(this.groupExpect);
+                event.setExpectTime(new Date(now.getTime() + order * sub));
+                order++;
                 event.setWeight(EventWeight.values()[this.weight]);
 
                 factory.update(event);
@@ -254,7 +261,8 @@ public class EventGroupAction extends ActionSupport {
                     event.setDoerId(ownerId);
                     event.setCreateTime(new Date());
                 }
-                event.setExpectTime(this.groupExpect);
+                event.setExpectTime(new Date(now.getTime() + order * sub));
+                order++;
                 event.setWeight(EventWeight.values()[this.weight]);
 
                 factory.update(event);

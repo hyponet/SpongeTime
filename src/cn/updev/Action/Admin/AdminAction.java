@@ -137,40 +137,6 @@ public class AdminAction extends ActionSupport {
         return "user";
     }
 
-    public String Register(){
-
-        Login login = new Login();
-        if(!login.isNotLogined()){
-            return SUCCESS;
-        }
-
-        HttpServletRequest request = ServletActionContext.getRequest();
-        String error;
-
-        if(this.userName == null || this.nickName == null || this.email == null || this.password == null){
-            return INPUT;
-        }
-
-        if(!this.password.equals(this.rePassword)){
-            error = "您两次填写的密码不一致！";
-            request.setAttribute("error", error);
-            return INPUT;
-        }
-
-        if(this.code == null || !this.code.equals("ayanami")){
-            error = "内测码错误！请联系hhHypo：i@ihypo.net。";
-            request.setAttribute("error", error);
-            return INPUT;
-        }
-
-        Register register = new Register(this.userName, this.nickName, this.email, this.password ,this.url);
-
-        IUser user = register.saveUserInfo();
-        login.setUser(user);
-
-        return SUCCESS;
-    }
-
     public String getEmail() {
         return email;
     }

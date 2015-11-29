@@ -1,11 +1,10 @@
 <%@ page import="java.util.List" %>
 <%@ page import="cn.updev.Events.Group.UserEventGroup" %>
-<%@ page import="cn.updev.Events.Static.IEvent" %>
 <%@ page import="cn.updev.Events.Group.EventGroupInfo" %>
-<%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="cn.updev.Events.Static.EventWeight" %>
 <%@ page import="cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery" %>
+<%@ page import="cn.updev.Events.Static.EventInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -18,9 +17,14 @@
   List<UserEventGroup> groups = (List<UserEventGroup>) request.getAttribute("groups");
   Integer groupId = (Integer) request.getAttribute("groupId");
   String groupName = null;
-  List<IEvent> events = (List<IEvent>)request.getAttribute("events");
+  List<EventInfo> events = (List<EventInfo>)request.getAttribute("events");
 %>
-<%@include file="../static/head.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <%@include file="../static/head.jsp"%>
+  <title>管理任务 - SpongeTime仪表盘</title>
+</head>
 <body>
 <%@include file="../static/nav.jsp"%>
 <%@include file="../static/sideber.jsp"%>
@@ -84,12 +88,13 @@
           <%
             }
           %>
+          <div class="table-responsive">
           <table class="table table-bordered table-hover table-condensed">
             <thead>
             <tr>
               <th>任务标题</th>
-              <th>创建时间</th>
               <th>创建者</th>
+              <th>理想时间</th>
               <th>预期时间</th>
               <th>状态</th>
               <th>操作</th>
@@ -98,7 +103,7 @@
             <tbody>
             <%
               if(events != null){
-                for(IEvent event : events){
+                for(EventInfo event : events){
                   String ownerName = new UserOrGroupQuery().queryUserById(event.getOwnerId()).getNickName();
                   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                   String weight = "";
@@ -118,27 +123,10 @@
             %>
             <tr class="<%=weight%>">
               <td><%=event.isFinish() ? "<del>" + event.getEventTitle() + "</del>" : event.getEventTitle()%></td>
-              <td><%=dateFormat.format(event.getCreateTime())%></td>
               <td><%=ownerName%></td>
-              <td><%=dateFormat.format(event.getExpectTime())%></td>
-              <td>
-                <%
-                  if(event.isFinish()){
-                    out.print("已完成");
-                  }else {
-                    long time = event.getExpectTime().getTime() - new Date().getTime();
-                    if(time > 0){
-                      out.print("进行中");
-                    }else {
-                      if(time < -604800000){
-                        out.print("严重超期");
-                      }else {
-                        out.print("超期");
-                      }
-                    }
-                  }
-                %>
-              </td>
+              <td><%=dateFormat.format(event.getUserExpectTime())%></td>
+              <td><%=dateFormat.format(event.getReckonTime())%></td>
+              <td><%=event.getStatus()%></td>
               <td>
                 <div class="btn-group btn-group-xs" role="group">
                   <a href="/admin/eventFinish?eventId=<%=event.getEventId()%>" type="button" class="btn <%=event.isFinish()?"btn-default":"btn-success"%>" title="<%=event.isFinish()?"取消完成":"确认完成"%>">
@@ -162,6 +150,7 @@
             %>
             </tbody>
           </table>
+          </div>
         </div><!--/.col-lg-11-->
       </div><!--/.row-->
     </div><!--/.col-lg-8-->

@@ -72,12 +72,22 @@
                 <action name="logout" class="cn.updev.Action.Admin.AdminAction" method="logout">
                         <result name="success">/WEB-INF/WEB-CONTENT/login.jsp</result>
                 </action>
-                <action name="register" class="cn.updev.Action.Admin.AdminAction" method="Register">
+                <action name="register" class="cn.updev.Action.Admin.RegisterManager">
                         <result name="success" type="redirect">/admin</result>
                         <result name="input">/WEB-INF/WEB-CONTENT/register.jsp</result>
                 </action>
                 <action name="*">
                         <result>/WEB-INF/WEB-CONTENT/index.jsp</result>
+                </action>
+        </package>
+        <package name="API" namespace="/api" extends="json-default">
+                <global-results>
+                        <result name="error">/WEB-INF/WEB-CONTENT/error.jsp</result>
+                </global-results>
+                <action name="judgeusername" class="cn.updev.Action.Admin.RegisterManager" method="judgeMailName">
+                        <result type="json">
+                                <param name="root">json</param>
+                        </result>
                 </action>
         </package>
 </struts>

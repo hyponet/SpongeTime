@@ -12,7 +12,12 @@
   List<IEvent> events = (List<IEvent>) request.getAttribute("events");
   Integer groupId = (Integer) request.getAttribute("groupId");
 %>
-<%@include file="../static/head.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <%@include file="../static/head.jsp"%>
+  <title>编辑事件组信息 - SpongeTime仪表盘</title>
+</head>
 <body>
 <%@include file="../static/nav.jsp"%>
 <%@include file="../static/sideber.jsp"%>

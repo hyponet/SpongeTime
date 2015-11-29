@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="cn.updev.Events.Static.IEvent" %>
+<%@ page import="cn.updev.Events.Static.EventInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -9,11 +9,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  List<IEvent> weightEventList = (List<IEvent>) request.getAttribute("weightEventList");
-  List<IEvent> expectEventList = (List<IEvent>) request.getAttribute("expectEventList");
-  List<IEvent> reckonEventList = (List<IEvent>) request.getAttribute("reckonEventList");
+  List<EventInfo> weightEventList = (List<EventInfo>) request.getAttribute("weightEventList");
+  List<EventInfo> expectEventList = (List<EventInfo>) request.getAttribute("expectEventList");
+  List<EventInfo> reckonEventList = (List<EventInfo>) request.getAttribute("reckonEventList");
 %>
-<%@include file="../static/head.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <%@include file="../static/head.jsp"%>
+  <title>TODO列表 - SpongeTime</title>
+</head>
 <body>
 <%@include file="../static/nav.jsp"%>
 <%@include file="../static/sideber.jsp"%>
@@ -46,9 +51,18 @@
             <div class="list-group">
               <%
                 if(reckonEventList != null){
-                  for(IEvent event : reckonEventList){
+                  for(EventInfo event : reckonEventList){
               %>
-              <a href="#" class="list-group-item"><%=event.getEventTitle()%></a>
+              <a href="#" class="list-group-item">
+                <%
+                  if(event.getGroupTitle()!=null){
+                    out.print("<span class=\"label label-info\">"+event.getGroupTitle()+"</span>");
+                  }else {
+                    out.print("<span class=\"label label-success\">独立事件</span>");
+                  }
+                %>
+                <%=event.getEventTitle()%>
+              </a>
               <%}}%>
             </div>
           </div>
@@ -67,9 +81,18 @@
           <div class="list-group">
             <%
               if(weightEventList != null){
-                for(IEvent event : weightEventList){
+                for(EventInfo event : weightEventList){
             %>
-            <a href="#" class="list-group-item"><%=event.getEventTitle()%></a>
+            <a href="#" class="list-group-item">
+              <%
+                if(event.getGroupTitle()!=null){
+                  out.print("<span class=\"label label-info\">"+event.getGroupTitle()+"</span>");
+                }else {
+                  out.print("<span class=\"label label-success\">独立事件</span>");
+                }
+              %>
+              <%=event.getEventTitle()%>
+            </a>
             <%}}%>
           </div>
         </div>
@@ -88,9 +111,18 @@
             <div class="list-group">
               <%
                 if(expectEventList != null){
-                  for(IEvent event : expectEventList){
+                  for(EventInfo event : expectEventList){
               %>
-              <a href="#" class="list-group-item"><%=event.getEventTitle()%></a>
+              <a href="#" class="list-group-item">
+                <%
+                  if(event.getGroupTitle()!=null){
+                    out.print("<span class=\"label label-info\">"+event.getGroupTitle()+"</span>");
+                  }else {
+                    out.print("<span class=\"label label-success\">独立事件</span>");
+                  }
+                %>
+                <%=event.getEventTitle()%>
+              </a>
               <%}}%>
             </div>
           </div>
