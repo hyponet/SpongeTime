@@ -192,6 +192,9 @@
 					}
 		%>
 		<div class="col-xs-12 col-md-6">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-top: 10px; margin-right: 15px;">
+				<span aria-hidden="true">&times;</span>
+			</button>
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
 					<h4><a style="text-decoration: none;" href="/admin/eventsmanage?groupId=<%=groupRate.getEventGroupId()%>"><span class="label label-<%=weight%>"><%=groupRate.getEventGroupTitle()%></span></a> <small>实时进度</small></h4>

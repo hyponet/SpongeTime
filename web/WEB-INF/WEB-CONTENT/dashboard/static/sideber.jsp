@@ -37,7 +37,7 @@
       </a>
       <ul class="children collapse" id="sub-item-1">
         <li>
-          <a class="" href="#">
+          <a class="" href="/admin/addgroup">
             <span class="glyphicon glyphicon-certificate"></span> 创建团队
           </a>
         </li>

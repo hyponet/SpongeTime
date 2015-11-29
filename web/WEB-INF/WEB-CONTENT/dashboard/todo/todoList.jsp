@@ -69,7 +69,7 @@
                 %>
                 <%=event.getEventTitle()%>
                 <%
-                  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                  SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
                   out.print(" <small>[" + dateFormat.format(event.getExpectTime()) + "]</small>");
                 %>
               </a>
@@ -139,7 +139,7 @@
                 %>
                 <%=event.getEventTitle()%>
                 <%
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
                   out.print(" <small>[" + dateFormat.format(event.getReckonTime()) + "]</small>");
                 %>
               </a>
