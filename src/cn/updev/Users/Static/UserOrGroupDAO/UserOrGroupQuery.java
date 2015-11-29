@@ -73,6 +73,20 @@ public class UserOrGroupQuery {
         HibernateSessionFactory.closeSession();
         return groupInfo;
     }
+    public IGroupInfo queryGroupInfoById(Integer groupId){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  GroupInfo groupInfo where groupInfo.groupId = " + groupId);
+        if(query.list().size() == 0){
+            return null;
+        }
+        GroupInfo groupInfo = (GroupInfo)query.list().get(0);
+        session.clear();
+        session.flush();
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return groupInfo;
+    }
 
     public List<GroupUser> queryGroupMemberInfoAll(Integer groupId){
         Session session = HibernateSessionFactory.currentSession();
@@ -88,4 +102,5 @@ public class UserOrGroupQuery {
         HibernateSessionFactory.closeSession();
         return list;
     }
+    public
 }

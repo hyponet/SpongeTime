@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <typedef class="cn.updev.Users.Static.EnumeRule.InviteStatus" name="IStatus"/>
+
+    <class name="cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo" table="GroupMemberInviteInfo">
+        <cache usage="read-write"/>
+        <id name="inviteInfoId" column="inviteInfoId">
+            <generator class="native"/>
+        </id>
+        <property name="groupId" type="java.lang.Integer" column="groupId"/>
+        <property name="inviterId" type="java.lang.Integer" column="inviterId"/>
+        <property name="inviteeId" type="java.lang.Integer" column="inviteeId"/>
+        <property name="inviteStatus" type="IStatus" column="inviteStatus"/>
+    </class>
+</hibernate-mapping>

@@ -21,6 +21,18 @@ public class UserOrGroupDelete {
         HibernateSessionFactory.closeSession();
         return true;
     }
+
+    public boolean deleteGroupMemberById(Integer userId,Integer groupId){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete("from GroupUser groupUser where groupUser.groupid="+groupId+" && userId ="+userId);
+        session.clear();
+        session.flush();
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return true;
+    }
+
     public boolean deleteGroupInfoById(Integer groupId){
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
