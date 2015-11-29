@@ -34,7 +34,6 @@
 			<li class="active">Dashboard</li>
 		</ol>
 	</div><!--/.row-->
-		
 	<div class="row">
 		<div class="col-lg-12">
 			<h3 class="page-header">
@@ -42,6 +41,22 @@
 				<a type="button" href="/admin/addevents" class="btn btn-default" title="添加事件"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 				<a type="button" href="/admin/todolist" class="btn btn-default" title="查看TODO列表"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
 			</h3>
+		</div>
+		<div class="col-lg-12">
+			<div style="padding-left: 20px; padding-right: 20px; padding-top: 15px;">
+				<div class="alert alert-success" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<p>
+						<b>
+							<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+							测试运行公告：
+						</b>
+						1.[往期月完成事件数]未完成 、 2.事件权重计算算法暂不完善 、 3.团队模块未完成、4.邮件提醒已上线
+					</p>
+				</div>
+			</div>
 		</div>
 	</div><!--/.row-->
         

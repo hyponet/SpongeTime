@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="cn.updev.Events.Static.EventInfo" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -33,7 +34,9 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header">TODO列表</h3>
+      <h3 class="page-header">
+        TODO列表
+      </h3>
       <p>TODO列表是根据不同侧重点排序的事件展示板，在这里您可以查看您所有的未完成任务（包括个人和团队）。</p>
     </div>
   </div><!--/.row-->
@@ -42,7 +45,10 @@
     <div class="col-lg-4">
       <div class="row">
         <div class="col-lg-12">
-          <h4>理想完成时间优先</h4>
+          <h4 id="expectEventList">
+            <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+            理想完成时间优先
+          </h4>
         </div>
       </div>
       <div class="row">
@@ -62,6 +68,10 @@
                   }
                 %>
                 <%=event.getEventTitle()%>
+                <%
+                  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                  out.print(" <small>[" + dateFormat.format(event.getExpectTime()) + "]</small>");
+                %>
               </a>
               <%}}%>
             </div>
@@ -73,7 +83,10 @@
     <div class="col-lg-4">
       <div class="row">
         <div class="col-lg-12">
-          <h4>权重推荐优先</h4>
+          <h4 id="weightEventList">
+            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+            权重推荐优先
+          </h4>
         </div>
       </div>
       <div class="row">
@@ -102,7 +115,10 @@
     <div class="col-lg-4">
       <div class="row">
         <div class="col-lg-12">
-          <h4>预计完成时间优先</h4>
+          <h4 id="reckonEventList">
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            预计完成时间优先
+          </h4>
         </div>
       </div>
       <div class="row">
@@ -122,6 +138,10 @@
                   }
                 %>
                 <%=event.getEventTitle()%>
+                <%
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                  out.print(" <small>[" + dateFormat.format(event.getReckonTime()) + "]</small>");
+                %>
               </a>
               <%}}%>
             </div>
