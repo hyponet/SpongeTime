@@ -76,6 +76,7 @@ public class AdminAction extends ActionSupport {
             }
             return SUCCESS;
         }else {
+            request.setAttribute("error", "邮箱或密码错误！请确认登录邮箱或密码，或<a>找回密码</a>");
             return LOGIN;
         }
     }
