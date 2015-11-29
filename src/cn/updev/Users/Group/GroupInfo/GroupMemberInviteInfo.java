@@ -13,6 +13,7 @@ public class GroupMemberInviteInfo {
                 １１　表示被邀请者同意，应该推送给管理员或创建者
                 １２　表示被邀请者忽略此消息
                 １３　表示被邀请人拒绝接受邀请，推送给邀请者
+                １４　表示邀请消息超期
                 １０　表示邀请者和被邀请者这一层处理完成（推送也完成）
 
 
@@ -29,7 +30,7 @@ public class GroupMemberInviteInfo {
     }
     public GroupMemberInviteInfo(){}
     public boolean saveGroupMemberInviteInfo(){
-        //存储邀请信息
+
         return true;
     }
     public boolean deleteGroupMemberInviteInfo(){

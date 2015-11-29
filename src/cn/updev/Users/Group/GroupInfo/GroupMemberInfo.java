@@ -19,8 +19,4 @@ public class GroupMemberInfo {
         list = new UserOrGroupQuery().queryGroupMemberInfoAll(groupId);
         return list;
     }
-
-    public List<GroupUser> deleteGroupMemberInfoByName(String userName){
-        return list;
-    }
 }
