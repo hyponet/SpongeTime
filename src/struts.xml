@@ -53,6 +53,9 @@
                 <action name="addEventToGroup" class="cn.updev.Action.Event.EventAction" method="addEventToGroup">
                         <result name="success" type="redirect">/admin/eventsmanage?groupId=${groupId}</result>
                 </action>
+                <action name="addgroup">
+                        <result name="success">/WEB-INF/WEB-CONTENT/dashboard/groups/AddUserGroup.jsp</result>
+                </action>
                 <action name="*">
                         <result type="redirect">/login</result>
                 </action>
