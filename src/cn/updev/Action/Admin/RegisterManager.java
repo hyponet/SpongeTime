@@ -1,13 +1,23 @@
 package cn.updev.Action.Admin;
 
+import cn.updev.Message.Email.MailSenderInfo;
+import cn.updev.Message.Email.ThreadSenter;
+import cn.updev.Message.Template.BasicTemplate;
+import cn.updev.Message.Template.EventRemidTemplate;
+import cn.updev.Message.Template.RegisterTemplate;
+import cn.updev.Users.Static.EnumeRule.UserRule;
 import cn.updev.Users.Static.FuctionClass.Login;
 import cn.updev.Users.Static.FuctionClass.Register;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
+import cn.updev.Users.User.UserFactory;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -26,6 +36,7 @@ public class RegisterManager extends ActionSupport {
     private String rePassword;
     private String url;
 
+    private String VC;
     private String code;
 
     public String execute() throws Exception {
@@ -63,7 +74,7 @@ public class RegisterManager extends ActionSupport {
             Register register = new Register(this.userName, this.nickName, this.email, this.password ,this.url);
 
             IUser user = register.saveUserInfo();
-            login.setUser(user);
+            userVerify(user.getNickName(), user.geteMail(), user.getPassWord());
 
             return SUCCESS;
         }else {
@@ -119,6 +130,106 @@ public class RegisterManager extends ActionSupport {
         }
         this.setJson(map);
         return SUCCESS;
+    }
+
+    public String makeVerify(){
+
+        String verifyCode = getFromBase64(VC);
+
+        if(verifyCode == null){
+            return ERROR;
+        }
+
+        String[] userInfo = verifyCode.split(" ");
+
+        UserOrGroupQuery userDao = new UserOrGroupQuery();
+        IUser user = userDao.queryUserByEMail(userInfo[0]);
+
+        if(user != null && user.getPassWord().equals(userInfo[1])){
+            user.setRule(UserRule.User);
+            UserFactory factory = new UserFactory();
+            factory.updateUser(user);
+            Login login = new Login();
+            login.setUser(user);
+
+            return SUCCESS;
+        }
+
+        return LOGIN;
+
+    }
+
+    private void userVerify(String userName, String email, String pass){
+
+        MailSenderInfo mailInfo = new MailSenderInfo();
+        mailInfo.setToAddress(email);
+        String verifyCode = getBase64(email + " " + pass);
+        if(verifyCode == null){
+            return;
+        }
+        String url = "http://todo.updev.cn/verify?VC=" + verifyCode;
+        BasicTemplate template = new RegisterTemplate(userName, url).getTemplate();
+        mailInfo.setSubject(template.getTitle());
+        mailInfo.setContent(template.getContent());
+        //这个类主要来发送邮件
+        new Thread(new ThreadSenter(mailInfo)).start();
+    }
+
+    // 加密
+    private static String getBase64(String str) {
+        byte[] b = null;
+        String s = null;
+        try {
+            b = str.getBytes("utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        if (b != null) {
+            s = new BASE64Encoder().encode(b);
+        }
+
+        if(s != null){
+            char[] chars = s.toCharArray();
+
+            for(char c : chars){
+                if(c == '+'){
+                    c = '-';
+                }else if(c == '/'){
+                    c = '*';
+                }
+            }
+            return new String(chars);
+        }
+        return null;
+    }
+
+    // 解密
+    private static String getFromBase64(String s) {
+        byte[] b = null;
+        String result = null;
+        if (s != null) {
+            BASE64Decoder decoder = new BASE64Decoder();
+            try {
+                b = decoder.decodeBuffer(s);
+                result = new String(b, "utf-8");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(result != null){
+            char[] chars = result.toCharArray();
+            for(char c : chars){
+                if(c == '-'){
+                    c = '+';
+                }else if(c == '*'){
+                    c = '/';
+                }
+            }
+            return new String(chars);
+        }
+
+        return null;
     }
 
     public String getUserName() {
@@ -192,5 +303,13 @@ public class RegisterManager extends ActionSupport {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getVC() {
+        return VC;
+    }
+
+    public void setVC(String VC) {
+        this.VC = VC;
     }
 }

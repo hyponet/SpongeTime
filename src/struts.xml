@@ -60,6 +60,7 @@
         <package name="Login" namespace="/" extends="struts-default">
                 <global-results>
                         <result name="error">/WEB-INF/WEB-CONTENT/error.jsp</result>
+                        <result name="login">/WEB-INF/WEB-CONTENT/login.jsp</result>
                 </global-results>
                 <action name="login" class="cn.updev.Action.Admin.AdminAction" method="login">
                         <result name="success" type="redirect">/admin</result>
@@ -76,6 +77,9 @@
                 <action name="register" class="cn.updev.Action.Admin.RegisterManager">
                         <result name="success" type="redirect">/admin</result>
                         <result name="input">/WEB-INF/WEB-CONTENT/register.jsp</result>
+                </action>
+                <action name="verify" class="cn.updev.Action.Admin.RegisterManager" method="makeVerify">
+                        <result name="success" type="redirect">/admin</result>
                 </action>
                 <action name="*">
                         <result>/WEB-INF/WEB-CONTENT/index.jsp</result>
