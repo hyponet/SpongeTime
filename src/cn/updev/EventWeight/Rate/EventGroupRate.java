@@ -1,5 +1,6 @@
 package cn.updev.EventWeight.Rate;
 
+import cn.updev.EventWeight.Weight.EventWeightManage;
 import cn.updev.Events.Event.EventDAO;
 import cn.updev.Events.Group.EventGroupDAO;
 import cn.updev.Events.Group.EventGroupInfo;
@@ -7,6 +8,7 @@ import cn.updev.Events.Static.EventWeight;
 import cn.updev.Events.Static.IEvent;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +24,7 @@ public class EventGroupRate {
     private EventWeight weight;
     private String createTime;
     private String groupExpect;
+    private Date finishTime;
 
     public EventGroupRate(Integer eventGroupId) {
         this.eventGroupId = eventGroupId;
@@ -39,9 +42,23 @@ public class EventGroupRate {
         this.evnetNum = events.size();
         this.finishEventNum = 0;
 
+        this.finishTime = null;
         for(IEvent event : events){
             if(event.isFinish()){
                 this.finishEventNum++;
+            }
+            EventWeightManage eventWeight = new EventWeightManage();
+            cn.updev.EventWeight.Weight.EventWeight weight = eventWeight.getEventWeight(event.getEventId());
+
+            if(finishTime == null){
+                finishTime = weight.getEventReckon();
+            }else {
+                Long temp = finishTime.getTime();
+                Long next = weight.getEventReckon().getTime();
+
+                if(next > temp){
+                    finishTime = weight.getEventReckon();
+                }
             }
         }
         this.groupRate = 100 * this.finishEventNum / this.evnetNum;
@@ -77,5 +94,10 @@ public class EventGroupRate {
 
     public EventWeight getWeight() {
         return weight;
+    }
+
+    public String getFinishTime() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(finishTime);
     }
 }
