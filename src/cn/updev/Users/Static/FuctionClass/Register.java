@@ -13,7 +13,7 @@ public class Register {
     private UserFactory userFactory = null;
 
     public Register(String userName, String nickName, String eMail, String passWord,String url){
-        userFactory = new UserFactory(userName,nickName,eMail,passWord,url,UserRule.User);
+        userFactory = new UserFactory(userName,nickName,eMail,passWord,url,UserRule.Nonactivated);
     }
 
     public IUser saveUserInfo(){

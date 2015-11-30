@@ -2,7 +2,10 @@ package cn.updev.Users.Static.UserOrGroupDAO;
 
 import cn.updev.Database.HibernateSessionFactory;
 import cn.updev.Users.Group.GroupInfo.GroupInfo;
+import cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo;
+import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
+import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import cn.updev.Users.User.GroupUser;
 import cn.updev.Users.User.User;
@@ -101,5 +104,35 @@ public class UserOrGroupQuery {
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return list;
+    }
+    public IGroupUser queryGroupUser(Integer userId,Integer groupId){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  GroupUser groupUser where groupUser.groupId = " + groupId +
+                " and groupUser.userId="+userId);
+        if(query.list().size() == 0){
+            return null;
+        }
+       IGroupUser iGroupUser = (IGroupUser)query.list().get(0);
+        session.clear();
+        session.flush();
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return iGroupUser;
+    }
+    public IGroupMemberInviteInfo queryGroupMemberInviteInfo(Integer inviterId,Integer inviteeId,Integer groupId){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  GroupMemberInviteInfo gmii where gmii.groupId = " + groupId +" && " +
+                "gmii.inviterid=" + inviterId +" && inviteeId="+inviteeId);
+        if(query.list().size() == 0){
+            return null;
+        }
+        GroupMemberInviteInfo groupMemberInviteInfo = (GroupMemberInviteInfo) query.list().get(0);
+        session.clear();
+        session.flush();
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return groupMemberInviteInfo;
     }
 }
