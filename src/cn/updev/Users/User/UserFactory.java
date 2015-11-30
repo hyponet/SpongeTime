@@ -26,6 +26,9 @@ public class UserFactory {
     private String url;
     private UserRule rule;
 
+    public UserFactory() {
+    }
+
     public UserFactory(String userName, String nickName, String eMail, String passWord,String url,UserRule rule) {
         this.seteMail(eMail);//this.eMail = eMail;
         this.setNickName(nickName);
