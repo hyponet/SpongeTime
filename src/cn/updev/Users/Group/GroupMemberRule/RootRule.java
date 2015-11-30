@@ -4,6 +4,7 @@ import cn.updev.Users.Group.GroupInfo.GroupMemberInfoFactory;
 import cn.updev.Users.Static.EnumeRule.GroupRule;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupDelete;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupUpdate;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
 import cn.updev.Users.User.GroupUser;
 
@@ -18,8 +19,22 @@ public class RootRule {
         }
         return false;
     }
-    public boolean appointAdmin(Integer groupId,Integer userId){
-     //   return new GroupMemberInfoFactory().changeGroupMemberInfo(new GroupUser(userId,groupId,2));
-        return true;
+    public boolean appointAdmin(Integer groupId,Integer createrId,Integer userId){
+        IGroupUser iGroupUser = new UserOrGroupQuery().queryGroupUser(createrId,groupId);
+        if(iGroupUser != null && iGroupUser.getGroupMemberRule() == GroupRule.Creater){
+            IGroupUser iGroupUser1 = new UserOrGroupQuery().queryGroupUser(userId,groupId);
+            iGroupUser1.setGroupMemberRule(GroupRule.Admin);
+            return new UserOrGroupUpdate().updateGroupUser((GroupUser)iGroupUser1);
+        }
+        return false;
+    }
+    public boolean cancelAdmin(Integer groupId,Integer createrId,Integer userId){
+        IGroupUser iGroupUser = new UserOrGroupQuery().queryGroupUser(createrId,groupId);
+        if(iGroupUser != null && iGroupUser.getGroupMemberRule() == GroupRule.Creater){
+            IGroupUser iGroupUser1 = new UserOrGroupQuery().queryGroupUser(userId,groupId);
+            iGroupUser1.setGroupMemberRule(GroupRule.User);
+            return new UserOrGroupUpdate().updateGroupUser((GroupUser)iGroupUser1);
+        }
+        return false;
     }
 }
