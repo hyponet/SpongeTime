@@ -1,6 +1,7 @@
 package cn.updev.Users.Group.GroupInfo;
 
 import cn.updev.Users.Static.EnumeRule.InviteStatus;
+import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupDelete;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupSave;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
 
@@ -108,8 +109,8 @@ public class GroupMemberInviteInfo implements IGroupMemberInviteInfo{
         return new UserOrGroupSave().saveGroupMemberInviteInfo(this);
     }
     public boolean deleteGroupMemberInviteInfo(){
-        //数据库持久化
-        return true;
+
+        return new UserOrGroupDelete().deleteGroupMemberInviteInfo(this.inviterId,this.inviteeId,this.groupId);
     }
     public boolean saveGroupUserInfo(Integer inviteeId){
         //从数据库中获得inviteeId的信息，然后存储

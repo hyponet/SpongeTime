@@ -119,4 +119,16 @@ public class UserOrGroupQuery {
         HibernateSessionFactory.closeSession();
         return groupMemberInviteInfo;
     }
+    public List<GroupUser> queryGroupAllUserJoined(Integer userId){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  GroupUser groupUser where groupUser.userId = " + userId);
+        if(query.list().size() == 0){
+            return null;
+        }
+        LinkedList <GroupUser> list = (LinkedList <GroupUser>)query.list();
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return list;
+    }
 }
