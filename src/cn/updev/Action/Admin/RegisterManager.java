@@ -52,24 +52,54 @@ public class RegisterManager extends ActionSupport {
             request.setAttribute("error", error);
             return INPUT;
         }
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9_-]*$");
+        Matcher matcher = pattern.matcher(this.userName);
+        if(matcher.matches()){
+            System.out.println(this.userName + " " + this.nickName + " " + this.email + " " + this.password + " " + this.url);
 
-        Register register = new Register(this.userName, this.nickName, this.email, this.password ,this.url);
+            if(this.url == null){
+                this.url = "";
+            }
+            Register register = new Register(this.userName, this.nickName, this.email, this.password ,this.url);
 
-        IUser user = register.saveUserInfo();
-        login.setUser(user);
+            IUser user = register.saveUserInfo();
+            login.setUser(user);
 
-        return SUCCESS;
+            return SUCCESS;
+        }else {
+            error = "用户名不合法！";
+            request.setAttribute("error", error);
+            return INPUT;
+        }
     }
 
     public String judgeMailName(){
         Map<String, Object> map = new HashMap<String, Object>();
 
         if(userName != null){
-            if(new UserOrGroupQuery().queryUserByName(userName) == null){
-                map.put("userName", true);
-            }else{
+
+            if(userName.length() == 0){
+
                 map.put("userName", false);
+                map.put("message", "请输入用户名！");
+            }else {
+                Pattern pattern = Pattern.compile("^[a-zA-Z0-9_-]*$");
+                Matcher matcher = pattern.matcher(userName);
+
+                if(!matcher.matches() || "admin".equals(userName) || "root".equals(userName)){
+                    map.put("userName", false);
+                    map.put("message", "用户名格式不合法！");
+                }else{
+
+                    if(new UserOrGroupQuery().queryUserByName(userName) == null){
+                        map.put("userName", true);
+                    }else{
+                        map.put("userName", false);
+                        map.put("message", "用户名已存在");
+                    }
+                }
             }
+
         }
         if(email != null){
             Pattern pattern = Pattern.compile("^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$");

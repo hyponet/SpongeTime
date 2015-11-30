@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="cn.updev.Events.Static.EventInfo" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -33,16 +34,21 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header">TODO列表</h3>
+      <h3 class="page-header">
+        TODO列表
+      </h3>
       <p>TODO列表是根据不同侧重点排序的事件展示板，在这里您可以查看您所有的未完成任务（包括个人和团队）。</p>
     </div>
   </div><!--/.row-->
   <div class="row">
-    <!--/.侧重预计完成时间 -->
+    <!--/.侧重理想时间 -->
     <div class="col-lg-4">
       <div class="row">
         <div class="col-lg-12">
-          <h4>预计完成时间优先</h4>
+          <h4 id="expectEventList">
+            <span class="glyphicon glyphicon-screenshot" aria-hidden="true"></span>
+            理想完成时间优先
+          </h4>
         </div>
       </div>
       <div class="row">
@@ -50,10 +56,13 @@
           <div class="list-group">
             <div class="list-group">
               <%
-                if(reckonEventList != null){
-                  for(EventInfo event : reckonEventList){
+                if(expectEventList != null){
+                  for(EventInfo event : expectEventList){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
               %>
-              <a href="#" class="list-group-item">
+              <a href="#" class="list-group-item" data-toggle="modal" data-target="#finishEvent"
+                 data-eventid="<%=event.getEventId()%>" data-eventtitle="<%=event.getEventTitle()%>"
+                 data-reckon="<%=dateFormat.format(event.getReckonTime())%>" data-expect="<%=dateFormat.format(event.getExpectTime())%>" title="完成事件">
                 <%
                   if(event.getGroupTitle()!=null){
                     out.print("<span class=\"label label-info\">"+event.getGroupTitle()+"</span>");
@@ -73,7 +82,10 @@
     <div class="col-lg-4">
       <div class="row">
         <div class="col-lg-12">
-          <h4>权重推荐优先</h4>
+          <h4 id="weightEventList">
+            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+            权重推荐优先
+          </h4>
         </div>
       </div>
       <div class="row">
@@ -82,8 +94,11 @@
             <%
               if(weightEventList != null){
                 for(EventInfo event : weightEventList){
+                  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             %>
-            <a href="#" class="list-group-item">
+            <a href="#" class="list-group-item" data-toggle="modal" data-target="#finishEvent"
+               data-eventid="<%=event.getEventId()%>" data-eventtitle="<%=event.getEventTitle()%>"
+               data-reckon="<%=dateFormat.format(event.getReckonTime())%>" data-expect="<%=dateFormat.format(event.getExpectTime())%>" title="完成事件">
               <%
                 if(event.getGroupTitle()!=null){
                   out.print("<span class=\"label label-info\">"+event.getGroupTitle()+"</span>");
@@ -98,11 +113,14 @@
         </div>
       </div>
     </div><!--/.col-lg-4 -->
-    <!--/.侧重理想时间 -->
+    <!--/.侧重预计完成时间 -->
     <div class="col-lg-4">
       <div class="row">
         <div class="col-lg-12">
-          <h4>理想完成时间优先</h4>
+          <h4 id="reckonEventList">
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            预计完成时间优先
+          </h4>
         </div>
       </div>
       <div class="row">
@@ -110,10 +128,13 @@
           <div class="list-group">
             <div class="list-group">
               <%
-                if(expectEventList != null){
-                  for(EventInfo event : expectEventList){
+                if(reckonEventList != null){
+                  for(EventInfo event : reckonEventList){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
               %>
-              <a href="#" class="list-group-item">
+              <a href="#" class="list-group-item" data-toggle="modal" data-target="#finishEvent"
+                 data-eventid="<%=event.getEventId()%>" data-eventtitle="<%=event.getEventTitle()%>"
+                 data-reckon="<%=dateFormat.format(event.getReckonTime())%>" data-expect="<%=dateFormat.format(event.getExpectTime())%>" title="完成事件">
                 <%
                   if(event.getGroupTitle()!=null){
                     out.print("<span class=\"label label-info\">"+event.getGroupTitle()+"</span>");
@@ -131,6 +152,33 @@
     </div><!--/.col-lg-4 -->
   </div><!--/.row-->
 </div>	<!--/.main-->
+<!-- 完成事件 -->
+<div class="modal fade" id="finishEvent" tabindex="-1" role="dialog" aria-labelledby="finishEventLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="finishEventLabel">删除事件组</h4>
+      </div>
+      <form action="/admin/todolist" method="POST">
+        <div class="modal-body">
+          <input type="hidden" id="finishEventId" name="eventId"/>
+          <p>
+            事件 <span class="label label-success" id="finishEventTitle"></span>
+            理想完成时间为<data value="" id="expect"></data>，
+            我们预计于<data value="" id="reckon"></data>完成
+          </p>
+          <p>您确认现在事件已经完成了吗？</p>
+          <small>确认后，事件将划出TODO列表，但您依然可以在任务管理中找到已完成的事件。</small>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          <button type="submit" class="btn btn-info">确认完成</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <script src="/static/js/jquery-1.11.1.min.js"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="/static/js/chart.min.js"></script>
@@ -138,5 +186,20 @@
 <script src="/static/js/easypiechart.js"></script>
 <script src="/static/js/easypiechart-data.js"></script>
 <script src="/static/js/bootstrap-datepicker.js"></script>
+<script>
+  $('#finishEvent').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget)
+    var eventId = button.data('eventid')
+    var eventTitle = button.data('eventtitle')
+    var expect = button.data('expect')
+    var reckon = button.data('reckon')
+
+    var modal = $(this)
+    modal.find('.modal-title').text('事件 ' + eventTitle + '完成确认')
+    modal.find('#finishEventId').val(eventId)
+    document.getElementById('finishEventTitle').innerHTML = eventTitle
+    document.getElementById('expect').innerHTML = expect
+    document.getElementById('reckon').innerHTML = reckon
+  })</script>
 </body>
 </html>

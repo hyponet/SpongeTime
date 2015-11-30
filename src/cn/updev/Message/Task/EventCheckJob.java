@@ -14,27 +14,25 @@ import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import org.apache.commons.lang.time.DateUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
 
 import java.util.Date;
 import java.util.List;
-import java.util.TimerTask;
 
 /**
- * Created by hypo on 15-11-27.
+ * Created by hypo on 15-11-30.
  */
-public class EventCheck extends TimerTask {
+public class EventCheckJob implements Job {
 
-    /**
-     * 每天的毫秒数
-     */
-    public static final long PERIOD_DAY = DateUtils.MILLIS_IN_DAY;
+    public static final long PERIOD_DAY = DateUtils.MILLIS_PER_DAY;
 
-    /**
-     *  把所有为完成事件跑一遍，比对理想完成时间，
-     *  如果差值在不到两天就发送邮件提醒用户
-     */
     @Override
-    public void run() {
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
+
+        System.out.println("执行事件检查！");
+
         Session session = HibernateSessionFactory.currentSession();
         String hql = "FROM EventWeight WHERE 1=1";
         Query query = session.createQuery(hql);

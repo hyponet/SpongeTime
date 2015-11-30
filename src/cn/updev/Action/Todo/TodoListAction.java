@@ -3,6 +3,7 @@ package cn.updev.Action.Todo;
 import cn.updev.EventWeight.Weight.EventWeight;
 import cn.updev.EventWeight.Weight.EventWeightManage;
 import cn.updev.Events.Event.EventDAO;
+import cn.updev.Events.Event.EventFactory;
 import cn.updev.Events.Static.EventInfo;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Users.Static.FuctionClass.Login;
@@ -10,21 +11,24 @@ import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by hypo on 15-11-25.
  */
 public class TodoListAction extends ActionSupport {
 
+    private Long eventId;
+
     public String execute() throws Exception {
 
         Login login = new Login();
         if(login.isNotLogined()){
             return LOGIN;
+        }
+
+        if(this.eventId != null && this.eventId >0){
+            eventFinish();
         }
 
         EventDAO eventDAO = new EventDAO();
@@ -88,5 +92,28 @@ public class TodoListAction extends ActionSupport {
         request.setAttribute("reckonEventList", reckonEventList);
 
         return SUCCESS;
+    }
+
+    private void eventFinish(){
+
+        IEvent event = new EventDAO().getEventById(this.eventId);
+
+        if(event.isFinish()){
+            event.setFinishTime(null);
+        }else {
+            event.setFinishTime(new Date());
+        }
+
+        EventFactory factory = new EventFactory();
+        factory.update(event);
+
+    }
+
+    public Long getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
     }
 }

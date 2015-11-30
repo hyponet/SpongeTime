@@ -67,7 +67,7 @@ public class EventReckon {
 
             Long touchDate = event.getCreateTime().getTime();
             Long groupDate = groupInfo.getCreateTime().getTime();
-            if(touchDate == groupDate){
+            if(touchDate/(1000 * 60) == groupDate/(1000 * 60)){
 
                 expectTime.put(event.getEventId(), new Date(startTime + aveTime * order));
             }else {
@@ -137,6 +137,9 @@ public class EventReckon {
     private void updateWeight(){
         this.weight = new HashMap<Long, Double>();
 
+        Double dmax = Double.MIN_VALUE;
+        Double dmin = Double.MAX_VALUE;
+
         for(IEvent event : events){
             Double baseWeight = (event.getWeight().ordinal() + 1) * 2.5 + (groupInfo.getWeight().ordinal() + 1) * 25;
             Long subTime = expectTime.get(event.getEventId()).getTime() - reckonTime.get(event.getEventId()).getTime();
@@ -147,22 +150,40 @@ public class EventReckon {
                 // 可能提前完成
                 if(subTime > 7){
                     // 如果有可能提前一周
-                    addPower = -subTime * 4.0;
+                    addPower = -subTime * 1.0 - 10;
                 }else {
-                    addPower = -subTime * 3.0;
+                    addPower = -subTime * 2.0;
                 }
             }else {
                 subTime = -subTime;
                 // 可能延期完成
                 if(subTime > 7){
                     // 如果延期超过一周
-                    addPower = subTime * 4.0;
+                    addPower = subTime * 1.0 + 20;
                 }else {
                     addPower = subTime * 3.0;
                 }
             }
 
             Double eventWeight = baseWeight + addPower;
+
+            if(eventWeight > dmax){
+                dmax = eventWeight;
+            }
+
+            if(eventWeight < dmin){
+                dmin = eventWeight;
+            }
+
+            weight.put(event.getEventId(), eventWeight);
+        }
+
+        Double sub = dmax - dmin;
+
+        for (IEvent event : events){
+
+            Double eventWeight = weight.get(event.getEventId());
+            eventWeight += sub--;
             weight.put(event.getEventId(), eventWeight);
         }
     }

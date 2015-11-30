@@ -1,6 +1,7 @@
 <%@ page import="cn.updev.EventWeight.Rate.EventGroupRate" %>
 <%@ page import="java.util.List" %>
 <%@ page import="cn.updev.Events.Static.EventWeight" %>
+<%@ page import="cn.updev.Events.Event.FinishRate" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -15,6 +16,7 @@
 	Integer allFinishEventNum = (Integer) session.getAttribute("allFinishEventNum");
 	Integer eventFinishRate = (Integer) session.getAttribute("eventFinishRate");
 	List<EventGroupRate> groupRates = (List<EventGroupRate>) session.getAttribute("eventGroupRate");
+	FinishRate finishRate = new FinishRate();
 %>
 <!DOCTYPE html>
 <html>
@@ -32,7 +34,6 @@
 			<li class="active">Dashboard</li>
 		</ol>
 	</div><!--/.row-->
-		
 	<div class="row">
 		<div class="col-lg-12">
 			<h3 class="page-header">
@@ -40,6 +41,22 @@
 				<a type="button" href="/admin/addevents" class="btn btn-default" title="添加事件"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
 				<a type="button" href="/admin/todolist" class="btn btn-default" title="查看TODO列表"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
 			</h3>
+		</div>
+		<div class="col-lg-12">
+			<div style="padding-left: 20px; padding-right: 20px; padding-top: 15px;">
+				<div class="alert alert-success" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<p>
+						<b>
+							<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+							测试运行公告：
+						</b>
+						1.[往期月完成事件数]未完成 、 2.事件权重计算算法暂不完善 、 3.团队模块未完成、4.邮件提醒已上线
+					</p>
+				</div>
+			</div>
 		</div>
 	</div><!--/.row-->
         
@@ -116,7 +133,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
 					<h4 title="在理想时间前完成计划，视为提前完成">提前完成率</h4>
-					<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span>
+					<div class="easypiechart" id="easypiechart-blue" data-percent="<%=finishRate.getAheadTimeFinish()%>" ><span class="percent"><%=finishRate.getAheadTimeFinish()%>%</span>
 					</div>
 				</div>
 			</div>
@@ -124,8 +141,8 @@
 		<div class="col-xs-6 col-md-3">
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
-					<h4 title="完成时间与理想时间差值不超过一周，视为正常完成">正常完成率</h4>
-					<div class="easypiechart" id="easypiechart-orange" data-percent="65" ><span class="percent">65%</span>
+					<h4 title="完成时间与理想时间差值不超过三天，视为正常完成">正常完成率</h4>
+					<div class="easypiechart" id="easypiechart-orange" data-percent="<%=finishRate.getNormalTimeFinish()%>" ><span class="percent"><%=finishRate.getNormalTimeFinish()%>%</span>
 					</div>
 				</div>
 			</div>
@@ -133,8 +150,8 @@
 		<div class="col-xs-6 col-md-3">
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
-					<h4 title="超过理想时间一周后完成，视为延迟完成">延迟完成率</h4>
-					<div class="easypiechart" id="easypiechart-teal" data-percent="56" ><span class="percent">56%</span>
+					<h4 title="超过理想时间三天后完成，视为延迟完成">延迟完成率</h4>
+					<div class="easypiechart" id="easypiechart-teal" data-percent="<%=finishRate.getLaterTimeFinish()%>" ><span class="percent"><%=finishRate.getLaterTimeFinish()%>%</span>
 					</div>
 				</div>
 			</div>
@@ -143,7 +160,7 @@
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
 					<h4 title="超过理想时间一个月仍未完成，视为计划坠毁">计划坠毁率</h4>
-					<div class="easypiechart" id="easypiechart-red" data-percent="27" ><span class="percent">27%</span>
+					<div class="easypiechart" id="easypiechart-red" data-percent="<%=finishRate.getLongTimeNotFinish()%>" ><span class="percent"><%=finishRate.getLongTimeNotFinish()%>%</span>
 					</div>
 				</div>
 			</div>
@@ -175,9 +192,12 @@
 					}
 		%>
 		<div class="col-xs-12 col-md-6">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close" style="margin-top: 10px; margin-right: 15px;">
+				<span aria-hidden="true">&times;</span>
+			</button>
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
-					<h4><a style="text-decoration: none;" href="http://localhost:8080/admin/eventsmanage?groupId=<%=groupRate.getEventGroupId()%>"><span class="label label-<%=weight%>"><%=groupRate.getEventGroupTitle()%></span></a> <small>实时进度</small></h4>
+					<h4><a style="text-decoration: none;" href="/admin/eventsmanage?groupId=<%=groupRate.getEventGroupId()%>"><span class="label label-<%=weight%>"><%=groupRate.getEventGroupTitle()%></span></a> <small>实时进度</small></h4>
 					<div style="padding-left: 8%;">
 						<div class="progress" style="width: 90%; padding: 3px;">
 							<div class="progress-bar progress-bar-<%=weight%> progress-bar-striped active" role="progressbar" aria-valuenow="<%=groupRate.getGroupRate()%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=groupRate.getGroupRate()%>%">

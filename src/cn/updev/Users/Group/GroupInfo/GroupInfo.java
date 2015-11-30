@@ -16,6 +16,9 @@ public class GroupInfo implements IGroupInfo {
     private String groupName;
     private String groupIntro;
 
+    public GroupInfo() {
+    }
+
     public GroupInfo(String groupName,String groupIntro){
         this.groupName = groupName;
         this.groupIntro = groupIntro;
