@@ -17,8 +17,6 @@ public class UserOrGroupSave {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.save(user);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return user;
@@ -28,8 +26,6 @@ public class UserOrGroupSave {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.save(groupUser);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return groupUser;
@@ -39,8 +35,6 @@ public class UserOrGroupSave {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.save(groupInfo);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return groupInfo;
@@ -50,8 +44,6 @@ public class UserOrGroupSave {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.save(groupMemberInviteInfo);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return groupMemberInviteInfo;

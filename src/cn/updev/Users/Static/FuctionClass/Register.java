@@ -17,6 +17,8 @@ public class Register {
     }
 
     public IUser saveUserInfo(){
+
+
         if(userFactory != null && new UserOrGroupQuery().queryUserByEMail(userFactory.geteMail()) == null){
             //如果注册数据合法并且不存在重复用户名就保存到数据库
             return userFactory.getUser();
