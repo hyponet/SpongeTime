@@ -112,17 +112,6 @@ public class Login {
         session.setAttribute("LoingedUser", null);
     }
 
-    public Boolean isNotLogined(){
-
-        IUser user = getLoginedUser();
-
-        if(user == null){
-            return true;
-        }else {
-            return false;
-        }
-    }
-
     public void setUser(IUser user) {
         this.user = user;
         setSession();
@@ -130,6 +119,22 @@ public class Login {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    //权限判断
+    public Boolean isNotLogined(){
+
+        IUser user = getLoginedUser();
+
+        if(user == null){
+            return true;
+        }else {
+            if(user.isNonactivated() || user.isDisabled()){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
     /*
     增加递归判断权限　　已登陆　已激活　已禁用　是否是普通用户　　是否是管理员　　是否是创建者　超级管理员
