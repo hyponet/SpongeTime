@@ -9,6 +9,7 @@ import cn.updev.Users.Static.EnumeRule.GroupRule;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupSave;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupUpdate;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo;
+import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import cn.updev.Users.User.GroupUser;
@@ -27,7 +28,7 @@ public class PrimaryUserRule {
         }
         return false;
     }
-    public boolean inviteUser(GroupMemberInviteInfoFactory gmiif){
+    public IGroupMemberInviteInfo inviteUser(GroupMemberInviteInfoFactory gmiif){
         return gmiif.saveGroupMemberInviteInfo();
     }
     public boolean updataUserInfo(IUser iUser){
