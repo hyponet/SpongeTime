@@ -16,7 +16,7 @@ public class MailSenderInfo {
     private String toAddress;
     // 登陆邮件发送服务器的用户名和密码
     private String userName = "todo@updev.cn";
-    private String password = "******";
+    private String password = "Haibara2526";
     // 是否需要身份验证
     private boolean validate = true;
     // 邮件主题
