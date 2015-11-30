@@ -24,7 +24,7 @@ public class FinishRate {
     /**
      * 每天的毫秒数
      */
-    public static final long PERIOD_DAY = DateUtils.MILLIS_IN_DAY;
+    public static final long PERIOD_DAY = DateUtils.MILLIS_PER_DAY;
 
     public FinishRate() {
         HttpServletRequest request = ServletActionContext.getRequest();
