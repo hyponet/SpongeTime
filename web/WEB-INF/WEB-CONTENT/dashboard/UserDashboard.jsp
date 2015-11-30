@@ -43,7 +43,7 @@
 			</h3>
 		</div>
 		<div class="col-lg-12">
-			<div style="padding-left: 20px; padding-right: 20px; padding-top: 15px;">
+			<div style="padding-left: 20px; padding-right: 20px;">
 				<div class="alert alert-success" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -53,7 +53,7 @@
 							<span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
 							测试运行公告：
 						</b>
-						1.[往期月完成事件数]未完成 、 2.事件权重计算算法暂不完善 、 3.团队模块未完成、4.邮件提醒已上线
+						1.[往期月完成事件数]未完成 、 2.团队模块未完成、 3.更新事件权重算法 、4.邮件提醒已上线
 					</p>
 				</div>
 			</div>
@@ -204,16 +204,16 @@
 								<span class="sr-only"><%=groupRate.getGroupRate()%>% 完成</span>
 							</div>
 						</div>
-						<p>
+						<p class="text-center">
 							<b>完成率：<%=groupRate.getGroupRate()%>%</b>&nbsp;
 							事件数：<%=groupRate.getEvnetNum()%>&nbsp;
 							完成数：<%=groupRate.getFinishEventNum()%>
 						</p>
-						<p>
+						<p class="text-center">
 							<small>
 								创建时间：<%=groupRate.getCreateTime()%>&nbsp;
 								理想完成时间：<%=groupRate.getGroupExpect()%>&nbsp;
-								预计完成时间：2015-11-28
+								预计完成时间：<%=groupRate.getFinishTime()%>
 							</small>
 						</p>
 					</div>
@@ -249,7 +249,7 @@
 					<p>本项目开源并受 <a href="https://github.com/Coderhypo/SpongeTime/blob/master/LICENSE" target="_blank"> MIT</a> 开源协议保护，
 						项目源码获取：<a href="https://github.com/Coderhypo/SpongeTime" target="_blank"> CoderHypo/SpongeTime</a>。</p>
 					<p>欢迎start，欢迎fork，欢迎<a href="http://form.mikecrm.com/f.php?t=6mg20r" target="_blank">反馈</a>！</p>
-					<p>&copy; SpongeTime v0.3 DEMO</p>
+					<p>&copy; SpongeTime v0.4 DEMO</p>
 				</center>
 			</footer>
 		</div>

@@ -59,7 +59,7 @@
 
             <div class="inner cover">
                 <h1 class="cover-heading">一个用心的时间助手</h1>
-                <p class="lead">SpongeTime v0.3 发布，基本功能完成，进入试运行测试</p>
+                <p class="lead">A SpongeTime a day,take the timesponger away.</p>
                 <p class="lead">
                     <a href="/login" class="btn btn-lg btn-default">登录测试</a>
                 </p>
@@ -67,8 +67,7 @@
 
             <div class="mastfoot">
                 <div class="inner">
-                    <p>&copy; SpongeTime v0.3 DEMO</p>
-
+                    <p>&copy; SpongeTime v0.4 DEMO</p>
                 </div>
             </div>
 
