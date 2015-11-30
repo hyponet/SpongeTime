@@ -1,6 +1,7 @@
 package cn.updev.Users.Group.GroupInfo;
 
 import cn.updev.Users.Static.EnumeRule.InviteStatus;
+import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
 
 /**
  * Created by blf2 on 15-10-8.
@@ -56,9 +57,9 @@ public class GroupMemberInviteInfoFactory {
             default:this.inviteStatus = null;
         }
     }
-    public boolean saveGroupMemberInviteInfo(){
+    public IGroupMemberInviteInfo saveGroupMemberInviteInfo(){
         if(this.groupId == null || this.inviterId == null || this.inviteeId == null || this.inviteStatus == null)
-            return false;
+            return null;
         return new GroupMemberInviteInfo().saveGroupMemberInviteInfo();
     }
     public boolean deleteGroupMemberInviteInfo(){
