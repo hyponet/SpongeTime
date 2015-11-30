@@ -66,17 +66,16 @@ public class RegisterManager extends ActionSupport {
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9_-]*$");
         Matcher matcher = pattern.matcher(this.userName);
         if(matcher.matches()){
-            System.out.println(this.userName + " " + this.nickName + " " + this.email + " " + this.password + " " + this.url);
 
             if(this.url == null){
                 this.url = "";
             }
-            Register register = new Register(this.userName, this.nickName, this.email, this.password ,this.url);
 
+            Register register = new Register(this.userName, this.nickName, this.email, this.password ,this.url);
             IUser user = register.saveUserInfo();
             userVerify(user.getNickName(), user.geteMail(), user.getPassWord());
 
-            return SUCCESS;
+            return LOGIN;
         }else {
             error = "用户名不合法！";
             request.setAttribute("error", error);
@@ -195,6 +194,8 @@ public class RegisterManager extends ActionSupport {
                 if(c == '+'){
                     c = '-';
                 }else if(c == '/'){
+                    c = '_';
+                }else if(c == '='){
                     c = '*';
                 }
             }
@@ -222,8 +223,10 @@ public class RegisterManager extends ActionSupport {
             for(char c : chars){
                 if(c == '-'){
                     c = '+';
-                }else if(c == '*'){
+                }else if(c == '_'){
                     c = '/';
+                }else if(c == '*'){
+                    c = '=';
                 }
             }
             return new String(chars);
