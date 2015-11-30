@@ -1,9 +1,11 @@
 package cn.updev.Users.Group.GroupInfo;
 
+import cn.updev.Users.Static.EnumeRule.GroupRule;
 import cn.updev.Users.Static.EnumeRule.InviteStatus;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupDelete;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupSave;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
+import cn.updev.Users.User.GroupUserFactory;
 
 /**
  * Created by blf2 on 15-10-8.
@@ -109,11 +111,14 @@ public class GroupMemberInviteInfo implements IGroupMemberInviteInfo{
         return new UserOrGroupSave().saveGroupMemberInviteInfo(this);
     }
     public boolean deleteGroupMemberInviteInfo(){
-
-        return new UserOrGroupDelete().deleteGroupMemberInviteInfo(this.inviterId,this.inviteeId,this.groupId);
+        return new UserOrGroupDelete().deleteGroupMemberInviteInfo(this);
     }
-    public boolean saveGroupUserInfo(Integer inviteeId){
-        //从数据库中获得inviteeId的信息，然后存储
-        return true;
+    public boolean saveGroupUserInfo(){
+        GroupUserFactory groupUserFactory = new GroupUserFactory(this.inviteeId,this.groupId, GroupRule.User);
+        if(groupUserFactory != null){
+            if(groupUserFactory.getGroupUser()!= null)
+                return true;
+        }
+        return false;
     }
 }
