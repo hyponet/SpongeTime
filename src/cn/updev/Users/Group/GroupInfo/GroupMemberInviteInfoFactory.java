@@ -25,22 +25,13 @@ public class GroupMemberInviteInfoFactory {
         this.setInviterId(inviterId);
     }
     private void setGroupId(Integer groupId){
-        //如果存在groupId
         this.groupId = groupId;
-        //否则
-        //this.groupId = null;
     }
     private void setInviterId(Integer inviterId){
-        //如果存在inviterId
         this.inviterId = inviterId;
-        //否则
-        //this.inviterId = null;
     }
     private void setInviteeId(Integer inviteeId){
-        //如果存在inviteeId并且不在这个团队中
         this.inviteeId = inviteeId;
-        //否则
-        //this.inviteeId = null;
     }
     private void setStatusNum(Integer statusNum){
         switch (statusNum){
