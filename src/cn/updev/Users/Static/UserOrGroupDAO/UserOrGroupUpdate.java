@@ -15,8 +15,6 @@ public class UserOrGroupUpdate {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.update(user);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -26,8 +24,6 @@ public class UserOrGroupUpdate {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.update(groupUser);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -37,8 +33,6 @@ public class UserOrGroupUpdate {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.update(groupInfo);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;

@@ -102,11 +102,7 @@ public class UserFactory {
     }
 
     private void setRule(UserRule rule){
-        if(rule.isAdmin() || rule.isUser()){
-            this.rule = rule;
-        }else{
-            this.rule = null;
-        }
+        this.rule = rule;
     }
 
     public String getUserName() {

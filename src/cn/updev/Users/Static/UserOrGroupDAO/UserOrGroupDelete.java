@@ -25,8 +25,6 @@ public class UserOrGroupDelete {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.delete((GroupUser)iGroupUser);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -37,8 +35,6 @@ public class UserOrGroupDelete {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.delete((GroupUser)iGroupUser);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -49,8 +45,6 @@ public class UserOrGroupDelete {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.delete((GroupInfo)iGroupInfo);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -63,8 +57,6 @@ public class UserOrGroupDelete {
         while(iter.hasNext()) {
             session.delete(iter.next());
         }
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -74,8 +66,6 @@ public class UserOrGroupDelete {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.delete((User)iUser);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -85,8 +75,6 @@ public class UserOrGroupDelete {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.delete((User)iUser);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -98,8 +86,6 @@ public class UserOrGroupDelete {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.delete((GroupMemberInviteInfo)iGroupMemberInviteInfo);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;

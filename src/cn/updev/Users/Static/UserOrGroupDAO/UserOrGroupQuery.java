@@ -28,8 +28,6 @@ public class UserOrGroupQuery {
             return null;
         }
         User user = (User)query.list().get(0);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return user;
@@ -42,8 +40,6 @@ public class UserOrGroupQuery {
             return null;
         }
         User user = (User)query.list().get(0);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return user;
@@ -56,8 +52,6 @@ public class UserOrGroupQuery {
             return null;
         }
         User user = (User)query.list().get(0);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return user;
@@ -70,8 +64,6 @@ public class UserOrGroupQuery {
             return null;
         }
         GroupInfo groupInfo = (GroupInfo)query.list().get(0);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return groupInfo;
@@ -84,8 +76,6 @@ public class UserOrGroupQuery {
             return null;
         }
         GroupInfo groupInfo = (GroupInfo)query.list().get(0);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return groupInfo;
@@ -99,8 +89,6 @@ public class UserOrGroupQuery {
             return null;
         }
         LinkedList <GroupUser> list = (LinkedList <GroupUser>)query.list();
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return list;
@@ -114,8 +102,6 @@ public class UserOrGroupQuery {
             return null;
         }
        IGroupUser iGroupUser = (IGroupUser)query.list().get(0);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return iGroupUser;
@@ -123,14 +109,12 @@ public class UserOrGroupQuery {
     public IGroupMemberInviteInfo queryGroupMemberInviteInfo(Integer inviterId,Integer inviteeId,Integer groupId){
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from  GroupMemberInviteInfo gmii where gmii.groupId = " + groupId +" && " +
-                "gmii.inviterid=" + inviterId +" && inviteeId="+inviteeId);
+        Query query = session.createQuery("from  GroupMemberInviteInfo gmii where gmii.groupId = " + groupId +" and " +
+                "gmii.inviteeId=" + inviterId +" and inviteeId="+inviteeId);
         if(query.list().size() == 0){
             return null;
         }
         GroupMemberInviteInfo groupMemberInviteInfo = (GroupMemberInviteInfo) query.list().get(0);
-        session.clear();
-        session.flush();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return groupMemberInviteInfo;
