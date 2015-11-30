@@ -58,8 +58,11 @@
               <%
                 if(expectEventList != null){
                   for(EventInfo event : expectEventList){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
               %>
-              <a href="#" class="list-group-item" data-toggle="modal" data-target="#finishEvent" data-eventid="<%=event.getEventId()%>" data-eventtitle="<%=event.getEventTitle()%>" title="完成事件">
+              <a href="#" class="list-group-item" data-toggle="modal" data-target="#finishEvent"
+                 data-eventid="<%=event.getEventId()%>" data-eventtitle="<%=event.getEventTitle()%>"
+                 data-reckon="<%=dateFormat.format(event.getReckonTime())%>" data-expect="<%=dateFormat.format(event.getExpectTime())%>" title="完成事件">
                 <%
                   if(event.getGroupTitle()!=null){
                     out.print("<span class=\"label label-info\">"+event.getGroupTitle()+"</span>");
@@ -68,10 +71,6 @@
                   }
                 %>
                 <%=event.getEventTitle()%>
-                <%
-                  SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
-                  out.print(" <small>[" + dateFormat.format(event.getExpectTime()) + "]</small>");
-                %>
               </a>
               <%}}%>
             </div>
@@ -95,8 +94,11 @@
             <%
               if(weightEventList != null){
                 for(EventInfo event : weightEventList){
+                  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             %>
-            <a href="#" class="list-group-item" data-toggle="modal" data-target="#finishEvent" data-eventid="<%=event.getEventId()%>" data-eventtitle="<%=event.getEventTitle()%>" title="完成事件">
+            <a href="#" class="list-group-item" data-toggle="modal" data-target="#finishEvent"
+               data-eventid="<%=event.getEventId()%>" data-eventtitle="<%=event.getEventTitle()%>"
+               data-reckon="<%=dateFormat.format(event.getReckonTime())%>" data-expect="<%=dateFormat.format(event.getExpectTime())%>" title="完成事件">
               <%
                 if(event.getGroupTitle()!=null){
                   out.print("<span class=\"label label-info\">"+event.getGroupTitle()+"</span>");
@@ -128,8 +130,11 @@
               <%
                 if(reckonEventList != null){
                   for(EventInfo event : reckonEventList){
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
               %>
-              <a href="#" class="list-group-item" data-toggle="modal" data-target="#finishEvent" data-eventid="<%=event.getEventId()%>" data-eventtitle="<%=event.getEventTitle()%>" title="完成事件">
+              <a href="#" class="list-group-item" data-toggle="modal" data-target="#finishEvent"
+                 data-eventid="<%=event.getEventId()%>" data-eventtitle="<%=event.getEventTitle()%>"
+                 data-reckon="<%=dateFormat.format(event.getReckonTime())%>" data-expect="<%=dateFormat.format(event.getExpectTime())%>" title="完成事件">
                 <%
                   if(event.getGroupTitle()!=null){
                     out.print("<span class=\"label label-info\">"+event.getGroupTitle()+"</span>");
@@ -138,10 +143,6 @@
                   }
                 %>
                 <%=event.getEventTitle()%>
-                <%
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
-                  out.print(" <small>[" + dateFormat.format(event.getReckonTime()) + "]</small>");
-                %>
               </a>
               <%}}%>
             </div>
@@ -162,8 +163,13 @@
       <form action="/admin/todolist" method="POST">
         <div class="modal-body">
           <input type="hidden" id="finishEventId" name="eventId"/>
-          <p>您确认事件 <span class="label label-success" id="finishEventTitle"></span> 已经完成了吗？</p>
-          <p>确认后，事件将划出TODO列表，您依然可以在任务管理中找到已完成的事件。</p>
+          <p>
+            事件 <span class="label label-success" id="finishEventTitle"></span>
+            理想完成时间为<data value="" id="expect"></data>，
+            我们预计于<data value="" id="reckon"></data>完成
+          </p>
+          <p>您确认现在事件已经完成了吗？</p>
+          <small>确认后，事件将划出TODO列表，但您依然可以在任务管理中找到已完成的事件。</small>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -185,11 +191,15 @@
     var button = $(event.relatedTarget)
     var eventId = button.data('eventid')
     var eventTitle = button.data('eventtitle')
+    var expect = button.data('expect')
+    var reckon = button.data('reckon')
 
     var modal = $(this)
     modal.find('.modal-title').text('事件 ' + eventTitle + '完成确认')
     modal.find('#finishEventId').val(eventId)
     document.getElementById('finishEventTitle').innerHTML = eventTitle
+    document.getElementById('expect').innerHTML = expect
+    document.getElementById('reckon').innerHTML = reckon
   })</script>
 </body>
 </html>

@@ -37,12 +37,12 @@
       </a>
       <ul class="children collapse" id="sub-item-1">
         <li>
-          <a class="" href="/admin/addgroup">
+          <a class="" href="/admin/group/addgroup">
             <span class="glyphicon glyphicon-certificate"></span> 创建团队
           </a>
         </li>
         <li>
-          <a class="" href="#">
+          <a class="" href="/admin/group/manage">
             <span class="glyphicon glyphicon-compressed"></span> 团队管理
           </a>
         </li>

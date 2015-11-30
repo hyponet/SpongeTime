@@ -22,7 +22,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">你好， <span class="glyphicon glyphicon-user"></span> <%=new Login().getLoginedUser().getNickName()%> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li class="disabled"><a href="#"><span class="glyphicon glyphicon-home"></span> 个人主页</a></li>
-            <li class="disabled"><a href="#"><span class="glyphicon glyphicon-bell"></span> 消息通知</a></li>
+            <li class="disabled"><a href="/admin/system/message"><span class="glyphicon glyphicon-bell"></span> 消息通知</a></li>
             <li class="disabled"><a href="#"><span class="glyphicon glyphicon-cog"></span> 用户设置</a></li>
             <li class="disabled"><a href="#"><span class="glyphicon glyphicon-zoom-in"></span> 了解更多</a></li>
             <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> 退出登录</a></li>
