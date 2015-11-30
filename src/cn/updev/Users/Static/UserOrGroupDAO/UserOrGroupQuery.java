@@ -102,5 +102,5 @@ public class UserOrGroupQuery {
         HibernateSessionFactory.closeSession();
         return list;
     }
-    public
+    
 }
