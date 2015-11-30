@@ -74,7 +74,11 @@ public class RegisterManager extends ActionSupport {
             Register register = new Register(this.userName, this.nickName, this.email, this.password ,this.url);
             IUser user = register.saveUserInfo();
             userVerify(user.getNickName(), user.geteMail(), user.getPassWord());
-
+            String mailURL = user.geteMail().split("@")[1];
+            String info = "注册信息提交成功，已将激活链接发往您的邮箱：" + user.geteMail() +
+                    "，请激活注册邮箱以完成注册！ " +
+                    "<a target=\"_blank\" href=\"http://mail." + mailURL + "\" >登录邮箱</a>";
+            request.setAttribute("error", info);
             return LOGIN;
         }else {
             error = "用户名不合法！";
