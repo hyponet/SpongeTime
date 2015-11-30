@@ -8,6 +8,7 @@ import cn.updev.Events.Static.EventInfo;
 import cn.updev.Events.Static.IEvent;
 import cn.updev.Users.Static.FuctionClass.Login;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +44,14 @@ public class TodoListAction extends ActionSupport {
                 EventWeightManage eventWeight = new EventWeightManage();
                 EventWeight weight1 = eventWeight.getEventWeight(o1.getEventId());
                 EventWeight weight2 = eventWeight.getEventWeight(o2.getEventId());
-                return (int)(weight2.getEventWeight() - weight1.getEventWeight());
+                Long time1 = weight1.getEventExpect().getTime() / DateUtils.MILLIS_PER_DAY;
+                Long time2 = weight2.getEventExpect().getTime() / DateUtils.MILLIS_PER_DAY;
+
+                if(Math.abs(time1 - time2) < 7){
+
+                    return (int)(weight2.getEventWeight() - weight1.getEventWeight());
+                }
+                return (int)(time1 - time2);
             }
         });
 
