@@ -12,7 +12,6 @@ import cn.updev.Users.User.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -88,7 +87,7 @@ public class UserOrGroupQuery {
         if(query.list().size() == 0){
             return null;
         }
-        LinkedList <GroupUser> list = (LinkedList <GroupUser>)query.list();
+        List <GroupUser> list = query.list();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return list;
@@ -126,7 +125,7 @@ public class UserOrGroupQuery {
         if(query.list().size() == 0){
             return null;
         }
-        LinkedList <GroupUser> list = (LinkedList <GroupUser>)query.list();
+        List <GroupUser> list = query.list();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return list;

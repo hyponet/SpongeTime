@@ -14,8 +14,6 @@ import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import cn.updev.Users.User.GroupUserFactory;
 import cn.updev.Users.User.User;
 
-import java.awt.*;
-
 public class PrimaryUserRule {
     public IGroupInfo createGroup(String groupName,String groupIntro,Integer userId){//前端传来请求,包括
         GroupInfoFactory groupInfoFactory = new GroupInfoFactory(groupName,groupIntro);
