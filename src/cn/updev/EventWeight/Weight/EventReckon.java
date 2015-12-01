@@ -178,7 +178,7 @@ public class EventReckon {
             weight.put(event.getEventId(), eventWeight);
         }
 
-        Double sub = dmax - dmin;
+        Double sub = events.size() - (dmax - dmin);
 
         for (IEvent event : events){
 
