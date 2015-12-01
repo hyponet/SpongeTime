@@ -4,13 +4,13 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <typedef class="cn.updev.Users.Static.EnumeRule.GroupRule" name="GroupRule"/>
-    <class name="cn.updev.Users.User.GroupUser" table="group_user">
+    <class name="cn.updev.Users.User.GroupUser" table="group_members">
         <cache usage="read-write"/>
         <id name="groupUserId" column="group_user_id">
             <generator class="native"/>
         </id>
         <property name="userId" type="java.lang.Integer" column="user_id"/>
         <property name="groupId" type="java.lang.Integer" column="group_id"/>
-        <property name="groupMemberRule" type="GroupRule" column="group_rule"/>
+        <property name="groupMemberRule" type="GroupRule" column="group_member_rule"/>
     </class>
 </hibernate-mapping>
