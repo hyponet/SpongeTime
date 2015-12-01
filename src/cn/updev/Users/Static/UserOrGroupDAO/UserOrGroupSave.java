@@ -3,6 +3,7 @@ package cn.updev.Users.Static.UserOrGroupDAO;
 import cn.updev.Database.HibernateSessionFactory;
 import cn.updev.Users.Group.GroupInfo.GroupInfo;
 import cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo;
+import cn.updev.Users.NotificationPush.NotificationInfo;
 import cn.updev.Users.User.GroupUser;
 import cn.updev.Users.User.User;
 import org.hibernate.Session;
@@ -47,5 +48,14 @@ public class UserOrGroupSave {
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return groupMemberInviteInfo;
+    }
+
+    public NotificationInfo saveNotificationInfo(NotificationInfo notificationInfo){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(notificationInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return notificationInfo;
     }
 }

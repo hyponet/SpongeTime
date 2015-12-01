@@ -1,10 +1,8 @@
 package cn.updev.Users.Static.UserOrGroupDAO;
 
 import cn.updev.Database.HibernateSessionFactory;
-import cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo;
-import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
-import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
-import cn.updev.Users.Static.UserOrGroupInterface.IUser;
+import cn.updev.Users.NotificationPush.NotificationInfo;
+import cn.updev.Users.Static.UserOrGroupInterface.*;
 import cn.updev.Users.User.GroupUser;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -96,6 +94,27 @@ public class UserOrGroupDelete {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.delete(iGroupMemberInviteInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return true;
+    }
+
+    public boolean deleteNotificationInfo(INotificationInfo iNotificationInfo){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(iNotificationInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return true;
+    }
+
+    public boolean deleteNotificationInfoByList(List<NotificationInfo>list){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Iterator<NotificationInfo>iter = list.iterator();
+        while(iter.hasNext()) {
+            session.delete(iter.next());
+        }
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;

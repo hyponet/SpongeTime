@@ -3,6 +3,7 @@ package cn.updev.Users.Static.UserOrGroupDAO;
 import cn.updev.Database.HibernateSessionFactory;
 import cn.updev.Users.Group.GroupInfo.GroupInfo;
 import cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo;
+import cn.updev.Users.NotificationPush.NotificationInfo;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
@@ -126,6 +127,20 @@ public class UserOrGroupQuery {
             return null;
         }
         List <GroupUser> list = query.list();
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return list;
+    }
+
+    public List<NotificationInfo> queryNotification(Integer createrId,Integer accepterId){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  NotificationInfo nInfo where nInfo.notificationCreaterId = " + createrId+
+                " and nInfo.notificationAccepterId="+accepterId);
+        if(query.list().size() == 0){
+            return null;
+        }
+        List <NotificationInfo> list = query.list();
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return list;
