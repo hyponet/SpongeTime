@@ -1,14 +1,9 @@
 package cn.updev.Users.Static.UserOrGroupDAO;
 
 import cn.updev.Database.HibernateSessionFactory;
-import cn.updev.Users.Group.GroupInfo.GroupInfo;
-import cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo;
-import cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo;
-import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
-import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
-import cn.updev.Users.Static.UserOrGroupInterface.IUser;
+import cn.updev.Users.NotificationPush.NotificationInfo;
+import cn.updev.Users.Static.UserOrGroupInterface.*;
 import cn.updev.Users.User.GroupUser;
-import cn.updev.Users.User.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -24,7 +19,7 @@ public class UserOrGroupDelete {
         IGroupUser iGroupUser = new UserOrGroupQuery().queryGroupUser(iUser.getUserId(),groupId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete((GroupUser)iGroupUser);
+        session.delete(iGroupUser);
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -34,7 +29,7 @@ public class UserOrGroupDelete {
         IGroupUser iGroupUser = new UserOrGroupQuery().queryGroupUser(userId,groupId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete((GroupUser)iGroupUser);
+        session.delete(iGroupUser);
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
@@ -42,14 +37,15 @@ public class UserOrGroupDelete {
 
     public boolean deleteGroupInfoById(Integer groupId){
         IGroupInfo iGroupInfo = new UserOrGroupQuery().queryGroupInfoById(groupId);
+        deleteGroupMemberAllById(groupId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete((GroupInfo)iGroupInfo);
+        session.delete(iGroupInfo);
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
     }
-    public boolean deleteGroupMemberAllById(Integer groupId){//用于解散一个团队
+    private boolean deleteGroupMemberAllById(Integer groupId){//用于解散一个团队
         List<GroupUser> list = new UserOrGroupQuery().queryGroupMemberInfoAll(groupId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
@@ -61,31 +57,64 @@ public class UserOrGroupDelete {
         HibernateSessionFactory.closeSession();
         return true;
     }
-    public boolean deleteUserById(Integer userId){
-        IUser iUser = new UserOrGroupQuery().queryUserById(userId);
+    private boolean deleteUserAllGroup(Integer userId){
+        List<GroupUser>list = new UserOrGroupQuery().queryGroupAllUserJoined(userId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete((User)iUser);
+        Iterator<GroupUser> iter = list.iterator();
+        while(iter.hasNext()){
+            session.delete(iter.next());
+        }
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return true;
+    }
+    public boolean deleteUserById(Integer userId){
+        IUser iUser = new UserOrGroupQuery().queryUserById(userId);
+        deleteUserAllGroup(userId);
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(iUser);
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
     }
     public boolean deleteUserByEMail(String eMail){
         IUser iUser = new UserOrGroupQuery().queryUserByEMail(eMail);
+        deleteUserAllGroup(iUser.getUserId());
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete((User)iUser);
+        session.delete(iUser);
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
     }
 
-    public boolean deleteGroupMemberInviteInfo(Integer inviterId,Integer inviteeId,Integer groupId){
-        IGroupMemberInviteInfo iGroupMemberInviteInfo = new UserOrGroupQuery().queryGroupMemberInviteInfo(
-                inviterId,inviteeId,groupId);
+    public boolean deleteGroupMemberInviteInfo(IGroupMemberInviteInfo iGroupMemberInviteInfo){
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
-        session.delete((GroupMemberInviteInfo)iGroupMemberInviteInfo);
+        session.delete(iGroupMemberInviteInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return true;
+    }
+
+    public boolean deleteNotificationInfo(INotificationInfo iNotificationInfo){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.delete(iNotificationInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return true;
+    }
+
+    public boolean deleteNotificationInfoByList(List<NotificationInfo>list){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Iterator<NotificationInfo>iter = list.iterator();
+        while(iter.hasNext()) {
+            session.delete(iter.next());
+        }
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;

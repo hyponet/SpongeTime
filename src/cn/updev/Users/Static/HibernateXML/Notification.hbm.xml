@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <typedef class="cn.updev.Users.Static.EnumeRule.NotificationStatus" name="NStatus"/>
+    <class name="cn.updev.Users.NotificationPush.NotificationInfo" table="notification_info">
+        <cache usage="read-write"/>
+        <id name="notificationInfoId" column="notification_info_id">
+            <generator class="native"/>
+        </id>
+        <property name="notificationCreaterId" type="java.lang.Integer" column="creater_id"/>
+        <property name="notificationAccepterId" type="java.lang.Integer" column="accepter_id"/>
+        <property name="notifucationBody" type="java.lang.String" column="body"/>
+        <property name="status" type="NStatus" column="status"/>
+    </class>
+</hibernate-mapping>

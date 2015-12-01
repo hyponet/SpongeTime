@@ -15,19 +15,23 @@ import cn.updev.Users.User.GroupUserFactory;
 import cn.updev.Users.User.User;
 
 public class PrimaryUserRule {
-    public boolean createGroup(String groupName,String groupIntro,Integer userId){//前端传来请求,包括
+    public IGroupInfo createGroup(String groupName,String groupIntro,Integer userId){//前端传来请求,包括
         GroupInfoFactory groupInfoFactory = new GroupInfoFactory(groupName,groupIntro);
         if(groupInfoFactory != null) {
             IGroupInfo iGroupInfo = groupInfoFactory.saveGroupInfo();
             GroupUserFactory groupUserFactory = new GroupUserFactory(userId,iGroupInfo.getGroupId(), GroupRule.Creater);
             IGroupUser iGroupUser = groupUserFactory.getGroupUser();
             if(iGroupUser != null)
-                return true;
+                return iGroupInfo;
         }
-        return false;
+        return null;
     }
-    public IGroupMemberInviteInfo inviteUser(GroupMemberInviteInfoFactory gmiif){
-        return gmiif.saveGroupMemberInviteInfo();
+    public IGroupMemberInviteInfo inviteUser(Integer groupId,Integer inviterId,Integer inviteeId){
+        GroupMemberInviteInfoFactory gmiif = new GroupMemberInviteInfoFactory(groupId,inviterId,inviteeId);
+        if(gmiif != null) {
+            return gmiif.saveGroupMemberInviteInfo();
+        }
+        return null;
     }
     public boolean updataUserInfo(IUser iUser){
         return new UserOrGroupUpdate().updateUser((User)iUser);

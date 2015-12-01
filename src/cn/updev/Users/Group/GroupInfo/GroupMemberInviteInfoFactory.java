@@ -56,7 +56,7 @@ public class GroupMemberInviteInfoFactory {
     public boolean deleteGroupMemberInviteInfo(){
         return new GroupMemberInviteInfo().deleteGroupMemberInviteInfo();
     }
-    public boolean saveGroupUserInfo(Integer inviteeId){//管理员同意后把被邀请人加入到数据库
-        return new GroupMemberInviteInfo().saveGroupUserInfo(inviteeId);
+    public boolean saveGroupUserInfo(){//管理员同意后把被邀请人加入到数据库
+        return new GroupMemberInviteInfo(this.groupId,this.inviterId,this.inviteeId,InviteStatus.inviteUser).saveGroupUserInfo();
     }
 }

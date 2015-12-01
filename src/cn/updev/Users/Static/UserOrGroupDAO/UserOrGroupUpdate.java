@@ -2,6 +2,8 @@ package cn.updev.Users.Static.UserOrGroupDAO;
 
 import cn.updev.Database.HibernateSessionFactory;
 import cn.updev.Users.Group.GroupInfo.GroupInfo;
+import cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo;
+import cn.updev.Users.NotificationPush.NotificationInfo;
 import cn.updev.Users.User.GroupUser;
 import cn.updev.Users.User.User;
 import org.hibernate.Session;
@@ -10,6 +12,7 @@ import org.hibernate.Transaction;
 /**
  * Created by blf2 on 15-11-25.
  */
+
 public class UserOrGroupUpdate {
     public boolean updateUser(User user){
         Session session = HibernateSessionFactory.currentSession();
@@ -33,6 +36,23 @@ public class UserOrGroupUpdate {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         session.update(groupInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return true;
+    }
+    public boolean updateGroupMemberInviteInfo(GroupMemberInviteInfo groupMemberInviteInfo){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(groupMemberInviteInfo);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return true;
+    }
+
+    public boolean updateNotificationInfo(NotificationInfo notificationInfo){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        session.update(notificationInfo);
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
