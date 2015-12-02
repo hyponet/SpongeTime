@@ -47,7 +47,7 @@ public class TodoListAction extends ActionSupport {
                 Long time1 = weight1.getEventExpect().getTime() / DateUtils.MILLIS_PER_DAY;
                 Long time2 = weight2.getEventExpect().getTime() / DateUtils.MILLIS_PER_DAY;
 
-                if(Math.abs(time1 - time2) < 7){
+                if(Math.abs(time1 - time2) < 3){
 
                     return (int)(weight2.getEventWeight() - weight1.getEventWeight());
                 }
