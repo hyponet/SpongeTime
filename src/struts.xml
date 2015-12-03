@@ -91,11 +91,23 @@
                 </action>
         </package>
         <package name="UserGroup" namespace="/admin/group" extends="struts-default">
-                <action name="addgroup">
-                        <result name="success">/WEB-INF/WEB-CONTENT/dashboard/groups/AddUserGroup.jsp</result>
+                <global-results>
+                        <result name="error">/WEB-INF/WEB-CONTENT/error.jsp</result>
+                        <result name="login">/WEB-INF/WEB-CONTENT/login.jsp</result>
+                </global-results>
+                <action name="addgroup" class="cn.updev.Action.User.UserGroupAction" method="createUserGroup">
+                        <result name="input">/WEB-INF/WEB-CONTENT/dashboard/groups/AddUserGroup.jsp</result>
+                        <result name="success" type="redirect">/admin/group/manage?groupId=${groupId}</result>
                 </action>
-                <action name="manage">
+                <action name="manage" class="cn.updev.Action.User.UserGroupAction" method="groupManage">
+                        <result name="input">/WEB-INF/WEB-CONTENT/dashboard/groups/UserGroupManage_index.jsp</result>
                         <result name="success">/WEB-INF/WEB-CONTENT/dashboard/groups/UserGroupManage.jsp</result>
+                </action>
+                <action name="editgroupinfo" class="cn.updev.Action.User.UserGroupAction" method="updateGroupInfo">
+                        <result name="success" type="redirect">/admin/group/manage?groupId=${groupId}</result>
+                </action>
+                <action name="inviteuser" class="cn.updev.Action.User.UserGroupInviteAction" method="inviteNewUser">
+                        <result name="success" type="redirect">/admin/group/manage?groupId=${groupId}</result>
                 </action>
         </package>
         <package name="API" namespace="/api" extends="json-default">
