@@ -1,6 +1,5 @@
 package cn.updev.Users.Group.GroupMemberRule;
 
-import cn.updev.Users.Group.GroupInfo.GroupMemberInfoFactory;
 import cn.updev.Users.Static.EnumeRule.GroupRule;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupDelete;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;

@@ -14,6 +14,9 @@ public class GroupInfoFactory {
     private String groupName;
     private String groupIntro;
 
+    public GroupInfoFactory() {
+    }
+
     public GroupInfoFactory(String groupName,String groupIntro){
         this.setGroupName(groupName);
         this.setGroupIntro(groupIntro);
@@ -49,6 +52,7 @@ public class GroupInfoFactory {
             iGroupInfo = new GroupInfo(this.groupName,this.groupIntro).saveGroupInfo();
         return iGroupInfo;
     }
+    // 请检查参数！
     public boolean updateGroupInfo(IGroupInfo iGroupInfo){
         return new UserOrGroupUpdate().updateGroupInfo((GroupInfo)iGroupInfo);
     }
