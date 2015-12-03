@@ -1,6 +1,7 @@
 package cn.updev.Action.User;
 
 import cn.updev.EventWeight.Rate.EventGroupRate;
+import cn.updev.Users.Group.GroupInfo.GroupInfoFactory;
 import cn.updev.Users.Group.GroupMemberRule.PrimaryUserRule;
 import cn.updev.Users.Static.FuctionClass.Login;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
@@ -99,12 +100,47 @@ public class UserGroupAction extends ActionSupport {
         this.groupName = groupInfo.getGroupName();
         this.groupIntro = groupInfo.getGroupIntro();
         request.setAttribute("groupInfo",groupInfo);
-        request.setAttribute("groupUser",groupUser);
-        request.setAttribute("groupTask",groupTask);
-        request.setAttribute("userInfo",userInfo);
+        request.setAttribute("groupUser", groupUser);
+        request.setAttribute("groupTask", groupTask);
+        request.setAttribute("userInfo", userInfo);
 
         return SUCCESS;
     }
+
+    public String updateGroupInfo(){
+
+        Login login = new Login();
+
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
+        if(groupName == null || groupName.trim().length() == 0 || groupIntro == null || groupIntro.trim().length() == 0){
+
+            return SUCCESS;
+        }
+
+        IUser user = login.getLoginedUser();
+
+        UserOrGroupQuery DAO = new UserOrGroupQuery();
+
+        IGroupUser userInfo = DAO.queryGroupUser(user.getUserId(), groupId);
+
+        if(!userInfo.isAdmin() && !userInfo.isCreater()){
+            return ERROR;
+        }
+
+        IGroupInfo groupInfo = DAO.queryGroupInfoById(groupId);
+        groupInfo.setGroupName(this.groupName);
+        groupInfo.setGroupIntro(this.groupIntro);
+
+        GroupInfoFactory factory = new GroupInfoFactory();
+        factory.updateGroupInfo(groupInfo);
+
+        return SUCCESS;
+    }
+
+
 
     public Integer getGroupId() {
         return groupId;
