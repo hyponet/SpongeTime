@@ -1,6 +1,8 @@
 package cn.updev.Users.Static.UserOrGroupDAO;
 
 import cn.updev.Database.HibernateSessionFactory;
+import cn.updev.Events.Group.EventGroupInfo;
+import cn.updev.Events.Static.IEvent;
 import cn.updev.Users.Group.GroupInfo.GroupInfo;
 import cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo;
 import cn.updev.Users.NotificationPush.NotificationInfo;
@@ -9,10 +11,14 @@ import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import cn.updev.Users.User.GroupUser;
+import cn.updev.Users.User.GroupUserInfo;
 import cn.updev.Users.User.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -81,17 +87,71 @@ public class UserOrGroupQuery {
         return groupInfo;
     }
 
-    public List<GroupUser> queryGroupMemberInfoAll(Integer groupId){
+    public List<GroupUserInfo> queryGroupMemberInfoAll(Integer groupId){
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from  GroupUser groupUser where groupUser.groupId = " + groupId);
+
+        List<GroupUserInfo> rnt = new ArrayList<GroupUserInfo>();
+
         if(query.list().size() == 0){
-            return null;
+            return rnt;
         }
         List <GroupUser> list = query.list();
+
+        for (GroupUser groupUser : list){
+
+            query = session.createQuery("from  User u where u.userId = " + groupUser.getUserId());
+            if(query.list().size() == 0){
+                continue;
+            }
+            IUser user = (IUser) query.list().get(0);
+
+            query = session.createQuery("from  GroupInfo groupInfo where groupInfo.groupId = " + groupId);
+            if(query.list().size() == 0){
+                continue;
+            }
+            IGroupInfo groupInfo = (IGroupInfo) query.list().get(0);
+
+            Integer taskNum = 0;
+            query = session.createQuery("from  EventGroupInfo groupInfo where groupInfo.teamId = " + groupId);
+
+            List<EventGroupInfo> eventGroupInfos = query.list();
+            for(EventGroupInfo eventGroupInfo : eventGroupInfos){
+                query = session.createQuery("from  Event e where e.groupId = " + eventGroupInfo.getGroupId());
+                if(query.list().size() == 0){
+                    continue;
+                }
+
+                List<IEvent> events = query.list();
+                for(IEvent event : events){
+                    if(event.getDoerId() == user.getUserId()){
+                        taskNum++;
+                    }
+                }
+            }
+
+            String rule;
+
+            if(groupUser.isUser()){
+                rule = "成员";
+            }else if(groupUser.isAdmin()){
+                rule = "管理员";
+            }else if(groupUser.isCreater()){
+                rule = "创建者";
+            }else {
+                rule = "火星群众";
+            }
+
+            GroupUserInfo userInfo = new GroupUserInfo(groupId, groupInfo.getGroupName(),user.geteMail(),
+                    user.getUserId(),user.getNickName(),rule,taskNum);
+
+            rnt.add(userInfo);
+        }
+
         transaction.commit();
         HibernateSessionFactory.closeSession();
-        return list;
+        return rnt;
     }
     public IGroupUser queryGroupUser(Integer userId,Integer groupId){
         Session session = HibernateSessionFactory.currentSession();
@@ -119,17 +179,29 @@ public class UserOrGroupQuery {
         HibernateSessionFactory.closeSession();
         return groupMemberInviteInfo;
     }
-    public List<GroupUser> queryGroupAllUserJoined(Integer userId){
+    public List<IGroupInfo> queryGroupAllUserJoined(Integer userId){
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("from  GroupUser groupUser where groupUser.userId = " + userId);
+
+        List <IGroupInfo> rnt = new ArrayList<IGroupInfo>();
         if(query.list().size() == 0){
-            return null;
+            return rnt;
         }
         List <GroupUser> list = query.list();
+        Iterator<GroupUser> iterator = list.iterator();
+        while(iterator.hasNext()){
+            IGroupUser iGroupUser = (IGroupUser)iterator.next();
+            query = session.createQuery("from  GroupInfo groupInfo where groupInfo.groupId = " + iGroupUser.getGroupId());
+            if(query.list().size() == 0){
+                continue;
+            }
+            GroupInfo iGroupInfo = (GroupInfo)query.list().get(0);
+            rnt.add(iGroupInfo);
+        }
         transaction.commit();
         HibernateSessionFactory.closeSession();
-        return list;
+        return rnt;
     }
 
     public List<NotificationInfo> queryNotification(Integer createrId,Integer accepterId){

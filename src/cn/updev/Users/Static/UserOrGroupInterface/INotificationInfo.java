@@ -16,7 +16,5 @@ public interface INotificationInfo {
     NotificationInfo saveNotificationInfo();
     boolean updateNotificationInfo();
     boolean deleteNotificationInfo();
-    boolean isNotPush();
-    boolean isHasPushed();
     boolean isHasRead();
 }

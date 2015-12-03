@@ -4,6 +4,7 @@ import cn.updev.Database.HibernateSessionFactory;
 import cn.updev.Users.NotificationPush.NotificationInfo;
 import cn.updev.Users.Static.UserOrGroupInterface.*;
 import cn.updev.Users.User.GroupUser;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -46,9 +47,10 @@ public class UserOrGroupDelete {
         return true;
     }
     private boolean deleteGroupMemberAllById(Integer groupId){//用于解散一个团队
-        List<GroupUser> list = new UserOrGroupQuery().queryGroupMemberInfoAll(groupId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  GroupUser groupUser where groupUser.groupId = " + groupId);
+        List<GroupUser> list = query.list();
         Iterator<GroupUser>iter = list.iterator();
         while(iter.hasNext()) {
             session.delete(iter.next());
@@ -58,9 +60,10 @@ public class UserOrGroupDelete {
         return true;
     }
     private boolean deleteUserAllGroup(Integer userId){
-        List<GroupUser>list = new UserOrGroupQuery().queryGroupAllUserJoined(userId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  GroupUser groupUser where groupUser.userId = " + userId);
+        List<GroupUser>list = query.list();
         Iterator<GroupUser> iter = list.iterator();
         while(iter.hasNext()){
             session.delete(iter.next());
