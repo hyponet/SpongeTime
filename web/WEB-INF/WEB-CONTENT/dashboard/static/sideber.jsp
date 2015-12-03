@@ -31,11 +31,11 @@
     <li<%=order==3?" class=\"active\"":""%>><a href="/admin/eventsmanage"><span class="glyphicon glyphicon-pencil"></span> 管理任务</a></li>
     <li<%=order==4?" class=\"active\"":""%> class="disabled"><a href="#"><span class="glyphicon glyphicon-briefcase"></span> 团队看板</a></li>
     <li<%=order==5?" class=\"active\"":""%> class="disabled"><a href="#"><span class="glyphicon glyphicon-calendar"></span> 时间轴</a></li>
-    <li class="parent disabled">
-      <a href="#">
-        <span class="glyphicon glyphicon-list"></span> 团队 <span data-toggle="collapse" href="#sub-item-1" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-plus"></em></span>
+    <li class="parent">
+      <a href="#team" data-toggle="collapse">
+        <span class="glyphicon glyphicon-list" href="#team"></span> 团队 <span data-toggle="collapse" href="#team" class="icon pull-right"><em class="glyphicon glyphicon-s glyphicon-chevron-down"></em></span>
       </a>
-      <ul class="children collapse" id="sub-item-1">
+      <ul class="children collapse" id="team">
         <li>
           <a class="" href="/admin/group/addgroup">
             <span class="glyphicon glyphicon-certificate"></span> 创建团队

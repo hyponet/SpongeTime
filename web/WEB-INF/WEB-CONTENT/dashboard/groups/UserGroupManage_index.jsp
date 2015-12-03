@@ -1,3 +1,5 @@
+<%@ page import="cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo" %>
+<%@ page import="java.util.List" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -6,6 +8,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  List<IGroupInfo> createGroup = (List<IGroupInfo>) request.getAttribute("createGroup");
+  List<IGroupInfo> manageGroup = (List<IGroupInfo>) request.getAttribute("manageGroup");
+  List<IGroupInfo> joinGroup = (List<IGroupInfo>) request.getAttribute("joinGroup");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,48 +42,46 @@
     <div class="col-lg-4">
       <h4>我创建的团队</h4>
       <div class="list-group">
-        <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading">团队组名称</h4>
-          <p class="list-group-item-text">团队简介什么的2333</p>
+        <%
+          for(IGroupInfo groupInfo:createGroup){
+        %>
+        <a href="/admin/group/manage?groupId=<%=groupInfo.getGroupId()%>" class="list-group-item">
+          <h4 class="list-group-item-heading"><%=groupInfo.getGroupName()%></h4>
+          <p class="list-group-item-text"><%=groupInfo.getGroupIntro()%></p>
         </a>
-        <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading">团队组名称</h4>
-          <p class="list-group-item-text">团队简介什么的2333</p>
-        </a>
+        <%
+          }
+        %>
       </div>
     </div>
     <div class="col-lg-4">
       <h4>我管理的团队</h4>
       <div class="list-group">
-        <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading">团队组名称</h4>
-          <p class="list-group-item-text">团队简介什么的2333</p>
+        <%
+          for(IGroupInfo groupInfo:manageGroup){
+        %>
+        <a href="/admin/group/manage?groupId=<%=groupInfo.getGroupId()%>" class="list-group-item">
+          <h4 class="list-group-item-heading"><%=groupInfo.getGroupName()%></h4>
+          <p class="list-group-item-text"><%=groupInfo.getGroupIntro()%></p>
         </a>
-        <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading">团队组名称</h4>
-          <p class="list-group-item-text">团队简介什么的2333</p>
-        </a>
-        <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading">团队组名称</h4>
-          <p class="list-group-item-text">团队简介什么的2333</p>
-        </a>
+        <%
+          }
+        %>
       </div>
     </div>
     <div class="col-lg-4">
       <h4>我加入的团队</h4>
       <div class="list-group">
-        <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading">团队组名称</h4>
-          <p class="list-group-item-text">团队简介什么的2333</p>
+        <%
+          for(IGroupInfo groupInfo:joinGroup){
+        %>
+        <a href="/admin/group/manage?groupId=<%=groupInfo.getGroupId()%>" class="list-group-item">
+          <h4 class="list-group-item-heading"><%=groupInfo.getGroupName()%></h4>
+          <p class="list-group-item-text"><%=groupInfo.getGroupIntro()%></p>
         </a>
-        <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading">团队组名称</h4>
-          <p class="list-group-item-text">团队简介什么的2333</p>
-        </a>
-        <a href="#" class="list-group-item">
-          <h4 class="list-group-item-heading">团队组名称</h4>
-          <p class="list-group-item-text">团队简介什么的2333</p>
-        </a>
+        <%
+          }
+        %>
       </div>
     </div>
   </div><!--/.row-->

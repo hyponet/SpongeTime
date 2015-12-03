@@ -35,7 +35,7 @@
       <div class="col-lg-6">
         <div class="col-lg-10 col-lg-offset-2">
           <h4 style="padding-top: 15px;">团队信息</h4>
-          <form method="POST">
+          <form action="/admin/group/addgroup" method="POST">
           <div class="form-group">
             <label>团队名</label>
             <input type="text" class="form-control" name="groupName" placeholder="团队的显示名称">
