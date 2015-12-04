@@ -24,6 +24,7 @@
     <ol class="breadcrumb">
       <li><a href="/admin"><span class="glyphicon glyphicon-home"></span></a></li>
       <li>Dashboard</li>
+      <li>团队</li>
       <li>团队任务</li>
       <li class="active">编辑任务</li>
     </ol>
@@ -41,16 +42,16 @@
       <input type="hidden" name="teamId" value="<%=groupInfo.getGroupId()%>">
       <div class="col-lg-4 col-lg-offset-1" style="padding-top: 25px;">
         <div class="form-group">
-          <label for="title">事件组名</label>
+          <label for="title">任务名</label>
           <input type="text" class="form-control" id="title" name="groupTitle" placeholder="标题">
         </div>
         <div class="form-group">
           <label for="expectTime">理想完成时间</label>
           <input type="date" class="form-control" id="expectTime" name="groupExpect" placeholder="时间">
-          <small>* 事件通知时间，进度预期计算参考。</small>
+          <small>* 任务通知时间，进度预期计算参考。</small>
         </div>
         <div class="form-group">
-          <label for="weight">事件组权重</label>
+          <label for="weight">任务权重</label>
           <select class="form-control" id="weight" name="weight">
             <option value="3" style="color:#5cb85c;">不紧急不重要</option>
             <option value="2" style="color:#5bc0de;">不紧急但重要</option>

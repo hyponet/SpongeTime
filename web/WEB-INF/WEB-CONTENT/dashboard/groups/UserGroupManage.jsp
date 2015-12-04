@@ -85,6 +85,8 @@
                 if(user.isCreater()){
               %>
               <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#delGroup" title="解散团队"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+              <% }else{ %>
+              <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#exitGroup" title="退出此团队"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span></button>
               <% } %>
             </p>
           </div>

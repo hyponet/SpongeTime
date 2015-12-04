@@ -34,7 +34,9 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header">团队管理</h3>
+      <h3 class="page-header">团队管理
+        <a type="button" href="/admin/group/addgroup" class="btn btn-default" title="创建团队"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+      </h3>
       <p>在这里您可以查看并操作所有您创建、管理、加入的团队</p>
     </div>
   </div><!--/.row-->
