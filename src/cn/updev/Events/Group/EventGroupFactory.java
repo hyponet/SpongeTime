@@ -24,6 +24,12 @@ public class EventGroupFactory {
     private EventWeight weight;
     private EventGroupInfo groupInfo;
 
+    /**
+     * 如果是团队任务，teamId将记录团队ID
+     */
+
+    private Integer teamId;
+
     public EventGroupFactory(){
 
     }
@@ -34,6 +40,16 @@ public class EventGroupFactory {
         this.list = null;
         this.ownerId = ownerId;
         this.weight = weight;
+        this.teamId = null;
+    }
+
+    public EventGroupFactory(Date groupExpect, String groupTitle, Integer ownerId, EventWeight weight, Integer teamId) {
+        this.groupExpect = groupExpect;
+        this.groupTitle = groupTitle;
+        this.list = null;
+        this.ownerId = ownerId;
+        this.weight = weight;
+        this.teamId = teamId;
     }
 
     private Date getGroupExpect() {
@@ -78,7 +94,14 @@ public class EventGroupFactory {
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
 
-        EventGroupInfo groupInfo = new EventGroupInfo(getGroupExpect(), getGroupTitle(), getOwnerId(), getWeight());
+
+        EventGroupInfo groupInfo = null;
+
+        if(this.teamId == null){
+            groupInfo = new EventGroupInfo(getGroupExpect(), getGroupTitle(), getOwnerId(), getWeight());
+        }else {
+            groupInfo = new EventGroupInfo(getGroupExpect(),getGroupTitle(),getOwnerId(),getWeight(),getTeamId());
+        }
         session.save(groupInfo);
         transaction.commit();
         HibernateSessionFactory.closeSession();
@@ -125,6 +148,10 @@ public class EventGroupFactory {
         ITeamEvents events = new TeamEventGroup(groupInfo, getList());
 
         return  events;
+    }
+
+    public Integer getTeamId() {
+        return teamId;
     }
 
     public AbstractEventGroup update(AbstractEventGroup eventGroup){
