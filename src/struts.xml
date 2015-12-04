@@ -18,8 +18,8 @@
                 </action>
                 <action name="addEventGroup" class="cn.updev.Action.Event.EventGroupAction">
                         <result name="input">/WEB-INF/WEB-CONTENT/dashboard/events/AddEventGroup.jsp</result>
-                        <result name="success" type="redirect">/admin</result>
-                        <result name="usertodo" type="redirect">/admin</result>
+                        <result name="teaminput" type="redirect">/admin/group/addtask?groupId=${teamId}</result>
+                        <result name="usertodo" type="redirect">/admin/eventsmanage?groupId=${groupId}</result>
                         <result name="teamtodo" type="redirect">/admin</result>
                 </action>
                 <action name="eventGroupEdit" class="cn.updev.Action.Event.EventGroupAction" method="getUserEventGroup">
@@ -102,6 +102,10 @@
                 <action name="manage" class="cn.updev.Action.User.UserGroupAction" method="groupManage">
                         <result name="input">/WEB-INF/WEB-CONTENT/dashboard/groups/UserGroupManage_index.jsp</result>
                         <result name="success">/WEB-INF/WEB-CONTENT/dashboard/groups/UserGroupManage.jsp</result>
+                </action>
+                <action name="addtask" class="cn.updev.Action.Event.TeamTaskAction" method="addTask">
+                        <result name="input">/WEB-INF/WEB-CONTENT/dashboard/groups/AddTask_chooseTeam.jsp</result>
+                        <result name="success">/WEB-INF/WEB-CONTENT/dashboard/groups/AddTask.jsp</result>
                 </action>
                 <action name="editgroupinfo" class="cn.updev.Action.User.UserGroupAction" method="updateGroupInfo">
                         <result name="success" type="redirect">/admin/group/manage?groupId=${groupId}</result>
