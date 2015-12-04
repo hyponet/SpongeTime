@@ -47,7 +47,7 @@
           </a>
         </li>
         <li>
-          <a class="" href="#">
+          <a class="" href="/admin/group/addtask">
             <span class="glyphicon glyphicon-send"></span> 发起任务
           </a>
         </li>

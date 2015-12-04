@@ -230,7 +230,7 @@
 					<div style="padding: 15px;">
 						<p>并没有发现您有正在进行中的事件组_(:з」∠)_。你可以创建一个新事件组,或者发起团队任务。</p>
 						<a href="/admin/addEventGroup" class="btn btn-info">创建事件组</a>
-						<a href="#" class="btn btn-success">发起团队任务</a>
+						<a href="/admin/group/addtask" class="btn btn-success">发起团队任务</a>
 					</div>
 				</div>
 			</div>
@@ -249,7 +249,7 @@
 					<p>本项目开源并受 <a href="https://github.com/Coderhypo/SpongeTime/blob/master/LICENSE" target="_blank"> MIT</a> 开源协议保护，
 						项目源码获取：<a href="https://github.com/Coderhypo/SpongeTime" target="_blank"> CoderHypo/SpongeTime</a>。</p>
 					<p>欢迎start，欢迎fork，欢迎<a href="http://form.mikecrm.com/f.php?t=6mg20r" target="_blank">反馈</a>！</p>
-					<p>&copy; SpongeTime v0.4 DEMO</p>
+					<p>SpongeTime v0.5 Alpha Build 151231</p>
 				</center>
 			</footer>
 		</div>

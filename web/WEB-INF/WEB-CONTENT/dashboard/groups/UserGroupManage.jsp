@@ -42,7 +42,7 @@
   <div class="row">
     <div class="col-lg-12">
       <h3 class="page-header">团队信息</h3>
-      <p>团队信息管理</p>
+      <p>在这里你可以进行团队信息管理，包括邀请成员，管理团队任务</p>
       <%
         String error = (String) request.getAttribute("error");
         if(error != null){
@@ -64,22 +64,29 @@
     <div class="col-lg-6" style="padding-left: 3%;">
       <div class="panel panel-default">
         <div class="panel-body easypiechart-panel">
-          <h4>
-            团队详细信息
-            <%
-              if(user.isCreater() || user.isAdmin()){
-            %>
-            <button class="btn btn-link" data-toggle="modal" data-target="#editGroupInfo" title="修改团队信息"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-            <% } %>
-          </h4>
-          <div style="padding: 8%;">
-            <div>
-              <p class="text-left"><b>团队名：</b><%=groupInfo.getGroupName()%></p>
-            </div>
-            <div>
-              <p class="text-left"><b>团队信息</b></p>
-              <p class="text-left"><%=groupInfo.getGroupIntro()%></p>
-            </div>
+          <h4>团队详细信息</h4>
+          <div style="padding-left: 10%; padding-top: 10px;">
+            <p class="text-left"><b>团队名：</b><%=groupInfo.getGroupName()%></p>
+          </div>
+          <div style="padding-left: 10%;">
+            <p class="text-left"><b>团队信息</b></p>
+            <p class="text-left"><%=groupInfo.getGroupIntro()%></p>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div>
+            <p class="text-right">
+              <%
+                if(user.isCreater() || user.isAdmin()){
+              %>
+              <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#editGroupInfo" title="修改团队信息"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+              <% } %>
+              <%
+                if(user.isCreater()){
+              %>
+              <button class="btn btn-link btn-sm" data-toggle="modal" data-target="#delGroup" title="解散团队"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+              <% } %>
+            </p>
           </div>
         </div>
       </div>
@@ -140,8 +147,8 @@
   <div class="row">
     <div class="col-lg-12">
       <h4>
-        团队事件
-        <a type="button" href="#" class="btn btn-default" title="发起团队任务"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+        团队任务
+        <a type="button" href="/admin/group/addtask?groupId=<%=groupInfo.getGroupId()%>" class="btn btn-default" title="发起团队任务"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
       </h4>
     </div>
   </div><!--/.row-->
