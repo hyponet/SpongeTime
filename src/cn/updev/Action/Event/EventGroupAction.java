@@ -34,6 +34,7 @@ public class EventGroupAction extends ActionSupport {
      * 团队事件组是 -1
      */
     private Integer user;
+    private Integer teamId;
 
     public String execute() throws Exception {
 
@@ -42,9 +43,14 @@ public class EventGroupAction extends ActionSupport {
             return LOGIN;
         }
 
-        if(this.groupTitle == null){
+        if(this.groupTitle == null || this.groupTitle.trim().length() < 1){
 
-            return INPUT;
+            if(user != null && user == -1){
+
+                return "teaminput";
+            }else {
+                return INPUT;
+            }
         }
 
         // 获得Session下的登录用户的ID
@@ -75,7 +81,13 @@ public class EventGroupAction extends ActionSupport {
         }
 
         //为事件组安装事件组信息并持久化
-        EventGroupFactory factory = new EventGroupFactory(this.groupExpect, this.groupTitle, ownerId, groupWeightl);
+        EventGroupFactory factory = null;
+
+        if(this.user == 1){
+            factory = new EventGroupFactory(this.groupExpect, this.groupTitle, ownerId, groupWeightl);
+        }else if(user == -1){
+            factory = new EventGroupFactory(this.groupExpect,this.groupTitle,ownerId,groupWeightl,this.teamId);
+        }
         EventGroupInfo groupInfo = factory.getGroupInfo();
 
         // 事件组事件持久化
@@ -98,6 +110,7 @@ public class EventGroupAction extends ActionSupport {
             IUserEvents events = factory.getUserEvents();
 
             if(events != null){
+                this.groupId = groupInfo.getGroupId();
                 return "usertodo";
             }
         }else if(this.user == -1){
@@ -353,5 +366,13 @@ public class EventGroupAction extends ActionSupport {
 
     public void setUser(Integer user) {
         this.user = user;
+    }
+
+    public Integer getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(Integer teamId) {
+        this.teamId = teamId;
     }
 }
