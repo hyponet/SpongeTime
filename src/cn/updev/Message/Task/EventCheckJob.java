@@ -32,7 +32,7 @@ public class EventCheckJob implements Job {
     /**
      *  运行日志
      */
-    private Logger logger = Logger.getLogger(ThreadSenter.class);
+    private Logger logger = Logger.getLogger(EventCheckJob.class);
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
