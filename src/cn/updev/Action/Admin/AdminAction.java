@@ -4,9 +4,9 @@ import cn.updev.EventWeight.Rate.EventGroupRateManage;
 import cn.updev.Events.Event.EventDAO;
 import cn.updev.Events.Group.EventGroupDAO;
 import cn.updev.Users.Static.FuctionClass.Login;
-import cn.updev.Users.Static.FuctionClass.Register;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.http.Cookie;
@@ -31,10 +31,16 @@ public class AdminAction extends ActionSupport {
 
     private String code;
 
+    /**
+     *  运行日志
+     */
+    private Logger logger = Logger.getLogger(AdminAction.class);
+
     public String login(){
 
         Login login = new Login();
         if(!login.isNotLogined()){
+            logger.debug("未登录");
             return SUCCESS;
         }
 
@@ -77,6 +83,8 @@ public class AdminAction extends ActionSupport {
             return SUCCESS;
         }else {
             request.setAttribute("error", "邮箱或密码错误！请确认登录邮箱或密码，或<a>找回密码</a>");
+            logger.debug(userName + " " + password + "密码错误");
+
             return LOGIN;
         }
     }
@@ -89,6 +97,14 @@ public class AdminAction extends ActionSupport {
             return LOGIN;
         }
 
+        try{
+
+            IUser user = login.getLoginedUser();
+            logger.debug("用户" + user.getUserId() + "退出成功");
+        }catch (Exception e){
+
+            logger.error("未有用户登录，却执行了退出操作");
+        }
         login.logout();
 
         return SUCCESS;

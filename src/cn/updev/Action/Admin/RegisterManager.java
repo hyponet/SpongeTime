@@ -3,7 +3,6 @@ package cn.updev.Action.Admin;
 import cn.updev.Message.Email.MailSenderInfo;
 import cn.updev.Message.Email.ThreadSenter;
 import cn.updev.Message.Template.BasicTemplate;
-import cn.updev.Message.Template.EventRemidTemplate;
 import cn.updev.Message.Template.RegisterTemplate;
 import cn.updev.Users.Static.EnumeRule.UserRule;
 import cn.updev.Users.Static.FuctionClass.Login;
@@ -12,6 +11,7 @@ import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import cn.updev.Users.User.UserFactory;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -39,9 +39,15 @@ public class RegisterManager extends ActionSupport {
     private String VC;
     private String code;
 
+    /**
+     *  运行日志
+     */
+    private Logger logger = Logger.getLogger(RegisterManager.class);
+
     public String execute() throws Exception {
         Login login = new Login();
         if(!login.isNotLogined()){
+            logger.debug("用户未登录");
             return SUCCESS;
         }
 
@@ -49,6 +55,7 @@ public class RegisterManager extends ActionSupport {
         String error;
 
         if(this.userName == null || this.nickName == null || this.email == null || this.password == null){
+            logger.debug("用户提交了一份信息不健全的表单");
             return INPUT;
         }
 
@@ -61,6 +68,7 @@ public class RegisterManager extends ActionSupport {
         if(this.code == null || !this.code.equals("ayanami")){
             error = "内测码错误！请联系hhHypo：i@ihypo.net。";
             request.setAttribute("error", error);
+            logger.info("用户内测码错误");
             return INPUT;
         }
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9_-]*$");
@@ -73,6 +81,8 @@ public class RegisterManager extends ActionSupport {
 
             Register register = new Register(this.userName, this.nickName, this.email, this.password ,this.url);
             IUser user = register.saveUserInfo();
+            logger.info("用户 " + user.getUserId() + ":" + user.getNickName() + " 注册成功，准备向用户邮箱 "
+                    + user.geteMail() + "发送邮件");
             userVerify(user.getNickName(), user.geteMail(), user.getPassWord());
             String mailURL = user.geteMail().split("@")[1];
             String info = "注册信息提交成功，已将激活链接发往您的邮箱：" + user.geteMail() +
@@ -176,6 +186,8 @@ public class RegisterManager extends ActionSupport {
         mailInfo.setContent(template.getContent());
         //这个类主要来发送邮件
         new Thread(new ThreadSenter(mailInfo)).start();
+        logger.info("用户" + userName + "邮箱验证邮件发送完毕。");
+
     }
 
     // 加密

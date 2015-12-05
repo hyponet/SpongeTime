@@ -12,6 +12,7 @@ import cn.updev.Message.Template.EventRemidTemplate;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import org.apache.commons.lang.time.DateUtils;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.quartz.Job;
@@ -28,10 +29,15 @@ public class EventCheckJob implements Job {
 
     public static final long PERIOD_DAY = DateUtils.MILLIS_PER_DAY;
 
+    /**
+     *  运行日志
+     */
+    private Logger logger = Logger.getLogger(ThreadSenter.class);
+
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
 
-        System.out.println("执行事件检查！");
+        logger.info("执行事件检查！[0/4]");
 
         Session session = HibernateSessionFactory.currentSession();
         String hql = "FROM EventWeight WHERE 1=1";
@@ -45,6 +51,8 @@ public class EventCheckJob implements Job {
         Date now = new Date();
         Long nowLong = now.getTime();
         Integer sentNum = 0;
+
+        logger.info("获得所有事件成功![1/4]");
 
         for (EventWeight eventWeight : list){
 
@@ -60,6 +68,8 @@ public class EventCheckJob implements Job {
                 }
             }
         }
+
+        logger.info("执行事件结束![3/4]");
         checkFinish(list.size(), sentNum, now);
     }
 
@@ -67,6 +77,8 @@ public class EventCheckJob implements Job {
 
         UserOrGroupQuery userDAO = new UserOrGroupQuery();
         IUser user = userDAO.queryUserById(event.getDoerId());
+
+        logger.info("发送邮件提醒!" + user.geteMail() +"[2/4]");
 
         try {
             // 设置邮件
@@ -79,9 +91,10 @@ public class EventCheckJob implements Job {
             new Thread(new ThreadSenter(mailInfo)).start();
 
         }catch (Exception e){
-            System.out.println("[邮件发送失败]： eventId=" + event.getEventId() + "  userEmail=" + user.geteMail());
+            logger.error("[邮件发送失败]： eventId=" + event.getEventId() + "  userEmail=" + user.geteMail());
             System.out.println(e.getMessage());
         }
+        logger.info("事件检查邮件提醒 to " + user.geteMail() +" 发送完毕[2/4]");
 
     }
 
@@ -99,7 +112,9 @@ public class EventCheckJob implements Job {
             mailInfo.setToAddress("blf20822@qq.com");
             new Thread(new ThreadSenter(mailInfo)).start();
 
-        }catch (Exception e){
+            logger.info("事件检查结束报告发送完毕![4/4]");
+        }catch (Exception e) {
+            logger.error("事件检查结束报告发送失败![4/4]");
             e.printStackTrace();
         }
     }
