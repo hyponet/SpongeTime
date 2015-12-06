@@ -23,7 +23,7 @@ public class EventGroupDAO {
     public List<UserEventGroup> getAllUserEventGroup(Integer userId){
 
         Session session = HibernateSessionFactory.currentSession();
-        Query query = session.createQuery("from EventGroupInfo info where info.ownerId=" + userId);
+        Query query = session.createQuery("from EventGroupInfo info where info.ownerId=" + userId + " and info.teamId=null");
         List<EventGroupInfo> list = (List<EventGroupInfo>)query.list();
 
         if(list.size() == 0){
