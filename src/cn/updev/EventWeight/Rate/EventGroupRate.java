@@ -25,6 +25,7 @@ public class EventGroupRate {
     private String createTime;
     private String groupExpect;
     private Date finishTime;
+    private Integer teamId;
 
     public EventGroupRate(Integer eventGroupId) {
         this.eventGroupId = eventGroupId;
@@ -37,6 +38,7 @@ public class EventGroupRate {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         this.createTime = dateFormat.format(groupInfo.getCreateTime());
         this.groupExpect = dateFormat.format(groupInfo.getGroupExpect());
+        this.teamId = groupInfo.getTeamId();
 
         List<IEvent> events = eventDAO.getEventByEventGroupId(eventGroupId);
         this.evnetNum = events.size();
@@ -99,5 +101,9 @@ public class EventGroupRate {
     public String getFinishTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         return dateFormat.format(finishTime);
+    }
+
+    public Integer getTeamId() {
+        return teamId;
     }
 }
