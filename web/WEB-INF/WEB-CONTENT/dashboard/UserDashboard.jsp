@@ -197,7 +197,15 @@
 			</button>
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
-					<h4><a style="text-decoration: none;" href="/admin/eventsmanage?groupId=<%=groupRate.getEventGroupId()%>"><span class="label label-<%=weight%>"><%=groupRate.getEventGroupTitle()%></span></a> <small>实时进度</small></h4>
+					<h4><a style="text-decoration: none;" href="
+						   <%
+							   if(groupRate.getTeamId() == null){
+								   out.print("/admin/eventsmanage?groupId=" + groupRate.getEventGroupId());
+							   }else {
+								   out.print("#");
+							   }
+						   %>
+						   "><span class="label label-<%=weight%>"><%=groupRate.getEventGroupTitle()%></span></a> <small>实时进度</small></h4>
 					<div style="padding-left: 8%;">
 						<div class="progress" style="width: 90%; padding: 3px;">
 							<div class="progress-bar progress-bar-<%=weight%> progress-bar-striped active" role="progressbar" aria-valuenow="<%=groupRate.getGroupRate()%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=groupRate.getGroupRate()%>%">
