@@ -63,7 +63,7 @@ public class EventCheckMaster implements ServletContextListener {
         try {
             logger.info("web负责事件定时检查的监听器停止任务");
             scheduler.deleteJob(eventCheckJob.getKey());
-        } catch (SchedulerException e) {
+        } catch (Exception e) {
             logger.error("web负责事件定时检查的监听器停止任务失败");
             e.printStackTrace();
         }
