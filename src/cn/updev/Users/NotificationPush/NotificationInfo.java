@@ -20,73 +20,13 @@ public class NotificationInfo implements INotificationInfo{
 
     public NotificationInfo(){}
 
-    public NotificationType getType() {
-        return type;
-    }
-
-    public void setType(NotificationType type) {
-        this.type = type;
-    }
-
     public NotificationInfo(Integer notificationCreaterId,Integer notificationAccepterId,NotificationType type,
-                            String notifucationBody,NotificationStatus status ){
+                            String notifucationBody,NotificationStatus status){
         this.notificationCreaterId = notificationCreaterId;
         this.notificationAccepterId = notificationAccepterId;
         this.notifucationBody = notifucationBody;
-        this.status = status;
         this.type = type;
-
-    }
-
-    public Integer getNotificationCreaterId() {
-        return notificationCreaterId;
-    }
-
-    public void setNotificationCreaterId(Integer notificationCreaterId) {
-        this.notificationCreaterId = notificationCreaterId;
-    }
-
-    public Integer getNotificationAccepterId() {
-        return notificationAccepterId;
-    }
-
-    public void setNotificationAccepterId(Integer notificationAccepterId) {
-        this.notificationAccepterId = notificationAccepterId;
-    }
-
-    public String getNotifucationBody() {
-        return notifucationBody;
-    }
-
-    public void setNotifucationBody(String notifucationBody) {
-        this.notifucationBody = notifucationBody;
-    }
-
-    public NotificationStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(NotificationStatus status) {
         this.status = status;
-    }
-
-
-    public boolean isHasRead(){
-        if(this.status == NotificationStatus.hasRead)
-            return true;
-        return false;
-    }
-
-    public NotificationInfo saveNotificationInfo(){
-        return new UserOrGroupSave().saveNotificationInfo(this);
-    }
-
-    public boolean updateNotificationInfo(){
-        return new UserOrGroupUpdate().updateNotificationInfo(this);
-    }
-
-    public boolean deleteNotificationInfo(){
-        return new UserOrGroupDelete().deleteNotificationInfo(this);
     }
 
     public Integer getNotificationInfoId() {
@@ -95,5 +35,63 @@ public class NotificationInfo implements INotificationInfo{
 
     public void setNotificationInfoId(Integer notificationInfoId) {
         this.notificationInfoId = notificationInfoId;
+    }
+
+    @Override
+    public Integer getNotificationCreaterId() {
+        return notificationCreaterId;
+    }
+
+    public void setNotificationCreaterId(Integer notificationCreaterId) {
+        this.notificationCreaterId = notificationCreaterId;
+    }
+
+    @Override
+    public Integer getNotificationAccepterId() {
+        return notificationAccepterId;
+    }
+
+    public void setNotificationAccepterId(Integer notificationAccepterId) {
+        this.notificationAccepterId = notificationAccepterId;
+    }
+
+    public NotificationType getType() {
+        return type;
+    }
+
+    public void setType(NotificationType type) {
+        this.type = type;
+    }
+
+    @Override
+    public String getNotifucationBody() {
+        return notifucationBody;
+    }
+
+    @Override
+    public void setNotifucationBody(String notifucationBody) {
+        this.notifucationBody = notifucationBody;
+    }
+
+    @Override
+    public NotificationStatus getStatus() {
+        return status;
+    }
+
+    @Override
+    public void setStatus(NotificationStatus status) {
+        this.status = status;
+    }
+
+    public boolean isHasPushed(){
+        if(status.isHasPushed()){
+            return true;
+        }
+        return false;
+    }
+    public boolean isHasRead(){
+        if(status.isHasRead())
+            return true;
+        return false;
     }
 }
