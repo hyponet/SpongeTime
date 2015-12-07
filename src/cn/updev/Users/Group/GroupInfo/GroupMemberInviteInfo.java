@@ -17,16 +17,15 @@ public class GroupMemberInviteInfo implements IGroupMemberInviteInfo{
     private Integer inviteeId;
     private InviteStatus inviteStatus;
 
-    /*statusNum说明：inviteUser　表示未处理邀请，应该推送给被邀请者
-                inviteeAgree　表示被邀请者同意，应该推送给管理员或创建者
-                inviteeDeny　表示被邀请人拒绝接受邀请，推送给邀请者
-                inviteOutTime　表示邀请消息超期
+   /*
+    invite:新建邀请
+    inviteAgree:被邀请者同意
+    inviteFinish:邀请结束
+     */
 
-                adminAgree　表示管理员或创建者已经同意，推送给邀请者，被邀请者，各位管理员，创建者
-                adminDeny　表示管理员或创建者决绝此邀请　推送给邀请者，被邀请者，各位管理员，创建者
- */
+    public GroupMemberInviteInfo(){}
 
-    public GroupMemberInviteInfo(Integer groupId,Integer inviterId,Integer inviteeId,InviteStatus inviteStatus){
+    public GroupMemberInviteInfo(Integer groupId, Integer inviterId, Integer inviteeId, InviteStatus inviteStatus) {
         this.groupId = groupId;
         this.inviterId = inviterId;
         this.inviteeId = inviteeId;
@@ -41,6 +40,7 @@ public class GroupMemberInviteInfo implements IGroupMemberInviteInfo{
         this.inviteInfoId = inviteInfoId;
     }
 
+    @Override
     public Integer getGroupId() {
         return groupId;
     }
@@ -49,6 +49,7 @@ public class GroupMemberInviteInfo implements IGroupMemberInviteInfo{
         this.groupId = groupId;
     }
 
+    @Override
     public Integer getInviterId() {
         return inviterId;
     }
@@ -57,6 +58,7 @@ public class GroupMemberInviteInfo implements IGroupMemberInviteInfo{
         this.inviterId = inviterId;
     }
 
+    @Override
     public Integer getInviteeId() {
         return inviteeId;
     }
@@ -69,56 +71,26 @@ public class GroupMemberInviteInfo implements IGroupMemberInviteInfo{
         return inviteStatus;
     }
 
-
-
-    public boolean isInviteUser(){
-        if(this.inviteStatus == InviteStatus.inviteUser)
-            return true;
-        return false;
-    }
-
-    public boolean isInviteAgree(){
-        if(this.inviteStatus == InviteStatus.adminAgree)
-            return true;
-        return false;
-    }
-
-    public boolean isInviteOutTime(){
-        if(this.inviteStatus == InviteStatus.inviteOutTime)
-            return true;
-        return false;
-    }
-
-    public boolean isAdminAgree(){
-        if(this.inviteStatus == InviteStatus.adminAgree)
-            return true;
-        return false;
-    }
-
-    public boolean isAdminDeny(){
-        if(this.inviteStatus == InviteStatus.adminDeny)
-            return true;
-        return false;
-    }
-
-
+    @Override
     public void setInviteStatus(InviteStatus inviteStatus) {
         this.inviteStatus = inviteStatus;
     }
 
-    public GroupMemberInviteInfo(){}
-    public IGroupMemberInviteInfo saveGroupMemberInviteInfo(){
-        return new UserOrGroupSave().saveGroupMemberInviteInfo(this);
+    public boolean isInvite(){
+        if(this.inviteStatus.isInvite())
+            return true;
+        return false;
     }
-    public boolean deleteGroupMemberInviteInfo(){
-        return new UserOrGroupDelete().deleteGroupMemberInviteInfo(this);
+
+    public boolean isInviteeAgree(){
+        if(this.inviteStatus.isInviteeAgree())
+            return true;
+        return false;
     }
-    public boolean saveGroupUserInfo(){
-        GroupUserFactory groupUserFactory = new GroupUserFactory(this.inviteeId,this.groupId, GroupRule.User);
-        if(groupUserFactory != null){
-            if(groupUserFactory.getGroupUser()!= null)
-                return true;
-        }
+
+    public boolean isInviteFinish(){
+        if(this.inviteStatus.isInviteFinish())
+            return true;
         return false;
     }
 }
