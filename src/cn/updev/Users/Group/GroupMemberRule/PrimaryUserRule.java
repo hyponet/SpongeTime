@@ -8,7 +8,6 @@ import cn.updev.Users.Group.GroupInfo.*;
 import cn.updev.Users.Static.EnumeRule.GroupRule;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupUpdate;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupInfo;
-import cn.updev.Users.Static.UserOrGroupInterface.IGroupMemberInviteInfo;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
 import cn.updev.Users.Static.UserOrGroupInterface.IUser;
 import cn.updev.Users.User.GroupUserFactory;
@@ -26,12 +25,8 @@ public class PrimaryUserRule {
         }
         return null;
     }
-    public IGroupMemberInviteInfo inviteUser(Integer groupId,Integer inviterId,Integer inviteeId){
-        GroupMemberInviteInfoFactory gmiif = new GroupMemberInviteInfoFactory(groupId,inviterId,inviteeId);
-        if(gmiif != null) {
-            return gmiif.saveGroupMemberInviteInfo();
-        }
-        return null;
+    public boolean inviteUser(Integer groupId,Integer inviterId,Integer inviteeId){
+        return true;
     }
     public boolean updataUserInfo(IUser iUser){
         return new UserOrGroupUpdate().updateUser((User)iUser);
