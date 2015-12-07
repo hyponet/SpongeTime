@@ -16,10 +16,18 @@ import java.util.List;
  */
 public class UserOrGroupDelete {
     public boolean deleteGroupMemberByName(String userName,Integer groupId){
-        IUser iUser = new UserOrGroupQuery().queryUserByName(userName);
-        IGroupUser iGroupUser = new UserOrGroupQuery().queryGroupUser(iUser.getUserId(),groupId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from User user where user.userName='"+userName+"'");
+        if(query.list().size() == 0){
+            return  false;
+        }
+        IUser iUser = (IUser)query.list().get(0);
+        query = session.createQuery("from GroupUser groupUser where groupUser.userId="+iUser.getUserId()+
+                " and groupUser.groupId="+groupId);
+        if(query.list().size() == 0)
+            return false;
+        IGroupUser iGroupUser = (IGroupUser)query.list().get(0);
         session.delete(iGroupUser);
         transaction.commit();
         HibernateSessionFactory.closeSession();
@@ -27,20 +35,28 @@ public class UserOrGroupDelete {
     }
 
     public boolean deleteGroupMemberById(Integer userId,Integer groupId){
-        IGroupUser iGroupUser = new UserOrGroupQuery().queryGroupUser(userId,groupId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from GroupUser groupUser where groupUser.userId="+userId+
+                " and groupUser.groupId="+groupId);
+        if(query.list().size() == 0)
+            return false;
+        IGroupUser iGroupUser = (IGroupUser)query.list().get(0);
         session.delete(iGroupUser);
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
     }
 
+
     public boolean deleteGroupInfoById(Integer groupId){
-        IGroupInfo iGroupInfo = new UserOrGroupQuery().queryGroupInfoById(groupId);
         deleteGroupMemberAllById(groupId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  GroupInfo groupInfo where groupInfo.groupId = " + groupId);
+        if(query.list().size() == 0)
+            return false;
+        IGroupInfo iGroupInfo = (IGroupInfo)query.list().get(0);
         session.delete(iGroupInfo);
         transaction.commit();
         HibernateSessionFactory.closeSession();
@@ -73,20 +89,26 @@ public class UserOrGroupDelete {
         return true;
     }
     public boolean deleteUserById(Integer userId){
-        IUser iUser = new UserOrGroupQuery().queryUserById(userId);
         deleteUserAllGroup(userId);
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from User user where user.userId=" + userId);
+        if(query.list().size() == 0)
+            return  false;
+        IUser iUser = (IUser)query.list().get(0);
         session.delete(iUser);
         transaction.commit();
         HibernateSessionFactory.closeSession();
         return true;
     }
     public boolean deleteUserByEMail(String eMail){
-        IUser iUser = new UserOrGroupQuery().queryUserByEMail(eMail);
-        deleteUserAllGroup(iUser.getUserId());
         Session session = HibernateSessionFactory.currentSession();
         Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from User user where user.eMail='" + eMail +"'");
+        if(query.list().size() == 0)
+            return false;
+        IUser iUser = (IUser)query.list().get(0);
+        deleteUserAllGroup(iUser.getUserId());
         session.delete(iUser);
         transaction.commit();
         HibernateSessionFactory.closeSession();
