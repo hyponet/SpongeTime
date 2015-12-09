@@ -217,4 +217,16 @@ public class UserOrGroupQuery {
         HibernateSessionFactory.closeSession();
         return list;
     }
+    public List<NotificationInfo> queryNotificationAll(Integer accepterId){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  NotificationInfo nInfo where nInfo.notificationAccepterId ="+accepterId);
+        if(query.list().size() == 0){
+            return null;
+        }
+        List <NotificationInfo> list = query.list();
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return list;
+    }
 }
