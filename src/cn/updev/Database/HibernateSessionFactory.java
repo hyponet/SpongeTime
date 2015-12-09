@@ -1,5 +1,6 @@
 package cn.updev.Database;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.cfg.Configuration;
@@ -20,6 +21,9 @@ public class HibernateSessionFactory {
     /** The single instance of hibernate SessionFactory */
     private static org.hibernate.SessionFactory sessionFactory;
 
+    /** Log4j */
+    private static Logger logger = Logger.getLogger(HibernateSessionFactory.class);
+
     /**
      * Returns the ThreadLocal Session instance. Lazy initialize
      * the SessionFactory if needed.
@@ -38,7 +42,7 @@ public class HibernateSessionFactory {
                     sessionFactory = cfg.buildSessionFactory();
                 }
                 catch (Exception e) {
-                    System.err.println("%%%% Error Creating SessionFactory %%%%");
+                    logger.error("获得SessionFactory失败!");
                     e.printStackTrace();
                 }
             }
