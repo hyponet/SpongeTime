@@ -12,6 +12,7 @@
         </id>
         <property name="notificationCreaterId" type="java.lang.Integer" column="creater_id"/>
         <property name="notificationAccepterId" type="java.lang.Integer" column="accepter_id"/>
+        <property name="title" type="java.lang.String" column="title"/>
         <property name="notifucationBody" type="java.lang.String" column="content"/>
         <property name="type" type="NType" column="type"/>
         <property name="status" type="NStatus" column="status"/>
