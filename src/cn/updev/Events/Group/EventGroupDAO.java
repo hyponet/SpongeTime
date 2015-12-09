@@ -104,6 +104,17 @@ public class EventGroupDAO {
         return rnt;
     }
 
+    public List<Integer> getTeamEventGroupId(Integer groupId){
+
+        Session session = HibernateSessionFactory.currentSession();
+        Query query =session.createQuery("select groupId from EventGroupInfo info where info.teamId=" + groupId);
+
+        List<Integer> rnt = query.list();
+
+        HibernateSessionFactory.closeSession();
+        return rnt;
+    }
+
     public Integer getUnFinishEventNum(Integer groupId){
         Session session = HibernateSessionFactory.currentSession();
         String hql = "select count(*) from Event e where e.groupId=" + groupId +" and e.finishTime=null";
