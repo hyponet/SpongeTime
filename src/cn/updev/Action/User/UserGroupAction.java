@@ -1,6 +1,8 @@
 package cn.updev.Action.User;
 
 import cn.updev.EventWeight.Rate.EventGroupRate;
+import cn.updev.EventWeight.Rate.EventGroupRateManage;
+import cn.updev.Events.Group.EventGroupDAO;
 import cn.updev.Users.Group.GroupInfo.GroupInfoFactory;
 import cn.updev.Users.Group.GroupMemberRule.PrimaryUserRule;
 import cn.updev.Users.Static.FuctionClass.Login;
@@ -94,15 +96,19 @@ public class UserGroupAction extends ActionSupport {
 
         IGroupInfo groupInfo = DAO.queryGroupInfoById(groupId);
         List<GroupUserInfo> groupUser = DAO.queryGroupMemberInfoAll(groupId);
-        List<EventGroupRate> groupTask = new ArrayList<EventGroupRate>();
         IGroupUser userInfo = DAO.queryGroupUser(user.getUserId(), groupId);
 
         this.groupName = groupInfo.getGroupName();
         this.groupIntro = groupInfo.getGroupIntro();
         request.setAttribute("groupInfo",groupInfo);
         request.setAttribute("groupUser", groupUser);
-        request.setAttribute("groupTask", groupTask);
         request.setAttribute("userInfo", userInfo);
+
+        //团队事件组进度统计
+        EventGroupDAO groupDAO = new EventGroupDAO();
+        List<Integer> groupIds = groupDAO.getTeamEventGroupId(groupId);
+        EventGroupRateManage rateManage = new EventGroupRateManage();
+        rateManage.setTeamEventGroupRate(groupIds);
 
         return SUCCESS;
     }
