@@ -34,4 +34,19 @@ public class EventGroupRateManage {
 
         session.setAttribute("eventGroupRate", list);
     }
+
+    public void setTeamEventGroupRate(List<Integer> groupIds){
+
+        List<EventGroupRate> list = new ArrayList<EventGroupRate>();
+
+        for(Integer groupId : groupIds){
+            EventGroupRate groupRate = new EventGroupRate(groupId);
+            if(groupRate.getGroupRate() != 100){
+
+                list.add(groupRate);
+            }
+        }
+
+        session.setAttribute("groupTask", list);
+    }
 }
