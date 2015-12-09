@@ -17,24 +17,18 @@ public class NotificationInfo implements INotificationInfo{
     private NotificationType type;
     private String notifucationBody;
     private NotificationStatus status;
+    private String title;
 
     public NotificationInfo(){}
 
-    public NotificationInfo(Integer notificationCreaterId,Integer notificationAccepterId,NotificationType type,
-                            String notifucationBody,NotificationStatus status){
+    public NotificationInfo(Integer notificationCreaterId, Integer notificationAccepterId, NotificationType type, String notifucationBody,
+                            NotificationStatus status, String title) {
         this.notificationCreaterId = notificationCreaterId;
         this.notificationAccepterId = notificationAccepterId;
-        this.notifucationBody = notifucationBody;
         this.type = type;
+        this.notifucationBody = notifucationBody;
         this.status = status;
-    }
-
-    public Integer getNotificationInfoId() {
-        return notificationInfoId;
-    }
-
-    public void setNotificationInfoId(Integer notificationInfoId) {
-        this.notificationInfoId = notificationInfoId;
+        this.title = title;
     }
 
     @Override
@@ -55,10 +49,12 @@ public class NotificationInfo implements INotificationInfo{
         this.notificationAccepterId = notificationAccepterId;
     }
 
+    @Override
     public NotificationType getType() {
         return type;
     }
 
+    @Override
     public void setType(NotificationType type) {
         this.type = type;
     }
@@ -81,6 +77,14 @@ public class NotificationInfo implements INotificationInfo{
     @Override
     public void setStatus(NotificationStatus status) {
         this.status = status;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public boolean isHasPushed(){
