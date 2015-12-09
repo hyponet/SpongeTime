@@ -1,5 +1,11 @@
 package cn.updev.Action.User;
 
+import cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo;
+import cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfoSender;
+import cn.updev.Users.NotificationPush.NotificationInfo;
+import cn.updev.Users.NotificationPush.NotificationSender;
+import cn.updev.Users.Static.EnumeRule.InviteStatus;
+import cn.updev.Users.Static.EnumeRule.NotificationType;
 import cn.updev.Users.Static.FuctionClass.Login;
 import cn.updev.Users.Static.UserOrGroupDAO.UserOrGroupQuery;
 import cn.updev.Users.Static.UserOrGroupInterface.IGroupUser;
@@ -21,6 +27,18 @@ public class UserGroupInviteAction extends ActionSupport{
      */
     private String userInfo;
     private Integer groupId;
+
+    /**
+     * inviteId : 邀请信息的ID
+     * rnt      : 邀请信息的用户反馈
+     *   |
+     *   --- AGREE    : 同意
+     *   |
+     *   --- DISAGREE : 拒绝
+     */
+
+    private Integer inviteId;
+    private String rnt;
 
     public String inviteNewUser(){
 
@@ -44,30 +62,98 @@ public class UserGroupInviteAction extends ActionSupport{
 
         UserOrGroupQuery DAO = new UserOrGroupQuery();
 
-        // 1 获得被邀请的成员
-        IUser inviter = DAO.queryUserByName(userInfo);
-        if(inviter == null){
-            inviter = DAO.queryUserByEMail(userInfo);
+        // 获得被邀请的成员
+        IUser invitee = DAO.queryUserByName(userInfo);
+        if(invitee == null){
+            invitee = DAO.queryUserByEMail(userInfo);
         }
-        if(inviter == null){
+        if(invitee == null){
             String err = "用户 " + userInfo + " 不存在，请核实！";
             HttpServletRequest request = ServletActionContext.getRequest();
             request.setAttribute("error", err);
             return SUCCESS;
         }
 
-        // 2 判断被邀请的成员是否在用户组中
-        IGroupUser groupUser = DAO.queryGroupUser(inviter.getUserId(), groupId);
+        // 判断被邀请的成员是否在用户组中
+        IGroupUser groupUser = DAO.queryGroupUser(invitee.getUserId(), groupId);
 
         if(groupUser != null){
             return SUCCESS;
         }
 
-        // 3 发送邀请信息
-        System.out.println("正在邀请：" + inviter.getNickName());
+        // 保存邀请请求
+        saveInvite(this.groupId, user.getUserId(), invitee.getUserId());
+
+        // 发送邀请信息
+        invite(invitee);
 
         return SUCCESS;
     }
+
+    public String updateInfo(){
+
+        Login login = new Login();
+
+        if(login.isNotLogined()){
+            return LOGIN;
+        }
+
+        if(this.rnt == null || this.inviteId == null){
+            return ERROR;
+        }
+
+        UserOrGroupQuery DAO = new UserOrGroupQuery();
+        GroupMemberInviteInfo inviteInfo = null;
+
+        if(this.rnt.equals("AGREE")){
+
+            inviteInfo.setInviteStatus(InviteStatus.inviteeAgree);
+        }else if(this.rnt.equals("DISAGREE")) {
+
+            inviteInfo.setInviteStatus(InviteStatus.inviteFinish);
+        }else {
+            return ERROR;
+        }
+
+        GroupMemberInviteInfoSender sender = new GroupMemberInviteInfoSender(inviteInfo);
+        sender.updateGroupMemberInviteInfo();
+
+        return SUCCESS;
+    }
+
+    private void invite(IUser touser){
+
+        Login login = new Login();
+
+        IUser user = login.getLoginedUser();
+
+        NotificationInfo notificationInfo = new NotificationInfo();
+
+        notificationInfo.setNotificationCreaterId(user.getUserId());
+        notificationInfo.setTitle("邀请标题");
+        notificationInfo.setNotifucationBody("邀请内容");
+        notificationInfo.setType(NotificationType.userGroup);
+
+        notificationInfo.setNotificationAccepterId(touser.getUserId());
+        NotificationSender sender = new NotificationSender(notificationInfo);
+        sender.NotificationSendToUser();
+
+    }
+
+    private void saveInvite(Integer groupId, Integer inviterId, Integer inviteeId){
+
+        GroupMemberInviteInfo inviteInfo = new GroupMemberInviteInfo();
+
+        inviteInfo.setGroupId(groupId);
+        inviteInfo.setInviterId(inviterId);
+        inviteInfo.setInviteeId(inviteeId);
+        inviteInfo.setInviteStatus(InviteStatus.invite);
+
+        GroupMemberInviteInfoSender sender = new GroupMemberInviteInfoSender(inviteInfo);
+        sender.saveGroupMemberInviteInfo();
+
+    }
+
 
     public Integer getGroupId() {
         return groupId;
