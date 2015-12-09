@@ -241,4 +241,16 @@ public class UserOrGroupQuery {
         HibernateSessionFactory.closeSession();
         return notificationInfo;
     }
+    public GroupMemberInviteInfo queryGroupMemberInviteInfoById(Integer inviteInfoId){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  GroupMemberInviteInfo gmii where gmii.inviteInfoId="+inviteInfoId);
+        if(query.list().size() == 0){
+            return null;
+        }
+        GroupMemberInviteInfo groupMemberInviteInfo = (GroupMemberInviteInfo) query.list().get(0);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return groupMemberInviteInfo;
+    }
 }
