@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="cn.updev.EventWeight.Rate.EventGroupRate" %>
 <%@ page import="cn.updev.Users.Static.UserOrGroupInterface.IGroupUser" %>
+<%@ page import="cn.updev.Events.Static.EventWeight" %>
 <%--
   Created by IntelliJ IDEA.
   User: hypo
@@ -15,7 +16,7 @@
   IGroupUser user = (IGroupUser) request.getAttribute("userInfo");
   IGroupInfo groupInfo = (IGroupInfo) request.getAttribute("groupInfo");
   List<GroupUserInfo> groupUser = (List<GroupUserInfo>) request.getAttribute("groupUser");
-  List<EventGroupRate> groupTask = (List<EventGroupRate>) request.getAttribute("groupTask");
+  List<EventGroupRate> groupTask = (List<EventGroupRate>) session.getAttribute("groupTask");
 
 %>
 <!DOCTYPE html>
@@ -153,6 +154,68 @@
         <a type="button" href="/admin/group/addtask?groupId=<%=groupInfo.getGroupId()%>" class="btn btn-default" title="发起团队任务"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
       </h4>
     </div>
+  </div><!--/.row-->
+  <div class="row" style="padding-bottom: 20px;">
+    <%
+      if(groupTask != null && groupTask.size() > 0){
+        for(EventGroupRate groupRate : groupTask){
+
+          String weight = "";
+          if(groupRate.getWeight() == EventWeight.RED){
+
+            weight = "danger";
+          }else if(groupRate.getWeight() == EventWeight.YELLOW){
+
+            weight = "warning";
+          }else if(groupRate.getWeight() == EventWeight.BLUE){
+
+            weight = "info";
+          }else if(groupRate.getWeight() == EventWeight.GREEN){
+
+            weight = "success";
+          }
+    %>
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-body easypiechart-panel">
+          <h4><a style="text-decoration: none;" href="#"><span class="label label-<%=weight%>"><%=groupRate.getEventGroupTitle()%></span></a> <small>实时进度</small></h4>
+          <div style="padding-left: 8%;">
+            <div class="progress" style="width: 90%; padding: 3px;">
+              <div class="progress-bar progress-bar-<%=weight%> progress-bar-striped active" role="progressbar" aria-valuenow="<%=groupRate.getGroupRate()%>" aria-valuemin="0" aria-valuemax="100" style="width: <%=groupRate.getGroupRate()%>%">
+                <span class="sr-only"><%=groupRate.getGroupRate()%>% 完成</span>
+              </div>
+            </div>
+            <p class="text-center">
+              <b>完成率：<%=groupRate.getGroupRate()%>%</b>&nbsp;
+              事件数：<%=groupRate.getEvnetNum()%>&nbsp;
+              完成数：<%=groupRate.getFinishEventNum()%>
+            </p>
+            <p class="text-center">
+              <small>
+                创建时间：<%=groupRate.getCreateTime()%>&nbsp;
+                理想完成时间：<%=groupRate.getGroupExpect()%>&nbsp;
+                预计完成时间：<%=groupRate.getFinishTime()%>
+              </small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%
+      }}else {
+    %>
+    <div class="col-xs-12 col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body easypiechart-panel">
+          <h4>From：进程控制君</h4>
+          <div style="padding: 15px;">
+            <p>并没有发现您所在的团队用正在进行的任务_(:з」∠)_。你可以发起团队任务。</p>
+            <a href="/admin/group/addtask?groupId=<%=groupInfo.getGroupId()%>" class="btn btn-warning">发起团队任务</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%}%>
   </div><!--/.row-->
 </div>	<!--/.main-->
 <%
