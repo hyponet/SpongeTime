@@ -13,6 +13,9 @@
                 <action name="todolist" class="cn.updev.Action.Todo.TodoListAction">
                         <result>/WEB-INF/WEB-CONTENT/dashboard/todo/todoList.jsp</result>
                 </action>
+                <action name="teamtask">
+                        <result>/WEB-INF/WEB-CONTENT/dashboard/groups/TeamTask.jsp</result>
+                </action>
                 <action name="eventsmanage" class="cn.updev.Action.Event.EventManageAction">
                         <result name="success">/WEB-INF/WEB-CONTENT/dashboard/events/EventManage.jsp</result>
                 </action>
