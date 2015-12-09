@@ -229,4 +229,16 @@ public class UserOrGroupQuery {
         HibernateSessionFactory.closeSession();
         return list;
     }
+    public NotificationInfo queryNotificationById(Integer notificationInfoId){
+        Session session = HibernateSessionFactory.currentSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from  NotificationInfo nInfo where nInfo.notificationInfoId ="+notificationInfoId);
+        if(query.list().size() == 0){
+            return null;
+        }
+        NotificationInfo notificationInfo = (NotificationInfo) query.list().get(0);
+        transaction.commit();
+        HibernateSessionFactory.closeSession();
+        return notificationInfo;
+    }
 }
