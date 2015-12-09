@@ -9,10 +9,8 @@ public interface IGroupMemberInviteInfo {
     Integer getGroupId();
     Integer getInviterId();
     Integer getInviteeId();
-    boolean isInviteUser();
-    boolean isInviteAgree();
-    boolean isInviteOutTime();
-    boolean isAdminAgree();
-    boolean isAdminDeny();
     void setInviteStatus(InviteStatus inviteStatus);
+    boolean isInvite();
+    boolean isInviteeAgree();
+    boolean isInviteFinish();
 }
