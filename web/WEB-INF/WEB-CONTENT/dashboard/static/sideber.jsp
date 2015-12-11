@@ -31,7 +31,7 @@
     <li<%=order==1?" class=\"active\"":""%>><a href="/admin/todolist"><span class="glyphicon glyphicon-list-alt"></span> TODO列表</a></li>
     <li<%=order==2?" class=\"active\"":""%>><a href="/admin/addevents"><span class="glyphicon glyphicon-plus"></span> 添加任务</a></li>
     <li<%=order==3?" class=\"active\"":""%>><a href="/admin/eventsmanage"><span class="glyphicon glyphicon-pencil"></span> 管理任务</a></li>
-    <li<%=order==4?" class=\"active\"":""%>><a href="/admin/teamtask"><span class="glyphicon glyphicon-briefcase"></span> 团队看板</a></li>
+    <li<%=order==4?" class=\"active\"":""%> class="disabled"><a href="/admin/teamtask"><span class="glyphicon glyphicon-briefcase"></span> 团队看板</a></li>
     <li<%=order==5?" class=\"active\"":""%> class="disabled"><a href="#"><span class="glyphicon glyphicon-calendar"></span> 时间轴</a></li>
     <li class="parent">
       <a href="#team" data-toggle="collapse">
