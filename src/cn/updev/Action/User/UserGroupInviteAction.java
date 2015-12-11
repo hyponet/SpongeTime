@@ -90,6 +90,11 @@ public class UserGroupInviteAction extends ActionSupport{
         return SUCCESS;
     }
 
+    /**
+     *  用户邀请的反馈
+     * @return
+     */
+
     public String updateInfo(){
 
         Login login = new Login();
@@ -103,7 +108,7 @@ public class UserGroupInviteAction extends ActionSupport{
         }
 
         UserOrGroupQuery DAO = new UserOrGroupQuery();
-        GroupMemberInviteInfo inviteInfo = null;
+        GroupMemberInviteInfo inviteInfo = DAO.queryGroupMemberInviteInfoById(this.inviteId);
 
         if(this.rnt.equals("AGREE")){
 
