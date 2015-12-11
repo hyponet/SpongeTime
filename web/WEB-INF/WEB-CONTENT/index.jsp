@@ -67,7 +67,7 @@
 
             <div class="mastfoot">
                 <div class="inner">
-                    <p>SpongeTime v0.5 Alpha Build 151206</p>
+                    <p>SpongeTime v0.5 Alpha Build 151211</p>
                 </div>
             </div>
 

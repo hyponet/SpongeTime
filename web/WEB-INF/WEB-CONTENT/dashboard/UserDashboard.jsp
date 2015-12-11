@@ -257,7 +257,7 @@
 					<p>本项目开源并受 <a href="https://github.com/Coderhypo/SpongeTime/blob/master/LICENSE" target="_blank"> MIT</a> 开源协议保护，
 						项目源码获取：<a href="https://github.com/Coderhypo/SpongeTime" target="_blank"> CoderHypo/SpongeTime</a>。</p>
 					<p>欢迎start，欢迎fork，欢迎<a href="http://form.mikecrm.com/f.php?t=6mg20r" target="_blank">反馈</a>！</p>
-					<p>SpongeTime v0.5 Alpha Build 151206</p>
+					<p>SpongeTime v0.5 Alpha Build 151211</p>
 				</center>
 			</footer>
 		</div>
