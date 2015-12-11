@@ -89,7 +89,7 @@
                 </action>
         </package>
         <package name="System" namespace="/admin/system" extends="struts-default">
-                <action name="message">
+                <action name="message" class="cn.updev.Action.User.MessageAction">
                         <result>/WEB-INF/WEB-CONTENT/dashboard/systems/Message.jsp</result>
                 </action>
         </package>
