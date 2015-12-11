@@ -98,4 +98,12 @@ public class NotificationInfo implements INotificationInfo{
             return true;
         return false;
     }
+
+    public Integer getNotificationInfoId() {
+        return notificationInfoId;
+    }
+
+    public void setNotificationInfoId(Integer notificationInfoId) {
+        this.notificationInfoId = notificationInfoId;
+    }
 }

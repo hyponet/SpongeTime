@@ -6,7 +6,7 @@
 
     <typedef class="cn.updev.Users.Static.EnumeRule.InviteStatus" name="IStatus"/>
 
-    <class name="cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo" table="GroupMemberInviteInfo">
+    <class name="cn.updev.Users.Group.GroupInfo.GroupMemberInviteInfo" table="group_member_invite_info">
         <cache usage="read-write"/>
         <id name="inviteInfoId" column="inviteInfoId">
             <generator class="native"/>

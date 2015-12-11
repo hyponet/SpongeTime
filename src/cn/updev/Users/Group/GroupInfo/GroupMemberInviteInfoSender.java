@@ -20,6 +20,21 @@ public class GroupMemberInviteInfoSender {
     }
 
     public boolean updateGroupMemberInviteInfo(){
+
+//        if(用户拒绝){
+//            已经finish
+//            直接给邀请者说用户拒绝
+//        }else if(用户同意){
+//            没有finish
+//            if(管理员同意){
+//                没有finish
+//                发送反馈给邀请者： 用户同意并添加
+//            }else if(管理员拒绝){
+//                变成finis
+//                发送反馈给邀请者： 管理员拒绝
+//            }
+//        }
+
         return new UserOrGroupUpdate().updateGroupMemberInviteInfo(groupMemberInviteInfo);
     }
 
