@@ -174,10 +174,12 @@ public class RegisterManager extends ActionSupport {
 
     private void userVerify(String userName, String email, String pass){
 
+        logger.info("用户 " + userName + "邮箱验证中");
         MailSenderInfo mailInfo = new MailSenderInfo();
         mailInfo.setToAddress(email);
         String verifyCode = getBase64(email + " " + pass);
         if(verifyCode == null){
+            logger.error("用户 " + userName + "邮箱验证失败：加密验证码获取失败");
             return;
         }
         String url = "http://todo.updev.cn/verify?VC=" + verifyCode;
@@ -186,6 +188,7 @@ public class RegisterManager extends ActionSupport {
         mailInfo.setContent(template.getContent());
         //这个类主要来发送邮件
         new Thread(new ThreadSenter(mailInfo)).start();
+        logger.info("用户" + userName + "邮箱验证码 :" + verifyCode);
         logger.info("用户" + userName + "邮箱验证邮件发送完毕。");
 
     }
@@ -206,13 +209,13 @@ public class RegisterManager extends ActionSupport {
         if(s != null){
             char[] chars = s.toCharArray();
 
-            for(char c : chars){
-                if(c == '+'){
-                    c = '-';
-                }else if(c == '/'){
-                    c = '_';
-                }else if(c == '='){
-                    c = '*';
+            for(int i = 0;i < chars.length;i++){
+                if(chars[i] == '+'){
+                    chars[i] = '-';
+                }else if(chars[i] == '/'){
+                    chars[i] = '_';
+                }else if(chars[i] == '='){
+                    chars[i] = '*';
                 }
             }
             return new String(chars);
@@ -222,6 +225,20 @@ public class RegisterManager extends ActionSupport {
 
     // 解密
     private static String getFromBase64(String s) {
+
+        char[] chars = s.toCharArray();
+        for(int i = 0;i < chars.length;i++){
+            if(chars[i] == '-'){
+                chars[i] = '+';
+            }else if(chars[i] == '_'){
+                chars[i] = '/';
+            }else if(chars[i] == '*'){
+                chars[i] = '=';
+            }
+        }
+
+        s = new String(chars);
+
         byte[] b = null;
         String result = null;
         if (s != null) {
@@ -234,21 +251,7 @@ public class RegisterManager extends ActionSupport {
             }
         }
 
-        if(result != null){
-            char[] chars = result.toCharArray();
-            for(char c : chars){
-                if(c == '-'){
-                    c = '+';
-                }else if(c == '_'){
-                    c = '/';
-                }else if(c == '*'){
-                    c = '=';
-                }
-            }
-            return new String(chars);
-        }
-
-        return null;
+        return result;
     }
 
     public String getUserName() {
