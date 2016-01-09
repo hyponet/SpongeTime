@@ -116,19 +116,6 @@
 	</div><!--/.row-->
 		
 	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">往期月完成事件数</div>
-				<div class="panel-body">
-					<div class="canvas-wrapper">
-						<canvas class="main-chart" id="line-chart" height="200" width="600"></canvas>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div><!--/.row-->
-		
-	<div class="row">
 		<div class="col-xs-6 col-md-3">
 			<div class="panel panel-default">
 				<div class="panel-body easypiechart-panel">
